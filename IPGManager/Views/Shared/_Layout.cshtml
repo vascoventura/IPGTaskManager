@@ -3,6 +3,7 @@
 <head>
     <title>IPGManagement</title>
     <link rel="stylesheet" type="text/css" href="~/css/site.css">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 </head>
 <body>
     <header>
@@ -11,12 +12,12 @@
                 <img src="~/img/logo.png">
             </div>
             <ul>
-                <li><a href="#">HOME</a></li>
+                <li><a asp-area="" asp-controller="Home" asp-action="Index">HOME</a></li>
                 <li><a href="#">SERVICOS</a></li>
-                <li><a href="#">FUNCIONÁRIOS</a></li>
+                <li><a href="#">HORÁRIOS</a></li>
                 <li><a href="#">DEPARTAMENTOS</a></li>
                 <li><a href="#">CARGOS</a></li>
-                <li><a href="#">HORÁRIOS</a></li>
+                <li><a asp-area="" asp-controller="Funcionarios" asp-action="Create">FUNCIONÁRIOS</a></li>
             </ul>
         </div>
     </header>
@@ -27,5 +28,15 @@
         </main>
     </div>
 
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2019 - IPGManager - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
 </body>
 </html>
