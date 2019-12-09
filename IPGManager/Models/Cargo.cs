@@ -18,5 +18,7 @@ namespace IPGManager.Models
         
         [Required(ErrorMessage = "Por favor, introduza a descrição do cargo")]
         public string Descricao { get; set; }
+
+
     }
 }
