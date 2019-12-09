@@ -21,78 +21,79 @@ namespace IPGManager.Migrations
 
             modelBuilder.Entity("IPGManager.Models.Cargo", b =>
                 {
-                    b.Property<int>("IdCargo")
+                    b.Property<int>("CargoId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Descricao")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NomeCargo")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("IdCargo");
+                    b.HasKey("CargoId");
 
                     b.ToTable("Cargos");
                 });
 
             modelBuilder.Entity("IPGManager.Models.Departamento", b =>
                 {
-                    b.Property<int>("IdDepartamento")
+                    b.Property<int>("DepartamentoId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("NomeDepartamento")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("IdDepartamento");
+                    b.HasKey("DepartamentoId");
 
                     b.ToTable("Departamentos");
                 });
 
             modelBuilder.Entity("IPGManager.Models.Funcionario", b =>
                 {
-                    b.Property<int>("IdFuncionarios")
+                    b.Property<int>("FuncionarioId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CargoIdCargo")
+                    b.Property<int>("CargoId")
                         .HasColumnType("int");
 
-                    b.Property<string>("DataNascimento")
+                    b.Property<DateTime>("DataNascimento")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("DepartamentoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Genero")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(1)");
 
-                    b.Property<int>("IdCargo")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdDepartamento")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdHorario")
+                    b.Property<int>("HorarioId")
                         .HasColumnType("int");
 
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Sexo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.HasKey("FuncionarioId");
 
-                    b.HasKey("IdFuncionarios");
+                    b.HasIndex("CargoId");
 
-                    b.HasIndex("CargoIdCargo");
+                    b.HasIndex("DepartamentoId");
 
                     b.ToTable("Funcionarios");
                 });
 
             modelBuilder.Entity("IPGManager.Models.Horario", b =>
                 {
-                    b.Property<int>("IdHorario")
+                    b.Property<int>("HorarioId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -109,7 +110,7 @@ namespace IPGManager.Migrations
                     b.Property<DateTime>("HInicioIntervalo")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("IdHorario");
+                    b.HasKey("HorarioId");
 
                     b.ToTable("Horarios");
                 });
@@ -118,7 +119,15 @@ namespace IPGManager.Migrations
                 {
                     b.HasOne("IPGManager.Models.Cargo", "Cargo")
                         .WithMany()
-                        .HasForeignKey("CargoIdCargo");
+                        .HasForeignKey("CargoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("IPGManager.Models.Departamento", "Departamento")
+                        .WithMany()
+                        .HasForeignKey("DepartamentoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

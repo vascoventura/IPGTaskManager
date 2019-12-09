@@ -9,8 +9,10 @@ namespace IPGManager.Models
     public class Departamento
     {
         [Key]
-        public int IdDepartamento { get; set; }
+        public int DepartamentoId { get; set; }
 
+        
+        [Required(ErrorMessage = "Por favor, introduza o nome")]
         public string NomeDepartamento { get; set; }
     }
 }

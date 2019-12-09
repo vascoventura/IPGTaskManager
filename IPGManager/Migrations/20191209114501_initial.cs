@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace IPGManager.Migrations
 {
-    public partial class Initial : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,34 +11,34 @@ namespace IPGManager.Migrations
                 name: "Cargos",
                 columns: table => new
                 {
-                    IdCargo = table.Column<int>(nullable: false)
+                    CargoId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    NomeCargo = table.Column<string>(nullable: true),
-                    Descricao = table.Column<string>(nullable: true)
+                    NomeCargo = table.Column<string>(nullable: false),
+                    Descricao = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Cargos", x => x.IdCargo);
+                    table.PrimaryKey("PK_Cargos", x => x.CargoId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Departamentos",
                 columns: table => new
                 {
-                    IdDepartamento = table.Column<int>(nullable: false)
+                    DepartamentoId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    NomeDepartamento = table.Column<string>(nullable: true)
+                    NomeDepartamento = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Departamentos", x => x.IdDepartamento);
+                    table.PrimaryKey("PK_Departamentos", x => x.DepartamentoId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Horarios",
                 columns: table => new
                 {
-                    IdHorario = table.Column<int>(nullable: false)
+                    HorarioId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     HInicio = table.Column<DateTime>(nullable: false),
                     HInicioIntervalo = table.Column<DateTime>(nullable: false),
@@ -47,45 +47,52 @@ namespace IPGManager.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Horarios", x => x.IdHorario);
+                    table.PrimaryKey("PK_Horarios", x => x.HorarioId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Funcionarios",
                 columns: table => new
                 {
-                    IdFuncionarios = table.Column<int>(nullable: false)
+                    FuncionarioId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nome = table.Column<string>(nullable: false),
-                    DataNascimento = table.Column<string>(nullable: false),
-                    Sexo = table.Column<string>(nullable: false),
-                    IdCargo = table.Column<int>(nullable: false),
-                    CargoIdCargo = table.Column<int>(nullable: true),
-                    IdDepartamento = table.Column<int>(nullable: false),
-                    IdHorario = table.Column<int>(nullable: false)
+                    DataNascimento = table.Column<DateTime>(nullable: false),
+                    Genero = table.Column<string>(nullable: false),
+                    CargoId = table.Column<int>(nullable: false),
+                    DepartamentoId = table.Column<int>(nullable: false),
+                    HorarioId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Funcionarios", x => x.IdFuncionarios);
+                    table.PrimaryKey("PK_Funcionarios", x => x.FuncionarioId);
                     table.ForeignKey(
-                        name: "FK_Funcionarios_Cargos_CargoIdCargo",
-                        column: x => x.CargoIdCargo,
+                        name: "FK_Funcionarios_Cargos_CargoId",
+                        column: x => x.CargoId,
                         principalTable: "Cargos",
-                        principalColumn: "IdCargo",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "CargoId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Funcionarios_Departamentos_DepartamentoId",
+                        column: x => x.DepartamentoId,
+                        principalTable: "Departamentos",
+                        principalColumn: "DepartamentoId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Funcionarios_CargoIdCargo",
+                name: "IX_Funcionarios_CargoId",
                 table: "Funcionarios",
-                column: "CargoIdCargo");
+                column: "CargoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Funcionarios_DepartamentoId",
+                table: "Funcionarios",
+                column: "DepartamentoId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Departamentos");
-
             migrationBuilder.DropTable(
                 name: "Funcionarios");
 
@@ -94,6 +101,9 @@ namespace IPGManager.Migrations
 
             migrationBuilder.DropTable(
                 name: "Cargos");
+
+            migrationBuilder.DropTable(
+                name: "Departamentos");
         }
     }
 }

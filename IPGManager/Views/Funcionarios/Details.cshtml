@@ -23,32 +23,32 @@
             @Html.DisplayFor(model => model.DataNascimento)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Sexo)
+            @Html.DisplayNameFor(model => model.Genero)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Sexo)
+            @Html.DisplayFor(model => model.Genero)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdCargo)
+            @Html.DisplayNameFor(model => model.Cargo)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdCargo)
+            @Html.DisplayFor(model => model.Cargo.Descricao)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdDepartamento)
+            @Html.DisplayNameFor(model => model.Departamento)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdDepartamento)
+            @Html.DisplayFor(model => model.Departamento.NomeDepartamento)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdHorario)
+            @Html.DisplayNameFor(model => model.HorarioId)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdHorario)
+            @Html.DisplayFor(model => model.HorarioId)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.IdFuncionarios">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model.FuncionarioId">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>

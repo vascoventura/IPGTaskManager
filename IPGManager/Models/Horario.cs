@@ -9,7 +9,7 @@ namespace IPGManager.Models
     public class Horario
     {
         [Key]
-        public int IdHorario { get; set; }
+        public int HorarioId { get; set; }
 
         public DateTime HInicio { get; set; }
 

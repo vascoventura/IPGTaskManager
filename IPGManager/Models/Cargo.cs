@@ -9,11 +9,14 @@ namespace IPGManager.Models
     public class Cargo
     {
         [Key]
-        public int IdCargo { get; set; }
+        public int CargoId { get; set; }
 
+
+        [Required(ErrorMessage = "Por favor, introduza o tipo de cargo a designar")]
         public string NomeCargo { get; set; }
 
-
+        
+        [Required(ErrorMessage = "Por favor, introduza a descrição do cargo")]
         public string Descricao { get; set; }
     }
 }

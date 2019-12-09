@@ -8,25 +8,30 @@ namespace IPGManager.Models
 {
     public class Funcionario
     {
-        [Required(ErrorMessage = "Por favor, introduza o Id")]
+        
         [Key]
-        public int IdFuncionarios { get; set; }
+        public int FuncionarioId { get; set; }
+
 
         [Required(ErrorMessage = "Por favor, introduza o nome")]
         public string Nome { get; set; }
 
+
         [Required(ErrorMessage = "Por favor, introduza a data")]
-        public string DataNascimento { get; set; }
+        public DateTime DataNascimento { get; set; }
 
-        [Required(ErrorMessage = "Por favor, introduza o género do funcionário")]
-        public String Sexo { get; set; }
 
-        public int IdCargo { get; set; }
+        
+        [Required(ErrorMessage = "Por favor, introduza o género do funcionário (M/F)")]
+        public char Genero { get; set; }
+
+        public int CargoId { get; set; }
         public Cargo Cargo { get; set; }
 
-        public int IdDepartamento { get; set; }
+        public int DepartamentoId { get; set; }
+        public Departamento Departamento { get; set; }
 
 
-        public int IdHorario { get; set; }
+        public int HorarioId { get; set; }
     }
 }
