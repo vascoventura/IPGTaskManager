@@ -28,10 +28,56 @@ namespace IPGManager
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
-            services.AddControllersWithViews();
+            services.AddDbContext<ApplicationDbContext>(options =>
+                 options.UseSqlServer(
+                     Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDbContext<IPGManagerDBContext>(options =>
+            //services.AddDefaultIdentity<IdentityUser>(
+            //    options => options.SignIn.RequireConfirmedAccount = false
+            //).AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders()
+                .AddDefaultUI();
+
+            services.Configure<IdentityOptions>(
+                options => {
+                    // Password settings
+                    options.Password.RequireDigit = true;
+                    options.Password.RequiredLength = 8;
+                    options.Password.RequireNonAlphanumeric = true;
+                    options.Password.RequireUppercase = true;
+                    options.Password.RequireLowercase = true;
+
+                    // Lockout
+                    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                    options.Lockout.MaxFailedAccessAttempts = 5;
+                    options.Lockout.AllowedForNewUsers = true;
+
+                    // Users
+                    options.User.RequireUniqueEmail = true;
+
+                    // Sign in
+                    options.SignIn.RequireConfirmedAccount = false;
+                }
+            );
+
+            services.AddAuthorization(
+                options => {
+                    options.AddPolicy(
+                        "CanManageFuncionarios",
+                        policy => policy.RequireRole("manager", "admin")
+                    );
+
+                    // other policies ...
+                }
+            );
+
+            services.AddControllersWithViews();
+            services.AddRazorPages();        
+
+        services.AddDbContext<IPGManagerDBContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("IPGManagerDBContext")));
         }
 

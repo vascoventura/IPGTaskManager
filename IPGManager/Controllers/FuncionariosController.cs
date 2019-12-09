@@ -21,7 +21,7 @@ namespace IPGManager.Controllers
         // GET: Funcionarios
         public async Task<IActionResult> Index()
         {
-            var iPGManagerDBContext = _context.Funcionarios.Include(f => f.Cargo).Include(f => f.Departamento);
+            var iPGManagerDBContext = _context.Funcionario.Include(f => f.Cargo).Include(f => f.Departamento);
             return View(await iPGManagerDBContext.ToListAsync());
         }
 
@@ -33,7 +33,7 @@ namespace IPGManager.Controllers
                 return NotFound();
             }
 
-            var funcionario = await _context.Funcionarios
+            var funcionario = await _context.Funcionario
                 .Include(f => f.Cargo)
                 .Include(f => f.Departamento)
                 .FirstOrDefaultAsync(m => m.FuncionarioId == id);
@@ -48,8 +48,8 @@ namespace IPGManager.Controllers
         // GET: Funcionarios/Create
         public IActionResult Create()
         {
-            ViewData["CargoId"] = new SelectList(_context.Cargos, "CargoId", "Descricao");
-            ViewData["DepartamentoId"] = new SelectList(_context.Departamentos, "DepartamentoId", "NomeDepartamento");
+            ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "Descricao");
+            ViewData["DepartamentoId"] = new SelectList(_context.Departamento, "DepartamentoId", "NomeDepartamento");
             return View();
         }
 
@@ -66,8 +66,8 @@ namespace IPGManager.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CargoId"] = new SelectList(_context.Cargos, "CargoId", "Descricao", funcionario.CargoId);
-            ViewData["DepartamentoId"] = new SelectList(_context.Departamentos, "DepartamentoId", "NomeDepartamento", funcionario.DepartamentoId);
+            ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "Descricao", funcionario.CargoId);
+            ViewData["DepartamentoId"] = new SelectList(_context.Departamento, "DepartamentoId", "NomeDepartamento", funcionario.DepartamentoId);
             return View(funcionario);
         }
 
@@ -79,13 +79,13 @@ namespace IPGManager.Controllers
                 return NotFound();
             }
 
-            var funcionario = await _context.Funcionarios.FindAsync(id);
+            var funcionario = await _context.Funcionario.FindAsync(id);
             if (funcionario == null)
             {
                 return NotFound();
             }
-            ViewData["CargoId"] = new SelectList(_context.Cargos, "CargoId", "Descricao", funcionario.CargoId);
-            ViewData["DepartamentoId"] = new SelectList(_context.Departamentos, "DepartamentoId", "NomeDepartamento", funcionario.DepartamentoId);
+            ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "Descricao", funcionario.CargoId);
+            ViewData["DepartamentoId"] = new SelectList(_context.Departamento, "DepartamentoId", "NomeDepartamento", funcionario.DepartamentoId);
             return View(funcionario);
         }
 
@@ -121,8 +121,8 @@ namespace IPGManager.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CargoId"] = new SelectList(_context.Cargos, "CargoId", "Descricao", funcionario.CargoId);
-            ViewData["DepartamentoId"] = new SelectList(_context.Departamentos, "DepartamentoId", "NomeDepartamento", funcionario.DepartamentoId);
+            ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "Descricao", funcionario.CargoId);
+            ViewData["DepartamentoId"] = new SelectList(_context.Departamento, "DepartamentoId", "NomeDepartamento", funcionario.DepartamentoId);
             return View(funcionario);
         }
 
@@ -134,7 +134,7 @@ namespace IPGManager.Controllers
                 return NotFound();
             }
 
-            var funcionario = await _context.Funcionarios
+            var funcionario = await _context.Funcionario
                 .Include(f => f.Cargo)
                 .Include(f => f.Departamento)
                 .FirstOrDefaultAsync(m => m.FuncionarioId == id);
@@ -151,15 +151,15 @@ namespace IPGManager.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var funcionario = await _context.Funcionarios.FindAsync(id);
-            _context.Funcionarios.Remove(funcionario);
+            var funcionario = await _context.Funcionario.FindAsync(id);
+            _context.Funcionario.Remove(funcionario);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool FuncionarioExists(int id)
         {
-            return _context.Funcionarios.Any(e => e.FuncionarioId == id);
+            return _context.Funcionario.Any(e => e.FuncionarioId == id);
         }
     }
 }
