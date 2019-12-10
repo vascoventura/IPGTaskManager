@@ -1,0 +1,66 @@
+﻿@model IEnumerable<IPGManager.Models.Professor>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Pnome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Unome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Contacto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataNascimento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.genero)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DepartamentoId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pnome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Unome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Contacto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataNascimento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.genero)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepartamentoId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ProfessorId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ProfessorId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ProfessorId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
