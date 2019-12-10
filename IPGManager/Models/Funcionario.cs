@@ -23,6 +23,8 @@ namespace IPGManager.Models
 
         
         [Required(ErrorMessage = "Por favor, introduza o género do funcionário (M/F)")]
+        [RegularExpression("[M] | [F] | [m] | [f]",
+        ErrorMessage = "Por favor, introduza o género do funcionário (M/F)")]
         public char Genero { get; set; }
 
         public int CargoId { get; set; }

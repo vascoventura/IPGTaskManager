@@ -13,28 +13,28 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Nome)
+                Nome
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DataNascimento)
+                Data de Nascimento
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Genero)
+                Género
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Cargo)
+                Cargo
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Departamento)
+                Departamento
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.HorarioId)
+                Id Horário
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (var item in Model) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Nome)
