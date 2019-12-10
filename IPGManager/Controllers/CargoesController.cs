@@ -53,7 +53,7 @@ namespace IPGManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CargoId,NomeCargo,Descricao")] Cargo cargo)
+        public async Task<IActionResult> Create([Bind("CargoId,NomeCargo,Descricao,NivelCargo")] Cargo cargo)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +85,7 @@ namespace IPGManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CargoId,NomeCargo,Descricao")] Cargo cargo)
+        public async Task<IActionResult> Edit(int id, [Bind("CargoId,NomeCargo,Descricao,NivelCargo")] Cargo cargo)
         {
             if (id != cargo.CargoId)
             {

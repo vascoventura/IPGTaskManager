@@ -8,17 +8,16 @@ namespace IPGManager.Models
 {
     public class Cargo
     {
-        [Key]
+        
         public int CargoId { get; set; }
 
-
-        [Required(ErrorMessage = "Por favor, introduza o tipo de cargo a designar")]
+        [Required]
         public string NomeCargo { get; set; }
 
-        
-        [Required(ErrorMessage = "Por favor, introduza a descrição do cargo")]
+        [Required]
         public string Descricao { get; set; }
 
 
+        public int NivelCargo { get; set; }
     }
 }

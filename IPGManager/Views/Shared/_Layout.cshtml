@@ -13,20 +13,22 @@
             </div>
             <ul>
                 <li><a asp-area="" asp-controller="Home" asp-action="Index">HOME</a></li>
-                
+
                 <li>
                     <div class="dropdown">
-                    <button class="dropbtn">ADICIONAR</button>
-                    <div class="dropdown-content">
-                        <a asp-area="" asp-controller="Home" asp-action="Index">TAREFAS</a>
-                        <a asp-area="" asp-controller="Horarios" asp-action="Create">HORÁRIOS</a>
-                        <a asp-area="" asp-controller="Departamentoes" asp-action="Create">DEPARTAMENTOS</a>
-                        <a asp-area="" asp-controller="Cargoes" asp-action="Create">CARGOS</a>
-                        <a asp-area="" asp-controller="Funcionarios" asp-action="Create">FUNCIONÁRIOS</a>
+                        <button class="dropbtn">ADICIONAR</button>
+                        <div class="dropdown-content">
+                            <a asp-area="" asp-controller="Home" asp-action="Index">TAREFAS</a>
+                            <a asp-area="" asp-controller="Horarios" asp-action="Create">HORÁRIOS</a>
+                            <a asp-area="" asp-controller="Departamentoes" asp-action="Create">DEPARTAMENTOS</a>
+                            <a asp-area="" asp-controller="Cargoes" asp-action="Create">CARGOS</a>
+                            <a asp-area="" asp-controller="Funcionarios" asp-action="Create">FUNCIONÁRIOS</a>
+                        </div>
                     </div>
-                </div>
                 </li>
-                
+                <li><a asp-area="" asp-controller="Shared" asp-action="_LoginPartial">REGISTAR</a></li>
+                <li><a asp-area="" asp-controller="Home" asp-action="Index">LOGIN</a></li>
+
             </ul>
         </div>
     </header>
