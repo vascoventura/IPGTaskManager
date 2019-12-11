@@ -5,9 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Edit</h1>
+    <h1>Editar Professor</h1>
 
-<h4>Professor</h4>
+
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -15,44 +15,44 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ProfessorId" />
             <div class="form-group">
-                <label asp-for="Pnome" class="control-label"></label>
+                <label asp-for="Pnome" class="control-label">Nome</label>
                 <input asp-for="Pnome" class="form-control" />
                 <span asp-validation-for="Pnome" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Unome" class="control-label"></label>
+                <label asp-for="Unome" class="control-label">Apelido</label>
                 <input asp-for="Unome" class="form-control" />
                 <span asp-validation-for="Unome" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Contacto" class="control-label"></label>
+                <label asp-for="Contacto" class="control-label">Contacto</label>
                 <input asp-for="Contacto" class="form-control" />
                 <span asp-validation-for="Contacto" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DataNascimento" class="control-label"></label>
+                <label asp-for="DataNascimento" class="control-label">Data de Nascimento</label>
                 <input asp-for="DataNascimento" class="form-control" />
                 <span asp-validation-for="DataNascimento" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="genero" class="control-label"></label>
+                <label asp-for="genero" class="control-label">Género</label>
                 <input asp-for="genero" class="form-control" />
                 <span asp-validation-for="genero" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DepartamentoId" class="control-label"></label>
+                <label asp-for="DepartamentoId" class="control-label">Departamento</label>
                 <input asp-for="DepartamentoId" class="form-control" />
                 <span asp-validation-for="DepartamentoId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Guardar" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Voltar</a>
 </div>
 
 @section Scripts {
