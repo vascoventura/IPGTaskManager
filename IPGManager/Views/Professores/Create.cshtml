@@ -1,59 +1,79 @@
 ﻿@model IPGManager.Models.Professor
 
+
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
+<h1>Adicionar um Professor</h1>
 
-<h4>Professor</h4>
+
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Pnome" class="control-label"></label>
+                <label asp-for="Pnome" class="control-label">Nome</label>
                 <input asp-for="Pnome" class="form-control" />
                 <span asp-validation-for="Pnome" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Unome" class="control-label"></label>
+                <label asp-for="Unome" class="control-label">Apelido</label>
                 <input asp-for="Unome" class="form-control" />
                 <span asp-validation-for="Unome" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Contacto" class="control-label"></label>
+                <label asp-for="Contacto" class="control-label">Contacto</label>
                 <input asp-for="Contacto" class="form-control" />
                 <span asp-validation-for="Contacto" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DataNascimento" class="control-label"></label>
-                <input asp-for="DataNascimento" class="form-control" />
+                <label asp-for="DataNascimento" class="control-label">Data de Nascimento</label>
+                <input asp-for="DataNascimento" type="text" id="date" data-format="DD-MM-YYYY" data-template="D MMM YYYY" name="date" value="09-01-2013">
+
                 <span asp-validation-for="DataNascimento" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="genero" class="control-label"></label>
-                <input asp-for="genero" class="form-control" />
-                <span asp-validation-for="genero" class="text-danger"></span>
+                <label asp-for="genero" class="control-label">Genero</label>
+                <br>
+
+                Masculino
+                @Html.RadioButtonFor(model => model.genero, "Masculino")
+                Feminino
+                @Html.RadioButtonFor(model => model.genero, "Feminino")
+                Outro
+                @Html.RadioButtonFor(model => model.genero, "outro")
+
             </div>
             <div class="form-group">
-                <label asp-for="DepartamentoId" class="control-label"></label>
+                <label asp-for="DepartamentoId" class="control-label">Departamento</label>
                 <input asp-for="DepartamentoId" class="form-control" />
                 <span asp-validation-for="DepartamentoId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Adicionar" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Voltar</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");
+
+
+    }
+    <script src="js/jquery.js"></script>
+    <script src="js/moment.min.js"></script>
+    <script src="js/combodate.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#date').combodate();
+        });
+    </script>
 }
