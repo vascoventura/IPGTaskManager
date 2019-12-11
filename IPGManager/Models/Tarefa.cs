@@ -14,7 +14,7 @@ namespace IPGManager.Models
         
         public string NomeTarefa { get; set; }
         public string DescricaoTarefa { get; set; }
-        public DateTime MyProperty { get; set; }
+        public DateTime DataTarefa { get; set; }
 
 
 
