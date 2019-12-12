@@ -86,8 +86,14 @@ namespace IPGManager
         {
             if (env.IsDevelopment())
             {
+                using 
+                    (var serviceScope = app.ApplicationServices.CreateScope()) { 
+                    var db = serviceScope.ServiceProvider.GetService<IPGManagerDBContext>(); 
+                    SeedData.Populate(db); 
+                }
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
+
             }
             else
             {
