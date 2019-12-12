@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using IPGManager.Models;
+using PagedList;
 
 namespace IPGManager.Controllers
 {
     public class ProfessoresController : Controller
     {
+       
         private readonly IPGManagerDBContext _context;
 
         public ProfessoresController(IPGManagerDBContext context)
@@ -19,9 +21,53 @@ namespace IPGManager.Controllers
         }
 
         // GET: Professores
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(
+      string sortOrder,
+      string currentFilter,
+      string searchString,
+      int? pageNumber)
         {
-            return View(await _context.Professor.ToListAsync());
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewData["CurrentFilter"] = searchString;
+            var Professores = from s in _context.Professor
+                           select s;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                Professores = Professores.Where(s => s.Unome.Contains(searchString)
+                                       || s.Pnome.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    Professores = Professores.OrderByDescending(s => s.Unome);
+                    break;
+                case "Date":
+                    Professores = Professores.OrderBy(s => s.DataNascimento);
+                    break;
+                case "date_desc":
+                    Professores = Professores.OrderByDescending(s => s.DataNascimento);
+                    break;
+                default:
+                    Professores = Professores.OrderBy(s => s.Pnome);
+                    break;
+            }
+            int pageSize = 3;
+           
+            return View(await PaginatedList<Professor>.CreateAsync(Professores.AsNoTracking(), pageNumber ?? 1, pageSize));
+
         }
 
         // GET: Professores/Details/5
