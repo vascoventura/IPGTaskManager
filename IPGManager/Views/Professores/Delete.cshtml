@@ -55,7 +55,10 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="ProfessorId" />
-        <input type="submit" value="Apagar" class="btn btn-danger" /> |
+        <button type="submit" class="btn btn-danger" onclick="return confirm('Quer mesmo apagar a informação de : @Html.DisplayFor(model => model.Pnome)')">
+            Delete
+        </button>
+        
         <a asp-action="Index">Voltar</a>
     </form>
 </div>
