@@ -4,15 +4,35 @@ using System.ComponentModel.DataAnnotations;
 
 namespace IPGManager.Models
 {
-    public partial class Professor
+    public class Professor
     {
+
         public int ProfessorId { get; set; }
+
+        [Required(ErrorMessage = "Por favor, introduza o primeiro nome")]
         public string Pnome { get; set; }
+
+        [Required(ErrorMessage = "Por favor, introduza o apelido")]
         public string Unome { get; set; }
+
+        [Required]
         public string Contacto { get; set; }
+
+        [Required]
         [DataType(DataType.Date)]
         public DateTime DataNascimento { get; set; }
-        public string genero { get; set; }
-        public int? DepartamentoId { get; set; }
+
+        [Required]
+        public string Genero { get; set; }
+
+        [Required]
+        public int DepartamentoId { get; set; }
+
+        [Required]
+        public Departamento Departamento { get; set; }
+
+        [Required]
+        public int HorarioId { get; set; }
+        public Horario Horario { get; set; }
     }
 }

@@ -8,7 +8,6 @@ namespace IPGManager.Models
 {
     public class Horario
     {
-        [Key]
         public int HorarioId { get; set; }
 
         public DateTime HInicio { get; set; }
@@ -18,5 +17,7 @@ namespace IPGManager.Models
         public DateTime HFimIntervalo { get; set; }
 
         public DateTime HFim { get; set; }
+
+        ICollection<Funcionario> Funcionarios;
     }
 }

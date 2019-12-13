@@ -5,11 +5,11 @@
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-    
 
 
 
-<h1>Adicionar um Professor</h1>
+
+<h1>Adicionar um novo Professor</h1>
 
 
 <hr />
@@ -35,27 +35,30 @@
             <div class="form-group">
 
                 <label asp-for="DataNascimento" class="control-label">Data de Nascimento</label>
-                <input asp-for="DataNascimento" type="date" class="form-control" >
+                <input asp-for="DataNascimento" type="date" class="form-control">
                 <span asp-validation-for="DataNascimento" class="text-danger"></span>
 
 
             </div>
             <div class="form-group">
-                <label asp-for="genero" class="control-label">Género</label>
+                <label asp-for="Genero" class="control-label">Género</label>
                 <br>
 
                 Masculino
-                @Html.RadioButtonFor(model => model.genero, "Masculino")
+                @Html.RadioButtonFor(model => model.Genero, "Masculino")
                 Feminino
-                @Html.RadioButtonFor(model => model.genero, "Feminino")
+                @Html.RadioButtonFor(model => model.Genero, "Feminino")
                 Outro
-                @Html.RadioButtonFor(model => model.genero, "Outro")
+                @Html.RadioButtonFor(model => model.Genero, "Outro")
 
             </div>
             <div class="form-group">
                 <label asp-for="DepartamentoId" class="control-label">Departamento</label>
-                <input asp-for="DepartamentoId" class="form-control" />
-                <span asp-validation-for="DepartamentoId" class="text-danger"></span>
+                <select asp-for="DepartamentoId" class="form-control" asp-items="ViewBag.DepartamentoId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="HorarioId" class="control-label">Horário</label>
+                <select asp-for="HorarioId" class="form-control" asp-items="ViewBag.HorarioId"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Adicionar" class="btn btn-primary" />
@@ -65,13 +68,13 @@
 </div>
 
 <div>
-    <a asp-action="Index">Voltar</a>
+    <a asp-action="Index">Voltar à lista</a>
 </div>
 
 @section Scripts {
-     
 
-@{await Html.RenderPartialAsync("_ValidationScriptsPartial");
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");
 
 
     }

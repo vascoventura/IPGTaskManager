@@ -13,31 +13,43 @@
     <thead>
         <tr>
             <th>
-                Nome
+                @Html.DisplayNameFor(model => model.Nome)
             </th>
             <th>
-                Data de Nascimento
+                @Html.DisplayNameFor(model => model.Apelido)
             </th>
             <th>
-                Género
+                @Html.DisplayNameFor(model => model.Contacto)
             </th>
             <th>
-                Cargo
+                @Html.DisplayNameFor(model => model.DataNascimento)
             </th>
             <th>
-                Departamento
+                @Html.DisplayNameFor(model => model.Genero)
             </th>
             <th>
-                Id Horário
+                @Html.DisplayNameFor(model => model.Cargo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Departamento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HorarioId)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model) {
+@foreach (var item in Model) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Apelido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Contacto)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DataNascimento)

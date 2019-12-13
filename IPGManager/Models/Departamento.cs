@@ -14,5 +14,9 @@ namespace IPGManager.Models
         
         [Required(ErrorMessage = "Por favor, introduza o nome")]
         public string NomeDepartamento { get; set; }
+
+        ICollection<Funcionario> Funcionarios;
+
+        ICollection<Professor> Professores ;
     }
 }

@@ -12,7 +12,7 @@ namespace IPGManager.Controllers
 {
     public class ProfessoresController : Controller
     {
-       
+
         private readonly IPGManagerDBContext _context;
 
         public ProfessoresController(IPGManagerDBContext context)
@@ -42,7 +42,7 @@ namespace IPGManager.Controllers
 
             ViewData["CurrentFilter"] = searchString;
             var Professores = from s in _context.Professor
-                           select s;
+                              select s;
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -65,7 +65,7 @@ namespace IPGManager.Controllers
                     break;
             }
             int pageSize = 3;
-           
+
             return View(await PaginatedList<Professor>.CreateAsync(Professores.AsNoTracking(), pageNumber ?? 1, pageSize));
 
         }
