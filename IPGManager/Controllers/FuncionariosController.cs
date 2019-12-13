@@ -19,30 +19,54 @@ namespace IPGManager.Controllers
         }
 
         // GET: Funcionarios
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(
+            string sortOrder,
+            string currentFilter,
+            string searchString,
+            int? pageNumber)
         {
-            var iPGManagerDBContext = _context.Funcionario.Include(f => f.Cargo).Include(f => f.Departamento);
-            return View(await iPGManagerDBContext.ToListAsync());
-        }
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
+            ViewData["CurrentFilter"] = searchString;
 
-        // GET: Funcionarios/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
+            if (searchString != null)
             {
-                return NotFound();
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
             }
 
-            var funcionario = await _context.Funcionario
-                .Include(f => f.Cargo)
-                .Include(f => f.Departamento)
-                .FirstOrDefaultAsync(m => m.FuncionarioId == id);
-            if (funcionario == null)
-            {
-                return NotFound();
-            }
+            ViewData["CurrentFilter"] = searchString;
+            var Funcionarios = from s in _context.Funcionario
+                              select s;
 
-            return View(funcionario);
+            if (!String.IsNullOrEmpty(searchString))
+    {
+                 Funcionarios = Funcionarios.Where(s => s.Nome.Contains(searchString)
+                               || s.Apelido.Contains(searchString));
+    }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    Funcionarios = Funcionarios.OrderByDescending(s => s.Apelido);
+                    break;
+                case "Date":
+                    Funcionarios = Funcionarios.OrderBy(s => s.DataNascimento);
+                    break;
+                case "date_desc":
+                    Funcionarios = Funcionarios.OrderByDescending(s => s.DataNascimento);
+                    break;
+                default:
+                    Funcionarios = Funcionarios.OrderBy(s => s.Nome);
+                    break;
+            }
+            int pageSize = 3;
+
+            return View(await PaginatedList<Funcionario>.CreateAsync(Funcionarios.AsNoTracking(), pageNumber ?? 1, pageSize));
+
         }
 
         // GET: Funcionarios/Create
