@@ -65,8 +65,16 @@ namespace IPGManager.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Apelido")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("CargoId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Contacto")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DataNascimento")
                         .HasColumnType("datetime2");
@@ -76,7 +84,7 @@ namespace IPGManager.Migrations
 
                     b.Property<string>("Genero")
                         .IsRequired()
-                        .HasColumnType("nvarchar(1)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("HorarioId")
                         .HasColumnType("int");
@@ -118,36 +126,6 @@ namespace IPGManager.Migrations
                     b.ToTable("Horario");
                 });
 
-            modelBuilder.Entity("IPGManager.Models.Professor", b =>
-                {
-                    b.Property<int>("ProfessorId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Contacto")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DataNascimento")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("DepartamentoId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Pnome")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Unome")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("genero")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ProfessorId");
-
-                    b.ToTable("Professor");
-                });
-
             modelBuilder.Entity("IPGManager.Models.Tarefa", b =>
                 {
                     b.Property<int>("TarefaId")
@@ -155,10 +133,14 @@ namespace IPGManager.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("CargoId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("DataTarefa")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DescricaoTarefa")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NomeTarefa")
@@ -166,6 +148,8 @@ namespace IPGManager.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("TarefaId");
+
+                    b.HasIndex("CargoId");
 
                     b.ToTable("Tarefa");
                 });
@@ -181,6 +165,30 @@ namespace IPGManager.Migrations
                     b.HasOne("IPGManager.Models.Departamento", "Departamento")
                         .WithMany()
                         .HasForeignKey("DepartamentoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("IPGManager.Models.Professor", b =>
+                {
+                    b.HasOne("IPGManager.Models.Departamento", "Departamento")
+                        .WithMany()
+                        .HasForeignKey("DepartamentoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("IPGManager.Models.Horario", "Horario")
+                        .WithMany()
+                        .HasForeignKey("HorarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("IPGManager.Models.Tarefa", b =>
+                {
+                    b.HasOne("IPGManager.Models.Cargo", "Cargo")
+                        .WithMany()
+                        .HasForeignKey("CargoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
