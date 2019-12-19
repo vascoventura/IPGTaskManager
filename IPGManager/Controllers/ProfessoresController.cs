@@ -46,14 +46,11 @@ namespace IPGManager.Controllers
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                Professores = Professores.Where(s => s.Unome.Contains(searchString)
-                                       || s.Pnome.Contains(searchString));
+                Professores = Professores.Where(s => s.Nome.Contains(searchString));
             }
             switch (sortOrder)
             {
-                case "name_desc":
-                    Professores = Professores.OrderByDescending(s => s.Unome);
-                    break;
+              
                 case "Date":
                     Professores = Professores.OrderBy(s => s.DataNascimento);
                     break;
@@ -61,7 +58,7 @@ namespace IPGManager.Controllers
                     Professores = Professores.OrderByDescending(s => s.DataNascimento);
                     break;
                 default:
-                    Professores = Professores.OrderBy(s => s.Pnome);
+                    Professores = Professores.OrderBy(s => s.Nome);
                     break;
             }
             int pageSize = 3;
@@ -99,7 +96,7 @@ namespace IPGManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProfessorId,Pnome,Unome,Contacto,DataNascimento,genero,DepartamentoId")] Professor professor)
+        public async Task<IActionResult> Create([Bind("ProfessorId,Nome,Contacto,DataNascimento,genero,DepartamentoId")] Professor professor)
         {
             if (ModelState.IsValid)
             {
@@ -131,7 +128,7 @@ namespace IPGManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProfessorId,Pnome,Unome,Contacto,DataNascimento,genero,DepartamentoId")] Professor professor)
+        public async Task<IActionResult> Edit(int id, [Bind("ProfessorId,Nome,Contacto,DataNascimento,genero,DepartamentoId")] Professor professor)
         {
             if (id != professor.ProfessorId)
             {

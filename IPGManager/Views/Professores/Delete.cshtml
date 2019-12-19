@@ -18,15 +18,13 @@
         </dt>
         <dd class="col-sm-10">
             
-            @Html.DisplayFor(model => model.Pnome)
+            @Html.DisplayFor(model => model.Nome)
         </dd>
         <dt class="col-sm-2">
             Apelido
            
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Unome)
-        </dd>
+        
         <dt class = "col-sm-2">Contacto
             
         </dt>
@@ -43,7 +41,7 @@
             
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.genero)
+            @Html.DisplayFor(model => model.Genero)
         </dd>
         <dt class = "col-sm-2">Departamento
             
@@ -55,7 +53,7 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="ProfessorId" />
-        <button type="submit" class="btn btn-danger" onclick="return confirm('Quer mesmo apagar a informação de :@Html.DisplayFor(model => model.Pnome)')">
+        <button type="submit" class="btn btn-danger" onclick="return confirm('Quer mesmo apagar a informação de :@Html.DisplayFor(model => model.Nome)')">
             Apagar
         </button>
         <a asp-action="Index">Voltar</a>

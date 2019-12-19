@@ -34,13 +34,11 @@ namespace IPGManager.Models
 
                 entity.Property(e => e.ProfessorId).HasColumnName("ProfessorID");
 
-                entity.Property(e => e.Pnome)
+                entity.Property(e => e.Nome)
                     .IsRequired()
                     .HasColumnName("PNome");
 
-                entity.Property(e => e.Unome)
-                    .IsRequired()
-                    .HasColumnName("UNome");
+               
             });
 
             OnModelCreatingPartial(modelBuilder);
