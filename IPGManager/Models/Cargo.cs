@@ -11,13 +11,18 @@ namespace IPGManager.Models
         
         public int CargoId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Por favor, introduza o nome")]
         public string NomeCargo { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Por favor, introduza a descrição")]
         public string Descricao { get; set; }
 
-
+        [Required(ErrorMessage = "Por favor, introduza o nivel do cargo")]
         public int NivelCargo { get; set; }
+
+        ICollection<Funcionario> Funcionarios;
+
+        ICollection<Tarefa> Tarefas; 
+
     }
 }

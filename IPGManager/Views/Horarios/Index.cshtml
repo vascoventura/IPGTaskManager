@@ -4,25 +4,25 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Horários</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Criar Novo</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.HInicio)
+                Horário de Início
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.HInicioIntervalo)
+                Início de Intervalo
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.HFimIntervalo)
+                Fim de Intervalo
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.HFim)
+                Hora de Fim
             </th>
             <th></th>
         </tr>
@@ -43,9 +43,9 @@
                 @Html.DisplayFor(modelItem => item.HFim)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.HorarioId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.HorarioId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.HorarioId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.HorarioId">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.HorarioId">Detalhes</a> |
+                <a asp-action="Delete" asp-route-id="@item.HorarioId">Apagar</a>
             </td>
         </tr>
 }

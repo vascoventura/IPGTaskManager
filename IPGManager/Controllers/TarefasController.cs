@@ -21,7 +21,8 @@ namespace IPGManager.Controllers
         // GET: Tarefas
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Tarefa.ToListAsync());
+            var iPGManagerDBContext = _context.Tarefa.Include(t => t.Cargo);
+            return View(await iPGManagerDBContext.ToListAsync());
         }
 
         // GET: Tarefas/Details/5
@@ -33,6 +34,7 @@ namespace IPGManager.Controllers
             }
 
             var tarefa = await _context.Tarefa
+                .Include(t => t.Cargo)
                 .FirstOrDefaultAsync(m => m.TarefaId == id);
             if (tarefa == null)
             {
@@ -45,6 +47,7 @@ namespace IPGManager.Controllers
         // GET: Tarefas/Create
         public IActionResult Create()
         {
+            ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "Descricao");
             return View();
         }
 
@@ -53,7 +56,7 @@ namespace IPGManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TarefaId,NomeTarefa,DescricaoTarefa,DataTarefa")] Tarefa tarefa)
+        public async Task<IActionResult> Create([Bind("TarefaId,NomeTarefa,DescricaoTarefa,DataTarefa,CargoId")] Tarefa tarefa)
         {
             if (ModelState.IsValid)
             {
@@ -61,6 +64,7 @@ namespace IPGManager.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "Descricao", tarefa.CargoId);
             return View(tarefa);
         }
 
@@ -77,6 +81,7 @@ namespace IPGManager.Controllers
             {
                 return NotFound();
             }
+            ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "Descricao", tarefa.CargoId);
             return View(tarefa);
         }
 
@@ -85,7 +90,7 @@ namespace IPGManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("TarefaId,NomeTarefa,DescricaoTarefa,DataTarefa")] Tarefa tarefa)
+        public async Task<IActionResult> Edit(int id, [Bind("TarefaId,NomeTarefa,DescricaoTarefa,DataTarefa,CargoId")] Tarefa tarefa)
         {
             if (id != tarefa.TarefaId)
             {
@@ -112,6 +117,7 @@ namespace IPGManager.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "Descricao", tarefa.CargoId);
             return View(tarefa);
         }
 
@@ -124,6 +130,7 @@ namespace IPGManager.Controllers
             }
 
             var tarefa = await _context.Tarefa
+                .Include(t => t.Cargo)
                 .FirstOrDefaultAsync(m => m.TarefaId == id);
             if (tarefa == null)
             {
