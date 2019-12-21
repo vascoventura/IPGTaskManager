@@ -94,6 +94,19 @@ namespace IPGManager.Migrations
                     b.ToTable("Funcionario");
                 });
 
+            modelBuilder.Entity("IPGManager.Models.GeneroLista", b =>
+                {
+                    b.Property<int>("id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Genero")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Generos");
+                });
+
             modelBuilder.Entity("IPGManager.Models.Horario", b =>
                 {
                     b.Property<int>("HorarioId")
@@ -135,16 +148,17 @@ namespace IPGManager.Migrations
                     b.Property<int?>("DepartamentoId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Genero")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("GeneroId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasColumnType("nvarchar(4)")
-                        .HasMaxLength(4);
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.HasKey("ProfessorId");
+
+                    b.HasIndex("GeneroId");
 
                     b.ToTable("Professor");
                 });
@@ -182,6 +196,15 @@ namespace IPGManager.Migrations
                     b.HasOne("IPGManager.Models.Departamento", "Departamento")
                         .WithMany()
                         .HasForeignKey("DepartamentoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("IPGManager.Models.Professor", b =>
+                {
+                    b.HasOne("IPGManager.Models.GeneroLista", "Genero")
+                        .WithMany("Professores")
+                        .HasForeignKey("GeneroId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

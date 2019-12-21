@@ -14,7 +14,8 @@ namespace IPGManager.Migrations
                     CargoId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     NomeCargo = table.Column<string>(nullable: false),
-                    Descricao = table.Column<string>(nullable: false)
+                    Descricao = table.Column<string>(nullable: false),
+                    NivelCargo = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -35,6 +36,18 @@ namespace IPGManager.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Generos",
+                columns: table => new
+                {
+                    id = table.Column<int>(nullable: false),
+                    Genero = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Generos", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Horario",
                 columns: table => new
                 {
@@ -48,6 +61,21 @@ namespace IPGManager.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Horario", x => x.HorarioId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Tarefa",
+                columns: table => new
+                {
+                    TarefaId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NomeTarefa = table.Column<string>(nullable: false),
+                    DescricaoTarefa = table.Column<string>(nullable: true),
+                    DataTarefa = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tarefa", x => x.TarefaId);
                 });
 
             migrationBuilder.CreateTable(
@@ -80,6 +108,29 @@ namespace IPGManager.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Professor",
+                columns: table => new
+                {
+                    ProfessorId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nome = table.Column<string>(maxLength: 50, nullable: false),
+                    Contacto = table.Column<string>(nullable: false),
+                    DataNascimento = table.Column<DateTime>(nullable: false),
+                    GeneroId = table.Column<int>(nullable: false),
+                    DepartamentoId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Professor", x => x.ProfessorId);
+                    table.ForeignKey(
+                        name: "FK_Professor_Generos_GeneroId",
+                        column: x => x.GeneroId,
+                        principalTable: "Generos",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Funcionario_CargoId",
                 table: "Funcionario",
@@ -89,6 +140,11 @@ namespace IPGManager.Migrations
                 name: "IX_Funcionario_DepartamentoId",
                 table: "Funcionario",
                 column: "DepartamentoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Professor_GeneroId",
+                table: "Professor",
+                column: "GeneroId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -100,10 +156,19 @@ namespace IPGManager.Migrations
                 name: "Horario");
 
             migrationBuilder.DropTable(
+                name: "Professor");
+
+            migrationBuilder.DropTable(
+                name: "Tarefa");
+
+            migrationBuilder.DropTable(
                 name: "Cargo");
 
             migrationBuilder.DropTable(
                 name: "Departamento");
+
+            migrationBuilder.DropTable(
+                name: "Generos");
         }
     }
 }

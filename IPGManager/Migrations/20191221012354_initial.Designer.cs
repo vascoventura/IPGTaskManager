@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IPGManager.Migrations
 {
     [DbContext(typeof(IPGManagerDBContext))]
-    [Migration("20191211183306_initialdb")]
-    partial class initialdb
+    [Migration("20191221012354_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -96,6 +96,19 @@ namespace IPGManager.Migrations
                     b.ToTable("Funcionario");
                 });
 
+            modelBuilder.Entity("IPGManager.Models.GeneroLista", b =>
+                {
+                    b.Property<int>("id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Genero")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Generos");
+                });
+
             modelBuilder.Entity("IPGManager.Models.Horario", b =>
                 {
                     b.Property<int>("HorarioId")
@@ -118,6 +131,38 @@ namespace IPGManager.Migrations
                     b.HasKey("HorarioId");
 
                     b.ToTable("Horario");
+                });
+
+            modelBuilder.Entity("IPGManager.Models.Professor", b =>
+                {
+                    b.Property<int>("ProfessorId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Contacto")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DataNascimento")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DepartamentoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GeneroId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.HasKey("ProfessorId");
+
+                    b.HasIndex("GeneroId");
+
+                    b.ToTable("Professor");
                 });
 
             modelBuilder.Entity("IPGManager.Models.Tarefa", b =>
@@ -153,6 +198,15 @@ namespace IPGManager.Migrations
                     b.HasOne("IPGManager.Models.Departamento", "Departamento")
                         .WithMany()
                         .HasForeignKey("DepartamentoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("IPGManager.Models.Professor", b =>
+                {
+                    b.HasOne("IPGManager.Models.GeneroLista", "Genero")
+                        .WithMany("Professores")
+                        .HasForeignKey("GeneroId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

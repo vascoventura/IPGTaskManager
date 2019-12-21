@@ -41,8 +41,11 @@ namespace IPGManager.Controllers
             }
 
             ViewData["CurrentFilter"] = searchString;
-            var Professores = from s in _context.Professor
-                           select s;
+            var Professores = _context.Professor
+        .Include(c => c.Genero)
+        .AsNoTracking();
+            //var Professores = from s in _context.Professor
+            //             select s;
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -50,7 +53,12 @@ namespace IPGManager.Controllers
             }
             switch (sortOrder)
             {
-              
+                case "name":
+                    Professores = Professores.OrderBy(s => s.Nome);
+                    break;
+                case "name_desc":
+                    Professores = Professores.OrderByDescending(s => s.Nome);
+                    break;
                 case "Date":
                     Professores = Professores.OrderBy(s => s.DataNascimento);
                     break;
@@ -85,9 +93,18 @@ namespace IPGManager.Controllers
             return View(professor);
         }
 
+        private void PopulategendersDropDownList(object selectedGender = null)
+        {
+            var gendersQuery = from d in _context.Generos
+                                   
+                                   select d;
+            ViewBag.GenderID = new SelectList(gendersQuery.AsNoTracking(), "id", "Genero", selectedGender);
+        }
+
         // GET: Professores/Create
         public IActionResult Create()
         {
+            PopulategendersDropDownList();
             return View();
         }
 
@@ -96,14 +113,16 @@ namespace IPGManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProfessorId,Nome,Contacto,DataNascimento,genero,DepartamentoId")] Professor professor)
+        public async Task<IActionResult> Create([Bind("ProfessorId,Nome,Contacto,DataNascimento,GeneroId,DepartamentoId")] Professor professor)
         {
+
             if (ModelState.IsValid)
             {
                 _context.Add(professor);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+           
             return View(professor);
         }
 
