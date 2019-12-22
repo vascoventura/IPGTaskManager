@@ -17,9 +17,8 @@
 <form asp-action="Index" method="get">
     <div class="form-actions no-color">
         <p>
-            Find by name: <input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
-            <input type="submit" value="Search" class="btn btn-default" /> |
-            <a asp-action="Index">Back to Full List</a>
+            <input type="text" placeholder="Pesquisar..." name="SearchString" value="@ViewData["currentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-primary" />
         </p>
     </div>
 </form>
@@ -32,14 +31,10 @@
 
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Apelido</a>
-            </th>
-            <th>
                 Contacto
             </th>
             <th>
                 <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Data de Nascimento</a>
-            </th>
             </th>
             <th>
                 Género
@@ -62,9 +57,6 @@
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Nome)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Apelido)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Contacto)

@@ -10,10 +10,8 @@ namespace IPGManager.Models
         public int ProfessorId { get; set; }
 
         [Required(ErrorMessage = "Por favor, introduza o primeiro nome")]
-        public string Pnome { get; set; }
-
-        [Required(ErrorMessage = "Por favor, introduza o apelido")]
-        public string Unome { get; set; }
+        [StringLength (50, ErrorMessage = "O nome é muito longo")]
+        public string Nome { get; set; }
 
         [Required]
         public string Contacto { get; set; }

@@ -12,11 +12,12 @@ namespace IPGManager.Models
         public int DepartamentoId { get; set; }
 
         
-        [Required(ErrorMessage = "Por favor, introduza o nome")]
+        [Required(ErrorMessage = "Por favor, introduza o Nome do Departamento")]
+        [StringLength(50, ErrorMessage = "O nome é muito longo")]
         public string NomeDepartamento { get; set; }
 
-        ICollection<Funcionario> Funcionarios;
+        public ICollection<Funcionario> Funcionarios;
 
-        ICollection<Professor> Professores ;
+        public ICollection<Professor> Professores ;
     }
 }

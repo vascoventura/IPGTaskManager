@@ -20,9 +20,9 @@ namespace IPGManager.Models
         [Required(ErrorMessage = "Por favor, introduza o nivel do cargo")]
         public int NivelCargo { get; set; }
 
-        ICollection<Funcionario> Funcionarios;
+        public ICollection<Funcionario> Funcionarios;
 
-        ICollection<Tarefa> Tarefas; 
+        public ICollection<Tarefa> Tarefas; 
 
     }
 }

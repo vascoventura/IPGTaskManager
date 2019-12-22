@@ -46,24 +46,15 @@ namespace IPGManager.Controllers
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                Professores = Professores.Where(s => s.Unome.Contains(searchString)
-                                       || s.Pnome.Contains(searchString));
+                Professores = Professores.Where(s => s.Nome.Contains(searchString)
+                                       || s.Nome.Contains(searchString));
             }
-            switch (sortOrder)
+            Professores = sortOrder switch
             {
-                case "name_desc":
-                    Professores = Professores.OrderByDescending(s => s.Unome);
-                    break;
-                case "Date":
-                    Professores = Professores.OrderBy(s => s.DataNascimento);
-                    break;
-                case "date_desc":
-                    Professores = Professores.OrderByDescending(s => s.DataNascimento);
-                    break;
-                default:
-                    Professores = Professores.OrderBy(s => s.Pnome);
-                    break;
-            }
+                "Date" => Professores.OrderBy(s => s.DataNascimento),
+                "date_desc" => Professores.OrderByDescending(s => s.DataNascimento),
+                _ => Professores.OrderBy(s => s.Nome),
+            };
             int pageSize = 3;
 
             return View(await PaginatedList<Professor>.CreateAsync(Professores.AsNoTracking(), pageNumber ?? 1, pageSize));
@@ -99,7 +90,7 @@ namespace IPGManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProfessorId,Pnome,Unome,Contacto,DataNascimento,genero,DepartamentoId")] Professor professor)
+        public async Task<IActionResult> Create([Bind("ProfessorId,Nome,Contacto,DataNascimento,genero,DepartamentoId")] Professor professor)
         {
             if (ModelState.IsValid)
             {
@@ -131,7 +122,7 @@ namespace IPGManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProfessorId,Pnome,Unome,Contacto,DataNascimento,genero,DepartamentoId")] Professor professor)
+        public async Task<IActionResult> Edit(int id, [Bind("ProfessorId,Nome,Contacto,DataNascimento,genero,DepartamentoId")] Professor professor)
         {
             if (id != professor.ProfessorId)
             {

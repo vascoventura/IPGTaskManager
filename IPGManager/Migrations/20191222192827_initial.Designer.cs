@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IPGManager.Migrations
 {
     [DbContext(typeof(IPGManagerDBContext))]
-    [Migration("20191213221458_migracao")]
-    partial class migracao
+    [Migration("20191222192827_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -53,7 +53,8 @@ namespace IPGManager.Migrations
 
                     b.Property<string>("NomeDepartamento")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.HasKey("DepartamentoId");
 
@@ -100,6 +101,8 @@ namespace IPGManager.Migrations
                     b.HasIndex("CargoId");
 
                     b.HasIndex("DepartamentoId");
+
+                    b.HasIndex("HorarioId");
 
                     b.ToTable("Funcionario");
                 });
@@ -149,17 +152,19 @@ namespace IPGManager.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Pnome")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("HorarioId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Unome")
+                    b.Property<string>("Nome")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.HasKey("ProfessorId");
 
                     b.HasIndex("DepartamentoId");
+
+                    b.HasIndex("HorarioId");
 
                     b.ToTable("Professor");
                 });
@@ -205,6 +210,12 @@ namespace IPGManager.Migrations
                         .HasForeignKey("DepartamentoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("IPGManager.Models.Horario", "Horario")
+                        .WithMany()
+                        .HasForeignKey("HorarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("IPGManager.Models.Professor", b =>
@@ -212,6 +223,12 @@ namespace IPGManager.Migrations
                     b.HasOne("IPGManager.Models.Departamento", "Departamento")
                         .WithMany()
                         .HasForeignKey("DepartamentoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("IPGManager.Models.Horario", "Horario")
+                        .WithMany()
+                        .HasForeignKey("HorarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

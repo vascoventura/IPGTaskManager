@@ -51,7 +51,8 @@ namespace IPGManager.Migrations
 
                     b.Property<string>("NomeDepartamento")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.HasKey("DepartamentoId");
 
@@ -98,6 +99,8 @@ namespace IPGManager.Migrations
                     b.HasIndex("CargoId");
 
                     b.HasIndex("DepartamentoId");
+
+                    b.HasIndex("HorarioId");
 
                     b.ToTable("Funcionario");
                 });
@@ -150,13 +153,10 @@ namespace IPGManager.Migrations
                     b.Property<int>("HorarioId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Pnome")
+                    b.Property<string>("Nome")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Unome")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.HasKey("ProfessorId");
 
@@ -206,6 +206,12 @@ namespace IPGManager.Migrations
                     b.HasOne("IPGManager.Models.Departamento", "Departamento")
                         .WithMany()
                         .HasForeignKey("DepartamentoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("IPGManager.Models.Horario", "Horario")
+                        .WithMany()
+                        .HasForeignKey("HorarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

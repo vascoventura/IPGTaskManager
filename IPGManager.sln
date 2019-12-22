@@ -3,7 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29424.173
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPGManager", "IPGManager\IPGManager.csproj", "{E7FAAD31-2999-4242-B509-308221802052}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPGManager", "IPGManager\IPGManager.csproj", "{E7FAAD31-2999-4242-B509-308221802052}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EB7686D-4702-44F3-8DC8-A4258B0B644E}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

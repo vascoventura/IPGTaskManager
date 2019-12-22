@@ -8,21 +8,18 @@ namespace IPGManager.Models
 {
     public class Funcionario
     {
-
-        [Key]
+        
         public int FuncionarioId { get; set; }
 
 
-        [Required(ErrorMessage = "Por favor, introduza o primeiro nome")]
+        [Required(ErrorMessage = "Por favor, introduza o Nome")]
+        [StringLength(50, ErrorMessage = "O nome é muito extenso")]
         public string Nome { get; set; }
-
-        [Required(ErrorMessage = "Por favor, introduza o apelido")]
-        public string Apelido { get; set; }
 
         [Required]
         public string Contacto { get; set; }
 
-        [Required(ErrorMessage = "Por favor, introduza a data")]
+        [Required(ErrorMessage = "Por favor, introduza a data de nascimento")]
         [DataType(DataType.Date)]
         public DateTime DataNascimento { get; set; }
 
@@ -35,12 +32,13 @@ namespace IPGManager.Models
         public int CargoId { get; set; }
         public Cargo Cargo { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Por favor, selcecione o Departamento")]
         public int DepartamentoId { get; set; }
         public Departamento Departamento { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Por favor, selcecione o tipo de Horário do Funcionário")]
         public int HorarioId { get; set; }
-        
+        public Horario Horario { get; set; }
+
     }
 }
