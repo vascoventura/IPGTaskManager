@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using IPGManager.Models;
+using System;
 
 namespace IPGManager.Models
 {
@@ -19,5 +21,7 @@ namespace IPGManager.Models
 
         public DbSet<IPGManager.Models.Tarefa> Tarefa { get; set; }
         public DbSet<IPGManager.Models.Professor> Professor { get; set; }
+        public DbSet<IPGManager.Models.Login> Login { get; set; }
+
     }
 }

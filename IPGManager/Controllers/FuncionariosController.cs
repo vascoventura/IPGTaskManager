@@ -19,53 +19,37 @@ namespace IPGManager.Controllers
         }
 
         // GET: Funcionarios
-        public async Task<IActionResult> Index(
-            string sortOrder,
-            string currentFilter,
-            string searchString,
-            int? pageNumber)
+        public async Task<IActionResult> Index()
         {
-            ViewData["CurrentSort"] = sortOrder;
-            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
-            ViewData["CurrentFilter"] = searchString;
+            var iPGManagerDBContext = _context.Funcionario.Include(f => f.Cargo).Include(f => f.Horario);
+            return View(await iPGManagerDBContext.ToListAsync());
+        }
 
-            if (searchString != null)
+        // GET: Funcionarios/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
             {
-                pageNumber = 1;
+                return NotFound();
             }
-            else
+
+            var funcionario = await _context.Funcionario
+                .Include(f => f.Cargo)
+                .Include(f => f.Horario)
+                .FirstOrDefaultAsync(m => m.FuncionarioId == id);
+            if (funcionario == null)
             {
-                searchString = currentFilter;
+                return NotFound();
             }
 
-            ViewData["CurrentFilter"] = searchString;
-            var Funcionarios = from s in _context.Funcionario
-                              select s;
-
-            if (!String.IsNullOrEmpty(searchString)){
-
-                Funcionarios = Funcionarios.Where(s => s.Nome.Contains(searchString));
-            }
-
-                Funcionarios = sortOrder switch{
-                
-                "Date" => Funcionarios.OrderBy(s => s.DataNascimento),
-                "date_desc" => Funcionarios.OrderByDescending(s => s.DataNascimento),
-                _ => Funcionarios.OrderBy(s => s.Nome),
-            };
-            int pageSize = 3;
-
-            return View(await PaginatedList<Funcionario>.CreateAsync(Funcionarios.AsNoTracking(), pageNumber ?? 1, pageSize));
-
+            return View(funcionario);
         }
 
         // GET: Funcionarios/Create
         public IActionResult Create()
         {
             ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "NomeCargo");
-            ViewData["DepartamentoId"] = new SelectList(_context.Departamento, "DepartamentoId", "NomeDepartamento");
-            ViewData["HorarioId"] = new SelectList(_context.Horario, "HorarioId", "HInicio");
+            ViewData["HorarioId"] = new SelectList(_context.Horario, "HorarioId", "HorarioId");
             return View();
         }
 
@@ -74,7 +58,7 @@ namespace IPGManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FuncionarioId,Nome,Contacto,DataNascimento,Genero,CargoId,DepartamentoId,HorarioId")] Funcionario funcionario)
+        public async Task<IActionResult> Create([Bind("FuncionarioId,Nome,Contacto,DataNascimento,Genero,CargoId,HorarioId")] Funcionario funcionario)
         {
             if (ModelState.IsValid)
             {
@@ -82,9 +66,8 @@ namespace IPGManager.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "NomeCargo");
-            ViewData["DepartamentoId"] = new SelectList(_context.Departamento, "DepartamentoId", "NomeDepartamento");
-            ViewData["HorarioId"] = new SelectList(_context.Horario, "HorarioId", "HInicio");
+            ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "Descricao", funcionario.CargoId);
+            ViewData["HorarioId"] = new SelectList(_context.Horario, "HorarioId", "HorarioId", funcionario.HorarioId);
             return View(funcionario);
         }
 
@@ -101,9 +84,8 @@ namespace IPGManager.Controllers
             {
                 return NotFound();
             }
-            ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "NomeCargo");
-            ViewData["DepartamentoId"] = new SelectList(_context.Departamento, "DepartamentoId", "NomeDepartamento");
-            ViewData["HorarioId"] = new SelectList(_context.Horario, "HorarioId", "HInicio");
+            ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "NomeCargo", funcionario.CargoId);
+            ViewData["HorarioId"] = new SelectList(_context.Horario, "HorarioId", "HorarioId", funcionario.HorarioId);
             return View(funcionario);
         }
 
@@ -112,7 +94,7 @@ namespace IPGManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("FuncionarioId,Nome,Contacto,DataNascimento,Genero,CargoId,DepartamentoId,HorarioId")] Funcionario funcionario)
+        public async Task<IActionResult> Edit(int id, [Bind("FuncionarioId,Nome,Contacto,DataNascimento,Genero,CargoId,HorarioId")] Funcionario funcionario)
         {
             if (id != funcionario.FuncionarioId)
             {
@@ -139,9 +121,8 @@ namespace IPGManager.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "NomeCargo");
-            ViewData["DepartamentoId"] = new SelectList(_context.Departamento, "DepartamentoId", "NomeDepartamento");
-            ViewData["HorarioId"] = new SelectList(_context.Horario, "HorarioId", "HInicio");
+            ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "NomeCargo", funcionario.CargoId);
+            ViewData["HorarioId"] = new SelectList(_context.Horario, "HorarioId", "HorarioId", funcionario.HorarioId);
             return View(funcionario);
         }
 
@@ -155,7 +136,7 @@ namespace IPGManager.Controllers
 
             var funcionario = await _context.Funcionario
                 .Include(f => f.Cargo)
-                .Include(f => f.Departamento)
+                .Include(f => f.Horario)
                 .FirstOrDefaultAsync(m => m.FuncionarioId == id);
             if (funcionario == null)
             {

@@ -9,6 +9,7 @@ namespace IPGManager.Models
     public class Funcionario
     {
         
+        [Key]
         public int FuncionarioId { get; set; }
 
 
@@ -31,10 +32,6 @@ namespace IPGManager.Models
         [Required(ErrorMessage = "Por favor, selcecione o tipo de cargo")]
         public int CargoId { get; set; }
         public Cargo Cargo { get; set; }
-
-        [Required(ErrorMessage = "Por favor, selcecione o Departamento")]
-        public int DepartamentoId { get; set; }
-        public Departamento Departamento { get; set; }
 
         [Required(ErrorMessage = "Por favor, selcecione o tipo de Horário do Funcionário")]
         public int HorarioId { get; set; }

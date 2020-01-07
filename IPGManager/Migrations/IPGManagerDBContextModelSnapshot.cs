@@ -66,10 +66,6 @@ namespace IPGManager.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Apelido")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("CargoId")
                         .HasColumnType("int");
 
@@ -92,7 +88,8 @@ namespace IPGManager.Migrations
 
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.HasKey("FuncionarioId");
 
@@ -127,6 +124,22 @@ namespace IPGManager.Migrations
                     b.HasKey("HorarioId");
 
                     b.ToTable("Horario");
+                });
+
+            modelBuilder.Entity("IPGManager.Models.Login", b =>
+                {
+                    b.Property<string>("LoginId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("LoginId");
+
+                    b.ToTable("Login");
                 });
 
             modelBuilder.Entity("IPGManager.Models.Professor", b =>
