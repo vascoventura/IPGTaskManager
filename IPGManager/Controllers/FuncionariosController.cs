@@ -19,10 +19,59 @@ namespace IPGManager.Controllers
         }
 
         // GET: Funcionarios
-        public async Task<IActionResult> Index()
-        {
-            var iPGManagerDBContext = _context.Funcionario.Include(f => f.Cargo).Include(f => f.Horario);
-            return View(await iPGManagerDBContext.ToListAsync());
+        public async Task<IActionResult> Index(string sortOrder, string currentFilter,
+                                               string searchString,
+                                               int? pageNumber){
+
+
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["CargoSortParm"] = String.IsNullOrEmpty(sortOrder) ? "cargo" : "";
+            ViewData["CurrentFilter"] = searchString; //string de pesquisa
+
+            //Paginacao
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+
+
+
+
+            /*var funcionario = _context.Funcionario.Include(f => f.Cargo).Include(f => f.Horario);
+                return View(await funcionario.ToListAsync());*/
+
+            var funcionarios = from s in _context.Funcionario.Include(s => s.Cargo).Include(s => s.Horario)
+                               select s;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                funcionarios = funcionarios.Where(s => s.Nome.Contains(searchString));                                   
+            }
+
+
+            
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    funcionarios = funcionarios.OrderByDescending(s => s.Nome);
+                    break;
+                case "cargo":
+                    funcionarios = funcionarios.OrderBy(s => s.Cargo);
+                    break;
+                default:
+                    funcionarios = funcionarios.OrderBy(s => s.Nome);
+                    break;
+            }
+       
+                    int pageSize = 3;
+                    return View(await PaginatedList<Funcionario>.CreateAsync(funcionarios.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: Funcionarios/Details/5
