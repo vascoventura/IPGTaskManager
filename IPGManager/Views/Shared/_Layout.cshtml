@@ -40,8 +40,8 @@
                         </div>
                     </div>
                 </li>
-                <li><a asp-area="" asp-controller="Shared" asp-action="_LoginPartial">REGISTAR</a></li>
-                
+                <li>@Html.Partial("_LoginPartial")</li>
+
 
             </ul>
         </div>
@@ -65,3 +65,4 @@
     @RenderSection("Scripts", required: false)
 </body>
 </html>
+
