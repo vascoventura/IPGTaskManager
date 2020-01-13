@@ -63,7 +63,7 @@ namespace IPGManager.Controllers
                     funcionarios = funcionarios.OrderByDescending(s => s.Nome);
                     break;
                 case "cargo":
-                    funcionarios = funcionarios.OrderBy(s => s.Cargo);
+                    funcionarios = funcionarios.OrderByDescending(s => s.Cargo);
                     break;
                 default:
                     funcionarios = funcionarios.OrderBy(s => s.Nome);
