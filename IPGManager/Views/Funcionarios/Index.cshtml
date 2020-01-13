@@ -6,10 +6,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Lista de Funcionários</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Adicionar Novo</a>
 </p>
 
 <form asp-action="Index" method="get">
@@ -26,7 +26,6 @@
             <th>
                 <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">Nome</a>
             </th>
-            </th>
             <th>
                 Contacto
             </th>
@@ -39,7 +38,6 @@
             <th>
                 Horário
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -53,26 +51,25 @@
                     @Html.DisplayFor(modelItem => item.Contacto)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DataNascimento)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.Genero)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Cargo.NomeCargo)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Horario.HorarioId)
+                    @Html.DisplayFor(modelItem => item.Horario.HInicio)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.FuncionarioId">Edit</a> |
+                    <a asp-action="Edit" asp-route-id="@item.FuncionarioId">Editar</a> |
                     <a asp-action="Details" asp-route-id="@item.FuncionarioId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.FuncionarioId">Delete</a>
+                    <a asp-action="Delete" asp-route-id="@item.FuncionarioId">Apagar</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+
 @{
     var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
     var nextDisabled = !Model.HasNextPage ? "disabled" : "";

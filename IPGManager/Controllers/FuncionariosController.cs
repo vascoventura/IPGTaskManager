@@ -98,7 +98,7 @@ namespace IPGManager.Controllers
         public IActionResult Create()
         {
             ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "NomeCargo");
-            ViewData["HorarioId"] = new SelectList(_context.Horario, "HorarioId", "HorarioId");
+            ViewData["HorarioId"] = new SelectList(_context.Horario, "HorarioId", "HInicio");
             return View();
         }
 

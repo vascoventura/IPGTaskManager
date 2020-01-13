@@ -5,10 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
+<h1>Adicionar Funcionário</h1>
 
-<h4>Funcionario</h4>
-<hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
@@ -24,32 +22,32 @@
                 <span asp-validation-for="Contacto" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DataNascimento" class="control-label"></label>
+                <label asp-for="DataNascimento" class="control-label">Data de Nascimento</label>
                 <input asp-for="DataNascimento" class="form-control" />
                 <span asp-validation-for="DataNascimento" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Genero" class="control-label"></label>
+                <label asp-for="Genero" class="control-label">Género</label>
                 <input asp-for="Genero" class="form-control" />
                 <span asp-validation-for="Genero" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CargoId" class="control-label"></label>
+                <label asp-for="CargoId" class="control-label">Cargo</label>
                 <select asp-for="CargoId" class ="form-control" asp-items="ViewBag.CargoId"></select>
             </div>
             <div class="form-group">
-                <label asp-for="HorarioId" class="control-label"></label>
+                <label asp-for="HorarioId" class="control-label">Horário</label>
                 <select asp-for="HorarioId" class ="form-control" asp-items="ViewBag.HorarioId"></select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Criar" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Voltar à Lista</a>
 </div>
 
 @section Scripts {
