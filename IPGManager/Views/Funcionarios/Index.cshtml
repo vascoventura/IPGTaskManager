@@ -1,5 +1,4 @@
-﻿
-@model PaginatedList<IPGManager.Models.Funcionario>
+﻿@model PaginatedList<IPGManager.Models.Funcionario>
 
 @{
     ViewData["Title"] = "Index";
@@ -61,7 +60,7 @@
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.FuncionarioId">Editar</a> |
-                    <a asp-action="Details" asp-route-id="@item.FuncionarioId">Details</a> |
+                    <a asp-action="Details" asp-route-id="@item.FuncionarioId">Detalhes</a> |
                     <a asp-action="Delete" asp-route-id="@item.FuncionarioId">Apagar</a>
                 </td>
             </tr>

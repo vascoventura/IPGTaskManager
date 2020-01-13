@@ -41,7 +41,7 @@ namespace IPGManager.Controllers
             }
 
             ViewData["CurrentFilter"] = searchString;
-            var Professores = from s in _context.Professor
+            var Professores = from s in _context.Professor.Include(s => s.Horario).Include(s => s.Departamento)
                               select s;
 
             if (!String.IsNullOrEmpty(searchString))
