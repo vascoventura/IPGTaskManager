@@ -2,25 +2,34 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
-<ul class="navbar-nav">
+
 @if (SignInManager.IsSignedIn(User))
 {
-    <li class="nav-item">
-        <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name!</a>
+    <li>
+        <div class="drop">
+
+            <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><button type="submit" class="dropbtn">Bem-vindo @User.Identity.Name!</button></a>
+
+        </div>
     </li>
-    <li class="nav-item">
-        <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-        </form>
+    <li>
+        <div class="dropdown">
+            <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button type="submit" class="dropbtn">LOGOUT</button>
+            </form>
+        </div>
     </li>
 }
 else
 {
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
+    <li>
+        <div class="drop">
+            <a asp-area="Identity" asp-page="/Account/Register"><button type="submit" class="dropbtn">REGISTAR</button></a>
+        </div>
     </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
+    <li>
+        <div class="drop">
+            <a asp-area="Identity" asp-page="/Account/Login"><button type="submit" class="dropbtn">LOGIN</button></a>
+        </div>
     </li>
 }
-</ul>
