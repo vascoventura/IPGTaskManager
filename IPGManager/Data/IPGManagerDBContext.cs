@@ -17,8 +17,6 @@ namespace IPGManager.Models
 
         public DbSet<IPGManager.Models.Departamento> Departamento { get; set; }
 
-        public DbSet<IPGManager.Models.Horario> Horario { get; set; }
-
         public DbSet<IPGManager.Models.Tarefa> Tarefa { get; set; }
         public DbSet<IPGManager.Models.Professor> Professor { get; set; }
         public DbSet<IPGManager.Models.GeneroLista> Generos { get; set; }

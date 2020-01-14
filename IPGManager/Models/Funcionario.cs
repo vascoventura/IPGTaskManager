@@ -33,9 +33,7 @@ namespace IPGManager.Models
         public int CargoId { get; set; }
         public Cargo Cargo { get; set; }
 
-        [Required(ErrorMessage = "Por favor, selcecione o tipo de Horário do Funcionário")]
-        public int HorarioId { get; set; }
-        public Horario Horario { get; set; }
+        public ICollection<Tarefa> Tarefas;
 
     }
 }
