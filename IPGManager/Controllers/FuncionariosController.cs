@@ -19,17 +19,17 @@ namespace IPGManager.Controllers
         }
 
         // GET: Funcionarios
-        public async Task<IActionResult> Index(
-            string sortOrder,
-            string currentFilter,
-            string searchString,
-            int? pageNumber)
-        {
+        public async Task<IActionResult> Index(string sortOrder, string currentFilter,
+                                               string searchString,
+                                               int? pageNumber){
+
+
             ViewData["CurrentSort"] = sortOrder;
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
-            ViewData["CurrentFilter"] = searchString;
+            ViewData["CargoSortParm"] = String.IsNullOrEmpty(sortOrder) ? "cargo" : "";
+            ViewData["CurrentFilter"] = searchString; //string de pesquisa
 
+            //Paginacao
             if (searchString != null)
             {
                 pageNumber = 1;
@@ -39,41 +39,66 @@ namespace IPGManager.Controllers
                 searchString = currentFilter;
             }
 
-            ViewData["CurrentFilter"] = searchString;
-            var Funcionarios = from s in _context.Funcionario
-                              select s;
+
+
+
+
+            /*var funcionario = _context.Funcionario.Include(f => f.Cargo).Include(f => f.Horario);
+                return View(await funcionario.ToListAsync());*/
+
+            var funcionarios = from s in _context.Funcionario.Include(s => s.Cargo).Include(s => s.Horario)
+                               select s;
 
             if (!String.IsNullOrEmpty(searchString))
-    {
-                 Funcionarios = Funcionarios.Where(s => s.Nome.Contains(searchString)
-                               || s.Apelido.Contains(searchString));
-    }
+            {
+                funcionarios = funcionarios.Where(s => s.Nome.Contains(searchString));                                   
+            }
+
+
+            
+
             switch (sortOrder)
             {
                 case "name_desc":
-                    Funcionarios = Funcionarios.OrderByDescending(s => s.Apelido);
+                    funcionarios = funcionarios.OrderByDescending(s => s.Nome);
                     break;
-                case "Date":
-                    Funcionarios = Funcionarios.OrderBy(s => s.DataNascimento);
-                    break;
-                case "date_desc":
-                    Funcionarios = Funcionarios.OrderByDescending(s => s.DataNascimento);
+                case "cargo":
+                    funcionarios = funcionarios.OrderByDescending(s => s.Cargo);
                     break;
                 default:
-                    Funcionarios = Funcionarios.OrderBy(s => s.Nome);
+                    funcionarios = funcionarios.OrderBy(s => s.Nome);
                     break;
             }
-            int pageSize = 3;
+       
+                    int pageSize = 3;
+                    return View(await PaginatedList<Funcionario>.CreateAsync(funcionarios.AsNoTracking(), pageNumber ?? 1, pageSize));
+        }
 
-            return View(await PaginatedList<Funcionario>.CreateAsync(Funcionarios.AsNoTracking(), pageNumber ?? 1, pageSize));
+        // GET: Funcionarios/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
+            var funcionario = await _context.Funcionario
+                .Include(f => f.Cargo)
+                .Include(f => f.Horario)
+                .FirstOrDefaultAsync(m => m.FuncionarioId == id);
+            if (funcionario == null)
+            {
+                return NotFound();
+            }
+
+            return View(funcionario);
         }
 
         // GET: Funcionarios/Create
         public IActionResult Create()
         {
-            ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "Descricao");
-            ViewData["DepartamentoId"] = new SelectList(_context.Departamento, "DepartamentoId", "NomeDepartamento");
+            ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "NomeCargo");
+            ViewData["HorarioId"] = new SelectList(_context.Horario, "HorarioId", "HInicio");
             return View();
         }
 
@@ -82,7 +107,7 @@ namespace IPGManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FuncionarioId,Nome,Apelido,Contacto,DataNascimento,Genero,CargoId,DepartamentoId,HorarioId")] Funcionario funcionario)
+        public async Task<IActionResult> Create([Bind("FuncionarioId,Nome,Contacto,DataNascimento,Genero,CargoId,HorarioId")] Funcionario funcionario)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +116,7 @@ namespace IPGManager.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "Descricao", funcionario.CargoId);
-            ViewData["DepartamentoId"] = new SelectList(_context.Departamento, "DepartamentoId", "NomeDepartamento", funcionario.DepartamentoId);
+            ViewData["HorarioId"] = new SelectList(_context.Horario, "HorarioId", "HorarioId", funcionario.HorarioId);
             return View(funcionario);
         }
 
@@ -108,8 +133,8 @@ namespace IPGManager.Controllers
             {
                 return NotFound();
             }
-            ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "Descricao", funcionario.CargoId);
-            ViewData["DepartamentoId"] = new SelectList(_context.Departamento, "DepartamentoId", "NomeDepartamento", funcionario.DepartamentoId);
+            ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "NomeCargo", funcionario.CargoId);
+            ViewData["HorarioId"] = new SelectList(_context.Horario, "HorarioId", "HorarioId", funcionario.HorarioId);
             return View(funcionario);
         }
 
@@ -118,7 +143,7 @@ namespace IPGManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("FuncionarioId,Nome,Apelido,Contacto,DataNascimento,Genero,CargoId,DepartamentoId,HorarioId")] Funcionario funcionario)
+        public async Task<IActionResult> Edit(int id, [Bind("FuncionarioId,Nome,Contacto,DataNascimento,Genero,CargoId,HorarioId")] Funcionario funcionario)
         {
             if (id != funcionario.FuncionarioId)
             {
@@ -145,8 +170,8 @@ namespace IPGManager.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "Descricao", funcionario.CargoId);
-            ViewData["DepartamentoId"] = new SelectList(_context.Departamento, "DepartamentoId", "NomeDepartamento", funcionario.DepartamentoId);
+            ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "NomeCargo", funcionario.CargoId);
+            ViewData["HorarioId"] = new SelectList(_context.Horario, "HorarioId", "HorarioId", funcionario.HorarioId);
             return View(funcionario);
         }
 
@@ -160,7 +185,7 @@ namespace IPGManager.Controllers
 
             var funcionario = await _context.Funcionario
                 .Include(f => f.Cargo)
-                .Include(f => f.Departamento)
+                .Include(f => f.Horario)
                 .FirstOrDefaultAsync(m => m.FuncionarioId == id);
             if (funcionario == null)
             {

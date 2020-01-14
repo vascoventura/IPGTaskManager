@@ -40,8 +40,8 @@
                         </div>
                     </div>
                 </li>
-                <li><a asp-area="" asp-controller="Shared" asp-action="_LoginPartial">REGISTAR</a></li>
-                <li><a asp-area="" asp-controller="Home" asp-action="Index">LOGIN</a></li>
+                <li>@Html.Partial("_LoginPartial")</li>
+
 
             </ul>
         </div>
@@ -54,7 +54,7 @@
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container">
+        <div class="container" style="text-align:center">
             &copy; 2019 - IPGManager - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
@@ -65,3 +65,4 @@
     @RenderSection("Scripts", required: false)
 </body>
 </html>
+

@@ -4,14 +4,16 @@ using IPGManager.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IPGManager.Migrations
 {
     [DbContext(typeof(IPGManagerDBContext))]
-    partial class IPGManagerDBContextModelSnapshot : ModelSnapshot
+    [Migration("20200107153112_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -97,19 +99,6 @@ namespace IPGManager.Migrations
                     b.ToTable("Funcionario");
                 });
 
-            modelBuilder.Entity("IPGManager.Models.GeneroLista", b =>
-                {
-                    b.Property<int>("id")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Genero")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("id");
-
-                    b.ToTable("Generos");
-                });
-
             modelBuilder.Entity("IPGManager.Models.Horario", b =>
                 {
                     b.Property<int>("HorarioId")
@@ -164,10 +153,14 @@ namespace IPGManager.Migrations
                     b.Property<DateTime>("DataNascimento")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("DepartamentoId")
+                    b.Property<int>("DepartamentoId")
                         .HasColumnType("int");
 
-                    b.Property<int>("GeneroId")
+                    b.Property<string>("Genero")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("HorarioId")
                         .HasColumnType("int");
 
                     b.Property<string>("Nome")
@@ -177,7 +170,9 @@ namespace IPGManager.Migrations
 
                     b.HasKey("ProfessorId");
 
-                    b.HasIndex("GeneroId");
+                    b.HasIndex("DepartamentoId");
+
+                    b.HasIndex("HorarioId");
 
                     b.ToTable("Professor");
                 });
@@ -227,9 +222,15 @@ namespace IPGManager.Migrations
 
             modelBuilder.Entity("IPGManager.Models.Professor", b =>
                 {
-                    b.HasOne("IPGManager.Models.GeneroLista", "Genero")
-                        .WithMany("Professores")
-                        .HasForeignKey("GeneroId")
+                    b.HasOne("IPGManager.Models.Departamento", "Departamento")
+                        .WithMany()
+                        .HasForeignKey("DepartamentoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("IPGManager.Models.Horario", "Horario")
+                        .WithMany()
+                        .HasForeignKey("HorarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

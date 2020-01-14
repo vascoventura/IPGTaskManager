@@ -1,59 +1,42 @@
-﻿@using X.PagedList.Mvc.Core
-
-@model PaginatedList<IPGManager.Models.Funcionario>
-
-    <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+﻿@model PaginatedList<IPGManager.Models.Funcionario>
 
 @{
     ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Funcionários</h1>
+<h1>Lista de Funcionários</h1>
 
 <p>
-    <a asp-action="Create">Criar Novo</a>
+    <a asp-action="Create">Adicionar Novo</a>
 </p>
 
 <form asp-action="Index" method="get">
     <div class="form-actions no-color">
         <p>
-            Find by name: <input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
-            <input type="submit" value="Search" class="btn btn-default" /> |
-            <a asp-action="Index">Back to Full List</a>
+            <input type="text" name="SearchString" value="@ViewData["currentFilter"]" placeholder="Pesquisar..." />
+            <input type="submit" value="Pesquisar" class="btn btn-default" />
         </p>
     </div>
 </form>
-
 <table class="table">
     <thead>
         <tr>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Nome</a>
-
-            </th>
-            <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Apelido</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">Nome</a>
             </th>
             <th>
                 Contacto
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Data de Nascimento</a>
-            </th>
-            </th>
-            <th>
                 Género
             </th>
             <th>
-                Cargo
-            </th>
-            <th>
-                Departamento
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["CargoSortParm"]">Cargo</a>
             </th>
             <th>
                 Horário
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -64,25 +47,16 @@
                     @Html.DisplayFor(modelItem => item.Nome)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Apelido)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.Contacto)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DataNascimento)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Genero)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Cargo.Descricao)
+                    @Html.DisplayFor(modelItem => item.Cargo.NomeCargo)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Departamento.NomeDepartamento)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HorarioId)
+                    @Html.DisplayFor(modelItem => item.Horario.HInicio)
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.FuncionarioId">Editar</a> |
@@ -93,6 +67,7 @@
         }
     </tbody>
 </table>
+
 
 @{
     var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
