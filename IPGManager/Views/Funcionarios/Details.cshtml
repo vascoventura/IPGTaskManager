@@ -5,10 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Detalhes</h1>
+<h1>@Html.DisplayFor(model => model.Nome)</h1>
 
 <div>
-    <h4>Funcionário</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -33,13 +32,7 @@
             Cargo:
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Cargo.Descricao)
-        </dd>
-        <dt class = "col-sm-2">
-            Horário
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Horario.HInicio)
+            @Html.DisplayFor(model => model.Cargo.NomeCargo)
         </dd>
     </dl>
 </div>

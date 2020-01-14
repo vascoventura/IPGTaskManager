@@ -5,49 +5,40 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Apagar</h1>
-
-<h3>Tem a certeza que quer apagar este item?</h3>
+<h3>Tem a certeza que quer excluir este funcionário?</h3>
 <div>
-    <h4>Funcionário</h4>
     
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Nome)
+            Nome:
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Nome)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Contacto)
+            Contacto:
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Contacto)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DataNascimento)
+            Data de Nascimento:
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.DataNascimento)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Genero)
+            Género:
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Genero)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Cargo)
+            Cargo:
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Cargo.Descricao)
-        </dd class>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Horario)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Horario.HorarioId)
-        </dd class>
+            @Html.DisplayFor(model => model.Cargo.NomeCargo)
+        </dd>
     </dl>
     
     <form asp-action="Delete">

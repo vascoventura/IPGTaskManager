@@ -47,7 +47,7 @@ namespace IPGManager.Controllers
         // GET: Tarefas/Create
         public IActionResult Create()
         {
-            ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "Descricao");
+            ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "NomeCargo");
             return View();
         }
 
@@ -64,7 +64,7 @@ namespace IPGManager.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "Descricao", tarefa.CargoId);
+            ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "NomeCargo", tarefa.CargoId);
             return View(tarefa);
         }
 
@@ -81,7 +81,7 @@ namespace IPGManager.Controllers
             {
                 return NotFound();
             }
-            ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "Descricao", tarefa.CargoId);
+            ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "NomeCargo", tarefa.CargoId);
             return View(tarefa);
         }
 
@@ -117,7 +117,7 @@ namespace IPGManager.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "Descricao", tarefa.CargoId);
+            ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "NomeCargo", tarefa.CargoId);
             return View(tarefa);
         }
 

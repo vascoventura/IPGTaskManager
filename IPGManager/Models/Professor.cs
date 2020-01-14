@@ -28,9 +28,5 @@ namespace IPGManager.Models
 
         [Required]
         public Departamento Departamento { get; set; }
-
-        [Required]
-        public int HorarioId { get; set; }
-        public Horario Horario { get; set; }
     }
 }
