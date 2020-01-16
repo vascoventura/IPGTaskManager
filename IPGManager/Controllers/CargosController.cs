@@ -19,9 +19,52 @@ namespace IPGManager.Controllers
         }
 
         // GET: Cargos
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? pageNumber)
         {
-            return View(await _context.Cargo.ToListAsync());
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            //ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
+
+            ViewData["CurrentFilter"] = searchString;
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewData["CurrentFilter"] = searchString;
+            var Cargos = from s in _context.Cargo
+                        select s;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                Cargos = Cargos.Where(s => s.NomeCargo.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "name":
+                    Cargos = Cargos.OrderBy(s => s.NomeCargo);
+                break;
+                case "name_desc":
+                    Cargos = Cargos.OrderByDescending(s => s.NomeCargo);
+                break;
+                /*case "Date":
+                    Professores = Professores.OrderBy(s => s.DataNascimento);
+                break;
+                case "date_desc":
+                    Professores = Professores.OrderByDescending(s => s.DataNascimento);
+                break;
+                default:
+                    Professores = Professores.OrderBy(s => s.Nome);
+                break;*/
+            }
+            int pageSize = 2;
+
+            return View(await PaginatedList<Cargo>.CreateAsync(Cargos.AsNoTracking(), pageNumber ?? 1, pageSize));
+
         }
 
         // GET: Cargos/Details/5
