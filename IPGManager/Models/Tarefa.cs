@@ -10,9 +10,9 @@ namespace IPGManager.Models
     {
         [Key]
         public int TarefaId { get; set; }
-        
-        [Required(ErrorMessage ="Por favor, introduza o nome da tarefa")]
-        
+
+        [Required(ErrorMessage = "Por favor, introduza o nome da tarefa")]
+
         public string NomeTarefa { get; set; }
 
         [Required(ErrorMessage = "Por favor, introduza a descrição da tarefa")]
@@ -23,8 +23,14 @@ namespace IPGManager.Models
 
         [Required(ErrorMessage = "Por favor, introduza o cargo a que a tarefa se destina")]
         public int CargoId { get; set; }
-        
+
         public Cargo Cargo { get; set; }
+
+        [Required(ErrorMessage = "Por favor, introduza o funcionário a que a tarefa se destina")]
+        public int FuncionarioId { get; set; }
+        public Funcionario Funcionario { get; set; }
+
+
 
 
 
