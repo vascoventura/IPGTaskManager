@@ -12,7 +12,7 @@ namespace IPGManager.Models
         private const string MANAGER_ROLE = "manager";
         private const string CHEF_ROLE = "chef";
 
-        public static void Populate(IPGManagerDBContext db)
+        /*public static void Populate(IPGManagerDBContext db)
         {
            if (!db.Generos.Any()) {
                 db.Generos.AddRange(
@@ -48,14 +48,20 @@ namespace IPGManager.Models
                 db.SaveChanges();
             }
             
+        }*/
+
+        public static void Populate(IPGManagerDBContext db)
+        {
+            // ...
         }
+
 
         public static async Task PopulateUsersAsync(UserManager<IdentityUser> userManager)
         {
             const string ADMIN_USERNAME = "admin@ipg.pt";
             const string ADMIN_PASSWORD = "Secret123$";
 
-            const string MANAGER_USERNAME = "peter@ipg.pt";
+            const string MANAGER_USERNAME = "manager@ipg.pt";
             const string MANAGER_PASSWORD = "Secret123$";
 
             IdentityUser user = await userManager.FindByNameAsync(ADMIN_USERNAME);

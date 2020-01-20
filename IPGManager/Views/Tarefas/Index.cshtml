@@ -5,10 +5,15 @@
 }
 
 <h1>Tarefas</h1>
-
-<p>
-    <a asp-action="Create">Criar Novo</a>
-</p>
+@if (User.IsInRole("manager") || User.IsInRole("admin"))
+{
+    <p>
+        <a asp-action="Create">Criar Novo</a>
+    </p>
+}
+else
+{
+}
 <table class="table">
     <thead>
         <tr>
@@ -28,7 +33,8 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (var item in Model)
+        {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.NomeTarefa)
@@ -42,12 +48,16 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Cargo.NomeCargo)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.TarefaId">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.TarefaId">Detalhes</a> |
-                <a asp-action="Delete" asp-route-id="@item.TarefaId">Apagar</a>
-            </td>
-        </tr>
-}
+            @if (User.IsInRole("admin"))
+            {
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.TarefaId">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.TarefaId">Detalhes</a> |
+                    <a asp-action="Delete" asp-route-id="@item.TarefaId">Apagar</a>
+                </td>
+            }
+            else { }
+            </tr>
+        }
     </tbody>
 </table>

@@ -82,7 +82,8 @@ namespace IPGManager
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IPGManagerDBContext db1, UserManager<IdentityUser> userManager,
+            RoleManager<IdentityRole> roleManager)
         {
             if (env.IsDevelopment())
             {
@@ -116,6 +117,18 @@ namespace IPGManager
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+            SeedData.CreateRolesAsync(roleManager).Wait();
+
+            if (env.IsDevelopment())
+            {
+                SeedData.Populate(db1);
+                SeedData.PopulateUsersAsync(userManager).Wait();
+            }
+            else
+            {
+                // Make sure that there is an admin account
+                // ...
+            }
         }
     }
 }

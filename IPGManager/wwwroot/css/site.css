@@ -119,3 +119,11 @@ ul {
     background-color: red;
     color: white;
 }
+
+.content {
+    min-height: calc(100vh - 30px);
+}
+
+.footer {
+    height: 30px;
+}

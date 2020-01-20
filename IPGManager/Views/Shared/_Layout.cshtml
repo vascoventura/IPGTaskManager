@@ -7,48 +7,62 @@
     <link rel="stylesheet" type="text/css" href="~/css/site.css">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 </head>
+
 <body>
-    <header>
-        <div class="main">
-            <div class="logo">
-                <a asp-area="" asp-controller="Home" asp-action="Index"><img src="~/img/logo.png"></a>
+    <div class="content">
+        <header>
+            <div class="main">
+                <div class="logo">
+                    <a asp-area="" asp-controller="Home" asp-action="Index"><img src="~/img/logo.png"></a>
+                </div>
+                <ul>
+                    @if (User.IsInRole("manager") || User.IsInRole("admin"))
+                    {
+                        <li>
+                            <div class="dropdown">
+                                <button class="dropbtn">ADICIONAR</button>
+                                <div class="dropdown-content">
+                                    <a asp-area="" asp-controller="Tarefas" asp-action="Create">TAREFAS</a>
+                                    <a asp-area="" asp-controller="Departamentos" asp-action="Create">DEPARTAMENTOS</a>
+                                    <a asp-area="" asp-controller="Cargos" asp-action="Create">CARGOS</a>
+                                    <a asp-area="" asp-controller="Funcionarios" asp-action="Create">FUNCIONÁRIOS</a>
+                                    <a asp-area="" asp-controller="Professores" asp-action="Create">PROFESSORES</a>
+                                </div>
+                            </div>
+                        </li>
+                    }
+                    else
+                    {
+
+                    }
+                    <li>
+                        <div class="dropdown">
+                            <button class="dropbtn">DETALHES</button>
+                            <div class="dropdown-content">
+                                <a asp-area="" asp-controller="Tarefas" asp-action="Index">TAREFAS</a>
+                                <a asp-area="" asp-controller="Departamentos" asp-action="Index">DEPARTAMENTOS</a>
+                                <a asp-area="" asp-controller="Cargos" asp-action="Index">CARGOS</a>
+                                <a asp-area="" asp-controller="Funcionarios" asp-action="Index">FUNCIONÁRIOS</a>
+                                <a asp-area="" asp-controller="Professores" asp-action="Index">PROFESSORES</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>@Html.Partial("_LoginPartial")</li>
+
+
+                </ul>
             </div>
-            <ul>
-                <li>
-                    <div class="dropdown">
-                        <button class="dropbtn">ADICIONAR</button>
-                        <div class="dropdown-content">
-                            <a asp-area="" asp-controller="Tarefas" asp-action="Create">TAREFAS</a>
-                            <a asp-area="" asp-controller="Departamentos" asp-action="Create">DEPARTAMENTOS</a>
-                            <a asp-area="" asp-controller="Cargos" asp-action="Create">CARGOS</a>
-                            <a asp-area="" asp-controller="Funcionarios" asp-action="Create">FUNCIONÁRIOS</a>
-                            <a asp-area="" asp-controller="Professores" asp-action="Create">PROFESSORES</a>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="dropdown">
-                        <button class="dropbtn">DETALHES</button>
-                        <div class="dropdown-content">
-                            <a asp-area="" asp-controller="Tarefas" asp-action="Index">TAREFAS</a>
-                            <a asp-area="" asp-controller="Departamentos" asp-action="Index">DEPARTAMENTOS</a>
-                            <a asp-area="" asp-controller="Cargos" asp-action="Index">CARGOS</a>
-                            <a asp-area="" asp-controller="Funcionarios" asp-action="Index">FUNCIONÁRIOS</a>
-                            <a asp-area="" asp-controller="Professores" asp-action="Index">PROFESSORES</a>
-                        </div>
-                    </div>
-                </li>
-                <li>@Html.Partial("_LoginPartial")</li>
+        </header>
 
 
-            </ul>
+
+        <div class="container">
+            <main role="main" class="pb-3">
+
+                @RenderBody()
+            </main>
         </div>
-    </header>
 
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
     </div>
 
     <footer class="border-top footer text-muted">
