@@ -15,7 +15,7 @@ namespace IPGManager.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.0.0")
+                .HasAnnotation("ProductVersion", "3.1.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -80,9 +80,6 @@ namespace IPGManager.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("HorarioId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("nvarchar(50)")
@@ -91,8 +88,6 @@ namespace IPGManager.Migrations
                     b.HasKey("FuncionarioId");
 
                     b.HasIndex("CargoId");
-
-                    b.HasIndex("HorarioId");
 
                     b.ToTable("Funcionario");
                 });
@@ -108,30 +103,6 @@ namespace IPGManager.Migrations
                     b.HasKey("id");
 
                     b.ToTable("Generos");
-                });
-
-            modelBuilder.Entity("IPGManager.Models.Horario", b =>
-                {
-                    b.Property<int>("HorarioId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("HFim")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("HFimIntervalo")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("HInicio")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("HInicioIntervalo")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("HorarioId");
-
-                    b.ToTable("Horario");
                 });
 
             modelBuilder.Entity("IPGManager.Models.Login", b =>
@@ -215,12 +186,6 @@ namespace IPGManager.Migrations
                     b.HasOne("IPGManager.Models.Cargo", "Cargo")
                         .WithMany()
                         .HasForeignKey("CargoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("IPGManager.Models.Horario", "Horario")
-                        .WithMany()
-                        .HasForeignKey("HorarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

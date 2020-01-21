@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IPGManager.Migrations
 {
     [DbContext(typeof(IPGManagerDBContext))]
-    [Migration("20191221012354_initial")]
-    partial class initial
+    [Migration("20200121005302_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.0.0")
+                .HasAnnotation("ProductVersion", "3.1.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -53,7 +53,8 @@ namespace IPGManager.Migrations
 
                     b.Property<string>("NomeDepartamento")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.HasKey("DepartamentoId");
 
@@ -70,28 +71,25 @@ namespace IPGManager.Migrations
                     b.Property<int>("CargoId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Contacto")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("DataNascimento")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("DepartamentoId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Genero")
                         .IsRequired()
-                        .HasColumnType("nvarchar(1)");
-
-                    b.Property<int>("HorarioId")
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.HasKey("FuncionarioId");
 
                     b.HasIndex("CargoId");
-
-                    b.HasIndex("DepartamentoId");
 
                     b.ToTable("Funcionario");
                 });
@@ -109,28 +107,20 @@ namespace IPGManager.Migrations
                     b.ToTable("Generos");
                 });
 
-            modelBuilder.Entity("IPGManager.Models.Horario", b =>
+            modelBuilder.Entity("IPGManager.Models.Login", b =>
                 {
-                    b.Property<int>("HorarioId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("LoginId")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime>("HFim")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("HFimIntervalo")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("HInicio")
-                        .HasColumnType("datetime2");
+                    b.HasKey("LoginId");
 
-                    b.Property<DateTime>("HInicioIntervalo")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("HorarioId");
-
-                    b.ToTable("Horario");
+                    b.ToTable("Login");
                 });
 
             modelBuilder.Entity("IPGManager.Models.Professor", b =>
@@ -172,10 +162,14 @@ namespace IPGManager.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("CargoId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("DataTarefa")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DescricaoTarefa")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NomeTarefa")
@@ -183,6 +177,8 @@ namespace IPGManager.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("TarefaId");
+
+                    b.HasIndex("CargoId");
 
                     b.ToTable("Tarefa");
                 });
@@ -194,12 +190,6 @@ namespace IPGManager.Migrations
                         .HasForeignKey("CargoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("IPGManager.Models.Departamento", "Departamento")
-                        .WithMany()
-                        .HasForeignKey("DepartamentoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("IPGManager.Models.Professor", b =>
@@ -207,6 +197,15 @@ namespace IPGManager.Migrations
                     b.HasOne("IPGManager.Models.GeneroLista", "Genero")
                         .WithMany("Professores")
                         .HasForeignKey("GeneroId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("IPGManager.Models.Tarefa", b =>
+                {
+                    b.HasOne("IPGManager.Models.Cargo", "Cargo")
+                        .WithMany()
+                        .HasForeignKey("CargoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
