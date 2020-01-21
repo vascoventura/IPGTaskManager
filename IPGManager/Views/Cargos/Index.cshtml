@@ -1,19 +1,41 @@
-﻿@model IEnumerable<IPGManager.Models.Cargo>
+﻿@using X.PagedList.Mvc.Core
+
+@model PaginatedList<IPGManager.Models.Cargo>
+
+
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
 
 @{
     ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Cargos</h1>
+@if (User.IsInRole("manager") || User.IsInRole("admin"))
+{
+    <p>
+        <a class="button button1" asp-action="Create">Criar Novo</a>
+    </p>
+}
+else
+{
+}
+@using (Html.BeginForm())
+{
+    <p>
+        Procure por nome: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+        <input type="submit" value="Search" class="button button1" />
+        <a class="button button2" asp-action="Index">Voltar a Lista completa</a>
+    </p>
+}
 
-<p>
-    <a asp-action="Create">Criar Novo</a>
-</p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                Nome
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Nome</a>
             </th>
             <th>
                 Descrição
@@ -25,7 +47,8 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (var item in Model)
+        {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.NomeCargo)
@@ -36,12 +59,40 @@
             <td>
                 @Html.DisplayFor(modelItem => item.NivelCargo)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.CargoId">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.CargoId">Detalhes</a> |
-                <a asp-action="Delete" asp-route-id="@item.CargoId">Apagar</a>
-            </td>
+            @if (User.IsInRole("admin"))
+            {
+                <td>
+                    <a class="button button3" asp-action="Edit" asp-route-id="@item.CargoId">Editar</a> |
+                    <a class="button button2" asp-action="Details" asp-route-id="@item.CargoId">Detalhes</a> |
+                    <a class="button button1" asp-action="Delete" asp-route-id="@item.CargoId">Apagar</a>
+                </td>
+            }
+            else { }
         </tr>
-}
+        }
     </tbody>
 </table>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="buttonprevious @prevDisabled" style="vertical-align:middle">
+    <span>
+        Previous
+    </span>
+</a>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="buttonnext @nextDisabled" style="vertical-align:middle">
+    <span>
+        Next
+    </span>
+</a>

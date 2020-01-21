@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -22,40 +23,67 @@ namespace IPGManager.Models
                     );
                 
             }
+           
             if (!db.Professor.Any())
-
-
             {
                 db.Professor.AddRange(
-                 new Professor { Nome = "	Tiago Lourenço	", Contacto = "965105224", GeneroId = 1, DataNascimento = DateTime.Parse("25-09-1950"), DepartamentoId = 1 },
-                    new Professor { Nome = "	Miguel Teixeira	", Contacto = "965105224", GeneroId = 1, DataNascimento = DateTime.Parse("12-03-1951"), DepartamentoId = 2 },
-                        new Professor { Nome = "	Afonso 	Figueiredo	", Contacto = "965105224", GeneroId = 1, DataNascimento = DateTime.Parse("12-03-1952"), DepartamentoId = 3 },
-                        new Professor { Nome = "	Antonio 	Manuel	", Contacto = "965125764", GeneroId = 1, DataNascimento = DateTime.Parse("13-03-1960"), DepartamentoId = 4 },
-                        new Professor { Nome = "	Morais	 	Couves	", Contacto = "965105224", GeneroId = 1, DataNascimento = DateTime.Parse("12-06-1952"), DepartamentoId = 1 },
-                        new Professor { Nome = "	Carlos	 Silva	", Contacto = "965154224", GeneroId = 1, DataNascimento = DateTime.Parse("12-03-1970"), DepartamentoId = 2 },
-                        new Professor { Nome = "	Joao	Costa	", Contacto = "965787524", GeneroId = 1, DataNascimento = DateTime.Parse("15-07-1981"), DepartamentoId = 3 },
-                        new Professor { Nome = "	Alberto	 	Tavares	", Contacto = "965132524", GeneroId = 1, DataNascimento = DateTime.Parse("16-03-1952"), DepartamentoId = 4 },
-                        new Professor { Nome = "	Miguel	 	Manuel	", Contacto = "965105224", GeneroId = 1, DataNascimento = DateTime.Parse("12-12-1980"), DepartamentoId = 1 },
-                        new Professor { Nome = "	Afonso	 	Couves	", Contacto = "965105224", GeneroId = 1, DataNascimento = DateTime.Parse("12-04-1952"), DepartamentoId = 2 },
-                        new Professor { Nome = "	Antonio		Silva	", Contacto = "965456224", GeneroId = 1, DataNascimento = DateTime.Parse("12-03-1952"), DepartamentoId = 3 },
-                        new Professor { Nome = "	Morais	 	Costa	", Contacto = "965105224", GeneroId = 1, DataNascimento = DateTime.Parse("22-10-1952"), DepartamentoId = 4 },
-                        new Professor { Nome = "	Morais		Manuel	", Contacto = "965605224", GeneroId = 1, DataNascimento = DateTime.Parse("28-06-1970"), DepartamentoId = 1 },
-                        new Professor { Nome = "	Joao		Couves	", Contacto = "965105524", GeneroId = 1, DataNascimento = DateTime.Parse("02-11-1952"), DepartamentoId = 2 },
-                        new Professor { Nome = "	Alberto		Silva	", Contacto = "964105254", GeneroId = 1, DataNascimento = DateTime.Parse("12-05-1980"), DepartamentoId = 3 },
-                        new Professor { Nome = "	Miguel		Tavares	", Contacto = "965158624", GeneroId = 1, DataNascimento = DateTime.Parse("06-04-1952"), DepartamentoId = 4 }
-);
+                    new Professor { Nome = "	Tiago Lourenço	", Contacto = "965105224", GeneroId = 1, DataNascimento = DateTime.Parse("25-09-1950", CultureInfo.CreateSpecificCulture("fr-FR")), DepartamentoId = 1 },
+                    new Professor { Nome = "	Miguel Teixeira	", Contacto = "965105224", GeneroId = 1, DataNascimento = DateTime.Parse("12-03-1951", CultureInfo.CreateSpecificCulture("fr-FR")), DepartamentoId = 2 },
+                    new Professor { Nome = "	Afonso 	Figueiredo	", Contacto = "965105224", GeneroId = 1, DataNascimento = DateTime.Parse("12-03-1952", CultureInfo.CreateSpecificCulture("fr-FR")), DepartamentoId = 3 },
+                    new Professor { Nome = "	Antonio 	Manuel	", Contacto = "965125764", GeneroId = 1, DataNascimento = DateTime.Parse("13-03-1960", CultureInfo.CreateSpecificCulture("fr-FR")), DepartamentoId = 4 },
+                    new Professor { Nome = "	Morais	 	Couves	", Contacto = "965105224", GeneroId = 1, DataNascimento = DateTime.Parse("12-06-1952", CultureInfo.CreateSpecificCulture("fr-FR")), DepartamentoId = 1 },
+                    new Professor { Nome = "	Carlos	 Silva	", Contacto = "965154224", GeneroId = 1, DataNascimento = DateTime.Parse("12-03-1970", CultureInfo.CreateSpecificCulture("fr-FR")), DepartamentoId = 2 },
+                    new Professor { Nome = "	Joao	Costa	", Contacto = "965787524", GeneroId = 1, DataNascimento = DateTime.Parse("15-07-1981", CultureInfo.CreateSpecificCulture("fr-FR")), DepartamentoId = 3 },
+                    new Professor { Nome = "	Alberto	 	Tavares	", Contacto = "965132524", GeneroId = 1, DataNascimento = DateTime.Parse("16-03-1952", CultureInfo.CreateSpecificCulture("fr-FR")), DepartamentoId = 4 },
+                    new Professor { Nome = "	Miguel	 	Manuel	", Contacto = "965105224", GeneroId = 1, DataNascimento = DateTime.Parse("12-12-1980", CultureInfo.CreateSpecificCulture("fr-FR")), DepartamentoId = 1 },
+                    new Professor { Nome = "	Afonso	 	Couves	", Contacto = "965105224", GeneroId = 1, DataNascimento = DateTime.Parse("12-04-1952", CultureInfo.CreateSpecificCulture("fr-FR")), DepartamentoId = 2 },
+                    new Professor { Nome = "	Antonio		Silva	", Contacto = "965456224", GeneroId = 1, DataNascimento = DateTime.Parse("12-03-1952", CultureInfo.CreateSpecificCulture("fr-FR")), DepartamentoId = 3 },
+                    new Professor { Nome = "	Morais	 	Costa	", Contacto = "965105224", GeneroId = 1, DataNascimento = DateTime.Parse("22-10-1952", CultureInfo.CreateSpecificCulture("fr-FR")), DepartamentoId = 4 },
+                    new Professor { Nome = "	Morais		Manuel	", Contacto = "965605224", GeneroId = 1, DataNascimento = DateTime.Parse("28-06-1970", CultureInfo.CreateSpecificCulture("fr-FR")), DepartamentoId = 1 },
+                    new Professor { Nome = "	Joao		Couves	", Contacto = "965105524", GeneroId = 1, DataNascimento = DateTime.Parse("02-11-1952", CultureInfo.CreateSpecificCulture("fr-FR")), DepartamentoId = 2 },
+                    new Professor { Nome = "	Alberto		Silva	", Contacto = "964105254", GeneroId = 1, DataNascimento = DateTime.Parse("12-05-1980", CultureInfo.CreateSpecificCulture("fr-FR")), DepartamentoId = 3 },
+                    new Professor { Nome = "	Miguel		Tavares	", Contacto = "965158624", GeneroId = 1, DataNascimento = DateTime.Parse("06-04-1952", CultureInfo.CreateSpecificCulture("fr-FR")), DepartamentoId = 4 }
+                );
+
+
 
                 db.SaveChanges();
             }
-            
+
+            if (!db.Cargo.Any())
+            {
+                db.Cargo.AddRange(
+                    new Cargo { NomeCargo = "Auxiliar", Descricao = "Descrição do Cargo", NivelCargo = 1 },
+                    new Cargo { NomeCargo = "Coordenador de Curso", Descricao = "Descrição do Cargo", NivelCargo = 1 },
+                    new Cargo { NomeCargo = "Director da Escola", Descricao = "Descrição do Cargo", NivelCargo = 1 },
+                    new Cargo { NomeCargo = "Director de Curso", Descricao = "Descrição do Cargo", NivelCargo = 1 },
+                    new Cargo { NomeCargo = "Ginásio", Descricao = "Descrição do Cargo", NivelCargo = 1 },
+                    new Cargo { NomeCargo = "Jardineiro", Descricao = "Descrição do Cargo", NivelCargo = 1 },
+                    new Cargo { NomeCargo = "Papelaria", Descricao = "Descrição do Cargo", NivelCargo = 1 },
+                    new Cargo { NomeCargo = "Presidente", Descricao = "Descrição do Cargo", NivelCargo = 1 },
+                    new Cargo { NomeCargo = "Professor", Descricao = "Descrição do Cargo", NivelCargo = 1 },
+                    new Cargo { NomeCargo = "Rececção", Descricao = "Descrição do Cargo", NivelCargo = 1 },
+                    new Cargo { NomeCargo = "Secretaria", Descricao = "Descrição do Cargo", NivelCargo = 1 },
+                    new Cargo { NomeCargo = "Supervisor Geral", Descricao = "Descrição do Cargo", NivelCargo = 1 },
+                    new Cargo { NomeCargo = "Supervisor Secretaria", Descricao = "Descrição do Cargo", NivelCargo = 1 }
+                );
+                db.SaveChanges();
+            }
+
         }
+
+       /* public static void Populate(IPGManagerDBContext db)
+        {
+            // ...
+        }*/
+
 
         public static async Task PopulateUsersAsync(UserManager<IdentityUser> userManager)
         {
             const string ADMIN_USERNAME = "admin@ipg.pt";
             const string ADMIN_PASSWORD = "Secret123$";
 
-            const string MANAGER_USERNAME = "peter@ipg.pt";
+            const string MANAGER_USERNAME = "manager@ipg.pt";
             const string MANAGER_PASSWORD = "Secret123$";
 
             IdentityUser user = await userManager.FindByNameAsync(ADMIN_USERNAME);
