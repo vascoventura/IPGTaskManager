@@ -45,7 +45,7 @@ namespace IPGManager.Controllers
             }
             switch (sortOrder)
             {
-                case "name":
+                default:
                     Cargos = Cargos.OrderBy(s => s.NomeCargo);
                 break;
                 case "name_desc":
@@ -61,7 +61,7 @@ namespace IPGManager.Controllers
                     Professores = Professores.OrderBy(s => s.Nome);
                 break;*/
             }
-            int pageSize = 2;
+            int pageSize = 7;
 
             return View(await PaginatedList<Cargo>.CreateAsync(Cargos.AsNoTracking(), pageNumber ?? 1, pageSize));
 

@@ -127,3 +127,157 @@ ul {
 .footer {
     height: 30px;
 }
+
+.button {
+    text-decoration:none;
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 5px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 0px 0px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.button1 {
+    background-color: white;
+    color: #f44336;
+    border: 2px solid #f44336;
+}
+
+    .button1:hover {
+        text-decoration: none;
+        background-color: #f44336;
+        color: white;
+    }
+
+.button2 {
+    background-color: white;
+    color: #008CBA;
+    border: 2px solid #008CBA;
+}
+
+    .button2:hover {
+        text-decoration: none;
+        background-color: #008CBA;
+        color: white;
+    }
+
+.button3 {
+    background-color: white;
+    color: #4CAF50;
+    border: 2px solid #4CAF50;
+}
+
+    .button3:hover {
+        text-decoration: none;
+        background-color: #4CAF50;
+        color: white;
+    }
+
+.buttonnext {
+    display: inline-block;
+    border-radius: 4px;
+    background-color: #f44336;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 16px;
+    padding: 5px 25px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.buttonnext span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+
+    .buttonnext span:after {
+        content: '\00bb';
+        position: absolute;
+        opacity: 0;
+        top: 0;
+        right: -20px;
+        transition: 0.5s;
+    }
+
+    .buttonnext:hover span {
+        padding-right: 25px;
+        color: white;
+    }
+
+    .buttonnext:hover span:after {
+        opacity: 1;
+        right: 0;
+        color: white;
+    }
+
+    .buttonnext.disabled, .buttonnext:disabled {
+        opacity: 0.60;
+    }
+
+a.buttonnext.disabled,
+fieldset:disabled a.buttonnext {
+    pointer-events: none;
+}
+
+
+.buttonprevious {
+    display: inline-block;
+    border-radius: 4px;
+    background-color: #f44336;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 16px;
+    padding: 5px 25px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+}
+
+    .buttonprevious span {
+        cursor: pointer;
+        display: inline-block;
+        position: relative;
+        transition: 0.5s;
+    }
+
+        .buttonprevious span:after {
+            content: '\00ab';
+            position:  absolute;
+            opacity: 0;
+            top: 0;
+            right: 20px;
+            transition: 0.5s;
+        }
+
+    .buttonprevious:hover span {
+        padding-left: 25px;
+        color: white;
+    }
+
+        .buttonprevious:hover span:after {
+            opacity: 1;
+            right: 0;
+            color:white;
+        }
+
+
+    .buttonprevious.disabled, .buttonprevious:disabled {
+        opacity: 0.60;
+    }
+
+a.buttonprevious.disabled,
+fieldset:disabled a.buttonprevious {
+    pointer-events: none;
+}

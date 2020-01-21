@@ -16,7 +16,7 @@
 @if (User.IsInRole("manager") || User.IsInRole("admin"))
 {
     <p>
-        <a asp-action="Create">Criar Novo</a>
+        <a class="button button1" asp-action="Create">Criar Novo</a>
     </p>
 }
 else
@@ -26,8 +26,8 @@ else
 {
     <p>
         Procure por nome: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
-        <input type="submit" value="Search" class="btn btn-default" />
-        <a asp-action="Index">Voltar a Lista completa</a>
+        <input type="submit" value="Search" class="button button1" />
+        <a class="button button2" asp-action="Index">Voltar a Lista completa</a>
     </p>
 }
 
@@ -62,9 +62,9 @@ else
             @if (User.IsInRole("admin"))
             {
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.CargoId">Editar</a> |
-                    <a asp-action="Details" asp-route-id="@item.CargoId">Detalhes</a> |
-                    <a asp-action="Delete" asp-route-id="@item.CargoId">Apagar</a>
+                    <a class="button button3" asp-action="Edit" asp-route-id="@item.CargoId">Editar</a> |
+                    <a class="button button2" asp-action="Details" asp-route-id="@item.CargoId">Detalhes</a> |
+                    <a class="button button1" asp-action="Delete" asp-route-id="@item.CargoId">Apagar</a>
                 </td>
             }
             else { }
@@ -82,13 +82,17 @@ else
    asp-route-sortOrder="@ViewData["CurrentSort"]"
    asp-route-pageNumber="@(Model.PageIndex - 1)"
    asp-route-currentFilter="@ViewData["CurrentFilter"]"
-   class="btn btn-default @prevDisabled">
-    Previous
+   class="buttonprevious @prevDisabled" style="vertical-align:middle">
+    <span>
+        Previous
+    </span>
 </a>
 <a asp-action="Index"
    asp-route-sortOrder="@ViewData["CurrentSort"]"
    asp-route-pageNumber="@(Model.PageIndex + 1)"
    asp-route-currentFilter="@ViewData["CurrentFilter"]"
-   class="btn btn-default @nextDisabled">
-    Next
+   class="buttonnext @nextDisabled" style="vertical-align:middle">
+    <span>
+        Next
+    </span>
 </a>
