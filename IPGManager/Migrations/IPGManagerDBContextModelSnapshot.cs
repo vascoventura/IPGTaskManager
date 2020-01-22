@@ -76,9 +76,6 @@ namespace IPGManager.Migrations
                     b.Property<DateTime>("DataNascimento")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Genero")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("GeneroId")
                         .HasColumnType("int");
 
@@ -90,6 +87,8 @@ namespace IPGManager.Migrations
                     b.HasKey("FuncionarioId");
 
                     b.HasIndex("CargoId");
+
+                    b.HasIndex("GeneroId");
 
                     b.ToTable("Funcionario");
                 });
@@ -197,6 +196,12 @@ namespace IPGManager.Migrations
                     b.HasOne("IPGManager.Models.Cargo", "Cargo")
                         .WithMany()
                         .HasForeignKey("CargoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("IPGManager.Models.GeneroLista", "Genero")
+                        .WithMany()
+                        .HasForeignKey("GeneroId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
