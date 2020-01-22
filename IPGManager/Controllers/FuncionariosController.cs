@@ -40,7 +40,9 @@ namespace IPGManager.Controllers
             }
 
 
-            var funcionarios = from s in _context.Funcionario.Include(s => s.Cargo)
+            var funcionarios = from s in _context.Funcionario
+                               .Include(s => s.Cargo)
+                               .Include(s => s.Genero)
                                select s;
 
             if (!String.IsNullOrEmpty(searchString))
@@ -61,9 +63,8 @@ namespace IPGManager.Controllers
                     funcionarios = funcionarios.OrderBy(s => s.Nome);
                     break;
             }
-       
-                    int pageSize = 5;
-                    return View(await PaginatedList<Funcionario>.CreateAsync(funcionarios.AsNoTracking(), pageNumber ?? 1, pageSize));
+            int pageSize = 5;
+            return View(await PaginatedList<Funcionario>.CreateAsync(funcionarios.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: Funcionarios/Details/5
@@ -75,7 +76,7 @@ namespace IPGManager.Controllers
             }
 
             var funcionario = await _context.Funcionario
-                .Include(f => f.Cargo)
+                .Include(f => f.Cargo).Include(f => f.Genero)
                 .FirstOrDefaultAsync(m => m.FuncionarioId == id);
             if (funcionario == null)
             {
@@ -86,6 +87,7 @@ namespace IPGManager.Controllers
         }
 
         // GET: Funcionarios/Create
+
 
         private void PopulategendersDropDownList(object selectedGender = null)
         {
@@ -99,6 +101,7 @@ namespace IPGManager.Controllers
         {
             PopulategendersDropDownList();
             ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "NomeCargo");
+            ViewData["GeneroId"] = new SelectList(_context.Cargo, "id", "Genero");
             return View();
         }
 
@@ -107,7 +110,7 @@ namespace IPGManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FuncionarioId,Nome,Contacto,DataNascimento,Genero,CargoId")] Funcionario funcionario)
+        public async Task<IActionResult> Create([Bind("FuncionarioId,Nome,Contacto,DataNascimento,GeneroId,CargoId")] Funcionario funcionario)
         {
             if (ModelState.IsValid)
             {
@@ -115,7 +118,8 @@ namespace IPGManager.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "Descricao", funcionario.CargoId);
+            ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "NomeCargo", funcionario.CargoId);
+            ViewData["GeneroId"] = new SelectList(_context.Generos, "id", "Genero", funcionario.GeneroId);
             return View(funcionario);
         }
 
@@ -126,13 +130,14 @@ namespace IPGManager.Controllers
             {
                 return NotFound();
             }
-
+            PopulategendersDropDownList();
             var funcionario = await _context.Funcionario.FindAsync(id);
             if (funcionario == null)
             {
                 return NotFound();
             }
             ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "NomeCargo", funcionario.CargoId);
+            ViewData["GeneroId"] = new SelectList(_context.Generos, "id", "Genero", funcionario.GeneroId);
             return View(funcionario);
         }
 
@@ -141,7 +146,7 @@ namespace IPGManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("FuncionarioId,Nome,Contacto,DataNascimento,Genero,CargoId")] Funcionario funcionario)
+        public async Task<IActionResult> Edit(int id, [Bind("FuncionarioId,Nome,Contacto,DataNascimento,GeneroId,CargoId")] Funcionario funcionario)
         {
             if (id != funcionario.FuncionarioId)
             {
@@ -169,6 +174,7 @@ namespace IPGManager.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "NomeCargo", funcionario.CargoId);
+            ViewData["GeneroId"] = new SelectList(_context.Generos, "id", "Genero", funcionario.GeneroId);
             return View(funcionario);
         }
 
@@ -182,6 +188,7 @@ namespace IPGManager.Controllers
 
             var funcionario = await _context.Funcionario
                 .Include(f => f.Cargo)
+                .Include(f => f.Genero)
                 .FirstOrDefaultAsync(m => m.FuncionarioId == id);
             if (funcionario == null)
             {
