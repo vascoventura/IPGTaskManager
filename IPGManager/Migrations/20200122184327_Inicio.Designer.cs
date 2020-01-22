@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IPGManager.Migrations
 {
     [DbContext(typeof(IPGManagerDBContext))]
-    [Migration("20200122003116_Initial")]
-    partial class Initial
+    [Migration("20200122184327_Inicio")]
+    partial class Inicio
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -139,7 +139,7 @@ namespace IPGManager.Migrations
                     b.Property<DateTime>("DataNascimento")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("DepartamentoId")
+                    b.Property<int?>("DepartamentoId")
                         .HasColumnType("int");
 
                     b.Property<int>("GeneroId")
@@ -151,8 +151,6 @@ namespace IPGManager.Migrations
                         .HasMaxLength(50);
 
                     b.HasKey("ProfessorId");
-
-                    b.HasIndex("DepartamentoId");
 
                     b.HasIndex("GeneroId");
 
@@ -166,8 +164,7 @@ namespace IPGManager.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CargoId")
-                        .IsRequired()
+                    b.Property<int>("CargoId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DataTarefa")
@@ -177,8 +174,7 @@ namespace IPGManager.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("FuncionarioId")
-                        .IsRequired()
+                    b.Property<int>("FuncionarioId")
                         .HasColumnType("int");
 
                     b.Property<string>("NomeTarefa")
@@ -205,12 +201,6 @@ namespace IPGManager.Migrations
 
             modelBuilder.Entity("IPGManager.Models.Professor", b =>
                 {
-                    b.HasOne("IPGManager.Models.Departamento", "Departamento")
-                        .WithMany()
-                        .HasForeignKey("DepartamentoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("IPGManager.Models.GeneroLista", "Genero")
                         .WithMany("Professores")
                         .HasForeignKey("GeneroId")
