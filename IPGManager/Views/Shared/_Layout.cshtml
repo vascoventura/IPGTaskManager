@@ -4,8 +4,13 @@
     <title>IPGManagement</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="~/css/site.css">
+    <link rel="stylesheet" type="text/css" href="~/css/sitecss.css">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
 </head>
 
 <body>
@@ -22,11 +27,11 @@
                             <div class="dropdown">
                                 <button class="dropbtn">ADICIONAR</button>
                                 <div class="dropdown-content">
-                                    <a asp-area="" asp-controller="Tarefas" asp-action="Create">TAREFAS</a>
-                                    <a asp-area="" asp-controller="Departamentos" asp-action="Create">DEPARTAMENTOS</a>
-                                    <a asp-area="" asp-controller="Cargos" asp-action="Create">CARGOS</a>
-                                    <a asp-area="" asp-controller="Funcionarios" asp-action="Create">FUNCIONÁRIOS</a>
-                                    <a asp-area="" asp-controller="Professores" asp-action="Create">PROFESSORES</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Tarefas" asp-action="Create">TAREFAS</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Departamentos" asp-action="Create">DEPARTAMENTOS</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Cargos" asp-action="Create">CARGOS</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Funcionarios" asp-action="Create">FUNCIONÁRIOS</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Professores" asp-action="Create">PROFESSORES </a>
                                 </div>
                             </div>
                         </li>
@@ -39,11 +44,11 @@
                         <div class="dropdown">
                             <button class="dropbtn">DETALHES</button>
                             <div class="dropdown-content">
-                                <a asp-area="" asp-controller="Tarefas" asp-action="Index">TAREFAS</a>
-                                <a asp-area="" asp-controller="Departamentos" asp-action="Index">DEPARTAMENTOS</a>
-                                <a asp-area="" asp-controller="Cargos" asp-action="Index">CARGOS</a>
-                                <a asp-area="" asp-controller="Funcionarios" asp-action="Index">FUNCIONÁRIOS</a>
-                                <a asp-area="" asp-controller="Professores" asp-action="Index">PROFESSORES</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Tarefas" asp-action="Index">TAREFAS</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Departamentos" asp-action="Index">DEPARTAMENTOS</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Cargos" asp-action="Index">CARGOS</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Funcionarios" asp-action="Index">FUNCIONÁRIOS</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Professores" asp-action="Index">PROFESSORES</a>
                             </div>
                         </div>
                     </li>
