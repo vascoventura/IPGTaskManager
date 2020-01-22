@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -25,8 +26,9 @@ namespace IPGManager.Models
 
         
         [Required(ErrorMessage = "Por favor, selcecione o género")]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int GeneroId { get; set; }        
-        public GeneroLista Genero { get; set; }
+        public Genero Genero { get; set; }
 
 
         

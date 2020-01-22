@@ -7,6 +7,8 @@ namespace IPGManager.Models
 {
     public class IPGManagerDBContext : DbContext
     {
+
+       
         public IPGManagerDBContext(DbContextOptions<IPGManagerDBContext> options) : base(options)
         {
         }
@@ -19,7 +21,7 @@ namespace IPGManager.Models
 
         public DbSet<IPGManager.Models.Tarefa> Tarefa { get; set; }
         public DbSet<IPGManager.Models.Professor> Professor { get; set; }
-        public DbSet<IPGManager.Models.GeneroLista> Generos { get; set; }
+        public DbSet<IPGManager.Models.Genero> Genero { get; set; }
         public DbSet<IPGManager.Models.Login> Login { get; set; }
 
     }

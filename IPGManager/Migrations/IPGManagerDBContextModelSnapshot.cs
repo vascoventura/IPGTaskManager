@@ -76,9 +76,6 @@ namespace IPGManager.Migrations
                     b.Property<DateTime>("DataNascimento")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Genero")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("GeneroId")
                         .HasColumnType("int");
 
@@ -91,20 +88,22 @@ namespace IPGManager.Migrations
 
                     b.HasIndex("CargoId");
 
+                    b.HasIndex("GeneroId");
+
                     b.ToTable("Funcionario");
                 });
 
-            modelBuilder.Entity("IPGManager.Models.GeneroLista", b =>
+            modelBuilder.Entity("IPGManager.Models.Genero", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("GeneroId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Genero")
+                    b.Property<string>("GeneroTipo")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("id");
+                    b.HasKey("GeneroId");
 
-                    b.ToTable("Generos");
+                    b.ToTable("Genero");
                 });
 
             modelBuilder.Entity("IPGManager.Models.Login", b =>
@@ -199,6 +198,12 @@ namespace IPGManager.Migrations
                         .HasForeignKey("CargoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("IPGManager.Models.Genero", "Genero")
+                        .WithMany("Funcionarios")
+                        .HasForeignKey("GeneroId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("IPGManager.Models.Professor", b =>
@@ -209,8 +214,8 @@ namespace IPGManager.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("IPGManager.Models.GeneroLista", "Genero")
-                        .WithMany("Professores")
+                    b.HasOne("IPGManager.Models.Genero", "Genero")
+                        .WithMany("professores")
                         .HasForeignKey("GeneroId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

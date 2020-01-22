@@ -107,10 +107,10 @@ namespace IPGManager.Controllers
         }
         private void PopulategendersDropDownList(object selectedGender = null)
         {
-            var gendersQuery = from d in _context.Generos
+            var gendersQuery = from d in _context.Genero
                                    
                                    select d;
-            ViewBag.GenderID = new SelectList(gendersQuery.AsNoTracking(), "id", "Genero", selectedGender);
+            ViewBag.GenderID = new SelectList(gendersQuery.AsNoTracking(), "GeneroId", "GeneroTipo", selectedGender);
         }
 
         // GET: Professores/Create

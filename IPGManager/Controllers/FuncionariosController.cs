@@ -91,17 +91,17 @@ namespace IPGManager.Controllers
 
         private void PopulategendersDropDownList(object selectedGender = null)
         {
-            var gendersQuery = from d in _context.Generos
+            var gendersQuery = from d in _context.Genero
 
                                select d;
-            ViewBag.GenderID = new SelectList(gendersQuery.AsNoTracking(), "id", "Genero", selectedGender);
+            ViewBag.GenderID = new SelectList(gendersQuery.AsNoTracking(), "GeneroId", "GeneroTipo", selectedGender);
         }
 
         public IActionResult Create()
         {
             PopulategendersDropDownList();
             ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "NomeCargo");
-            ViewData["GeneroId"] = new SelectList(_context.Cargo, "id", "Genero");
+            ViewData["GeneroId"] = new SelectList(_context.Cargo, "GeneroId", "GeneroTipo");
             return View();
         }
 
@@ -119,7 +119,7 @@ namespace IPGManager.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "NomeCargo", funcionario.CargoId);
-            ViewData["GeneroId"] = new SelectList(_context.Generos, "id", "Genero", funcionario.GeneroId);
+            ViewData["GeneroId"] = new SelectList(_context.Genero, "GeneroId", "Genero", funcionario.GeneroId);
             return View(funcionario);
         }
 
@@ -137,7 +137,7 @@ namespace IPGManager.Controllers
                 return NotFound();
             }
             ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "NomeCargo", funcionario.CargoId);
-            ViewData["GeneroId"] = new SelectList(_context.Generos, "id", "Genero", funcionario.GeneroId);
+            ViewData["GeneroId"] = new SelectList(_context.Genero, "GeneroId", "GeneroTipo", funcionario.GeneroId);
             return View(funcionario);
         }
 
@@ -174,7 +174,7 @@ namespace IPGManager.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "NomeCargo", funcionario.CargoId);
-            ViewData["GeneroId"] = new SelectList(_context.Generos, "id", "Genero", funcionario.GeneroId);
+            ViewData["GeneroId"] = new SelectList(_context.Genero, "GeneroId", "Genero", funcionario.GeneroId);
             return View(funcionario);
         }
 

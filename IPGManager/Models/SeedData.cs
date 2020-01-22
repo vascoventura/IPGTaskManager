@@ -14,11 +14,11 @@ namespace IPGManager.Models
 
         public static void Populate(IPGManagerDBContext db)
         {
-           if (!db.Generos.Any()) {
-                db.Generos.AddRange(
-                    new GeneroLista { id=1, Genero = "Masculino" },
-                    new GeneroLista { id = 2, Genero = "Feminino" },
-                    new GeneroLista { id = 3, Genero = "Outro" }
+           if (!db.Genero.Any()) {
+                db.Genero.AddRange(
+                    new Genero { GeneroId=1, GeneroTipo = "Masculino" },
+                    new Genero { GeneroId =2, GeneroTipo = "Feminino" },
+                    new Genero { GeneroId =3, GeneroTipo = "Outro" }
                     );
                 
             }

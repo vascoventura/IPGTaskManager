@@ -7,13 +7,17 @@ using System.Threading.Tasks;
 
 namespace IPGManager.Models
 {
-    public class GeneroLista
+    public class Genero
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Key]
-        public int id { get; set; }
-        public String Genero { get; set; }
+        public int GeneroId { get; set; }
+        public String GeneroTipo { get; set; }
         
-        public ICollection<Professor> Professores { get; set; }
+
+        public ICollection<Funcionario> Funcionarios { get; set; }
+        
+        public ICollection<Professor> professores { get; set; }
+
     }
 }
