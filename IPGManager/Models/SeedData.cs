@@ -11,7 +11,6 @@ namespace IPGManager.Models
     {
         private const string ADMIN_ROLE = "admin";
         private const string MANAGER_ROLE = "manager";
-        private const string CHEF_ROLE = "chef";
 
         public static void Populate(IPGManagerDBContext db)
         {
@@ -120,6 +119,7 @@ namespace IPGManager.Models
                 await userManager.AddToRoleAsync(user, MANAGER_ROLE);
             }
 
+            /*
             user = await userManager.FindByNameAsync("test@ipg.pt");
             if (user == null)
             {
@@ -130,7 +130,7 @@ namespace IPGManager.Models
                 };
 
                 await userManager.CreateAsync(user, ADMIN_PASSWORD);
-            }
+            }*/
 
             // Create other user accounts ...
         }
@@ -149,10 +149,6 @@ namespace IPGManager.Models
                 await roleManager.CreateAsync(new IdentityRole(MANAGER_ROLE));
             }
 
-            if (!await roleManager.RoleExistsAsync(CHEF_ROLE))
-            {
-                await roleManager.CreateAsync(new IdentityRole(MANAGER_ROLE));
-            }
         }
     }
 }
