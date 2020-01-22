@@ -27,6 +27,7 @@ namespace IPGManager.Controllers
       string searchString,
       int? pageNumber)
         {
+            PopulateDepartmentDropDownList();
             ViewData["CurrentSort"] = sortOrder;
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
@@ -43,6 +44,7 @@ namespace IPGManager.Controllers
             ViewData["CurrentFilter"] = searchString;
             var Professores = _context.Professor
         .Include(c => c.Genero)
+        .Include(d => d.Departamento)
         .AsNoTracking();
             //var Professores = from s in _context.Professor
             //             select s;
@@ -84,7 +86,10 @@ namespace IPGManager.Controllers
             }
 
             var professor = await _context.Professor
+                .Include(c => c.Genero)
+        .Include(d => d.Departamento)
                 .FirstOrDefaultAsync(m => m.ProfessorId == id);
+                
             if (professor == null)
             {
                 return NotFound();
@@ -93,6 +98,13 @@ namespace IPGManager.Controllers
             return View(professor);
         }
 
+        private void PopulateDepartmentDropDownList(object selectedDepartment = null)
+        {
+            var departmentQuery = from d in _context.Departamento
+
+                               select d;
+            ViewBag.DepartamentoID = new SelectList(departmentQuery.AsNoTracking(), "DepartamentoId", "NomeDepartamento", selectedDepartment);
+        }
         private void PopulategendersDropDownList(object selectedGender = null)
         {
             var gendersQuery = from d in _context.Generos
@@ -105,6 +117,7 @@ namespace IPGManager.Controllers
         public IActionResult Create()
         {
             PopulategendersDropDownList();
+            PopulateDepartmentDropDownList();
             return View();
         }
 
@@ -129,6 +142,8 @@ namespace IPGManager.Controllers
         // GET: Professores/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            PopulategendersDropDownList();
+            PopulateDepartmentDropDownList();
             if (id == null)
             {
                 return NotFound();
@@ -147,8 +162,9 @@ namespace IPGManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProfessorId,Nome,Contacto,DataNascimento,genero,DepartamentoId")] Professor professor)
+        public async Task<IActionResult> Edit(int id, [Bind("ProfessorId,Nome,Contacto,DataNascimento,GeneroId,DepartamentoId")] Professor professor)
         {
+            
             if (id != professor.ProfessorId)
             {
                 return NotFound();
@@ -186,6 +202,8 @@ namespace IPGManager.Controllers
             }
 
             var professor = await _context.Professor
+                .Include(c => c.Genero)
+        .Include(d => d.Departamento)
                 .FirstOrDefaultAsync(m => m.ProfessorId == id);
             if (professor == null)
             {

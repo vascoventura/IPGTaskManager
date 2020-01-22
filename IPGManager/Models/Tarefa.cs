@@ -22,12 +22,12 @@ namespace IPGManager.Models
         public DateTime DataTarefa { get; set; }
 
         [Required(ErrorMessage = "Por favor, introduza o cargo a que a tarefa se destina")]
-        public int CargoId { get; set; }
+        public int? CargoId { get; set; }
 
         public Cargo Cargo { get; set; }
 
         [Required(ErrorMessage = "Por favor, introduza o funcionário a que a tarefa se destina")]
-        public int FuncionarioId { get; set; }
+        public int? FuncionarioId { get; set; }
         public Funcionario Funcionario { get; set; }
 
 

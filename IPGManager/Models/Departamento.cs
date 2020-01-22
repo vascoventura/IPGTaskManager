@@ -16,8 +16,6 @@ namespace IPGManager.Models
         [StringLength(50, ErrorMessage = "O nome é muito longo")]
         public string NomeDepartamento { get; set; }
 
-        public ICollection<Funcionario> Funcionarios;
-
-        public ICollection<Professor> Professores ;
+        public ICollection<Professor> Professores;
     }
 }
