@@ -77,8 +77,10 @@ namespace IPGManager.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Genero")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("GeneroId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Nome")
                         .IsRequired()
@@ -170,6 +172,9 @@ namespace IPGManager.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("FuncionarioId")
+                        .HasColumnType("int");
+
                     b.Property<string>("NomeTarefa")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -177,6 +182,8 @@ namespace IPGManager.Migrations
                     b.HasKey("TarefaId");
 
                     b.HasIndex("CargoId");
+
+                    b.HasIndex("FuncionarioId");
 
                     b.ToTable("Tarefa");
                 });
@@ -204,6 +211,12 @@ namespace IPGManager.Migrations
                     b.HasOne("IPGManager.Models.Cargo", "Cargo")
                         .WithMany()
                         .HasForeignKey("CargoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("IPGManager.Models.Funcionario", "Funcionario")
+                        .WithMany()
+                        .HasForeignKey("FuncionarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace IPGManager.Migrations
 {
-    public partial class Initial : Migration
+    public partial class Inicio : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -69,7 +69,8 @@ namespace IPGManager.Migrations
                     Nome = table.Column<string>(maxLength: 50, nullable: false),
                     Contacto = table.Column<string>(nullable: false),
                     DataNascimento = table.Column<DateTime>(nullable: false),
-                    Genero = table.Column<string>(nullable: false),
+                    GeneroId = table.Column<int>(nullable: false),
+                    Genero = table.Column<string>(nullable: true),
                     CargoId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -77,28 +78,6 @@ namespace IPGManager.Migrations
                     table.PrimaryKey("PK_Funcionario", x => x.FuncionarioId);
                     table.ForeignKey(
                         name: "FK_Funcionario_Cargo_CargoId",
-                        column: x => x.CargoId,
-                        principalTable: "Cargo",
-                        principalColumn: "CargoId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Tarefa",
-                columns: table => new
-                {
-                    TarefaId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    NomeTarefa = table.Column<string>(nullable: false),
-                    DescricaoTarefa = table.Column<string>(nullable: false),
-                    DataTarefa = table.Column<DateTime>(nullable: false),
-                    CargoId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Tarefa", x => x.TarefaId);
-                    table.ForeignKey(
-                        name: "FK_Tarefa_Cargo_CargoId",
                         column: x => x.CargoId,
                         principalTable: "Cargo",
                         principalColumn: "CargoId",
@@ -128,6 +107,35 @@ namespace IPGManager.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Tarefa",
+                columns: table => new
+                {
+                    TarefaId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NomeTarefa = table.Column<string>(nullable: false),
+                    DescricaoTarefa = table.Column<string>(nullable: false),
+                    DataTarefa = table.Column<DateTime>(nullable: false),
+                    CargoId = table.Column<int>(nullable: false),
+                    FuncionarioId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tarefa", x => x.TarefaId);
+                    table.ForeignKey(
+                        name: "FK_Tarefa_Cargo_CargoId",
+                        column: x => x.CargoId,
+                        principalTable: "Cargo",
+                        principalColumn: "CargoId",
+                        onDelete: ReferentialAction.NoAction);
+                    table.ForeignKey(
+                        name: "FK_Tarefa_Funcionario_FuncionarioId",
+                        column: x => x.FuncionarioId,
+                        principalTable: "Funcionario",
+                        principalColumn: "FuncionarioId",
+                        onDelete: ReferentialAction.NoAction);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Funcionario_CargoId",
                 table: "Funcionario",
@@ -142,15 +150,17 @@ namespace IPGManager.Migrations
                 name: "IX_Tarefa_CargoId",
                 table: "Tarefa",
                 column: "CargoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tarefa_FuncionarioId",
+                table: "Tarefa",
+                column: "FuncionarioId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "Departamento");
-
-            migrationBuilder.DropTable(
-                name: "Funcionario");
 
             migrationBuilder.DropTable(
                 name: "Login");
@@ -163,6 +173,9 @@ namespace IPGManager.Migrations
 
             migrationBuilder.DropTable(
                 name: "Generos");
+
+            migrationBuilder.DropTable(
+                name: "Funcionario");
 
             migrationBuilder.DropTable(
                 name: "Cargo");
