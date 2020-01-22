@@ -23,15 +23,18 @@ namespace IPGManager.Models
         [DataType(DataType.Date)]
         public DateTime DataNascimento { get; set; }
 
+        
         [Required(ErrorMessage = "Por favor, selcecione o género")]
         public int GeneroId { get; set; }        
-        public string Genero { get; set; }
+        public GeneroLista Genero { get; set; }
 
 
+        
         [Required(ErrorMessage = "Por favor, selcecione o tipo de cargo")]
         public int CargoId { get; set; }
         public Cargo Cargo { get; set; }
 
+        
         public ICollection<Tarefa> Tarefas;
 
     }

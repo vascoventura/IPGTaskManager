@@ -86,8 +86,18 @@ namespace IPGManager.Controllers
         }
 
         // GET: Funcionarios/Create
+
+        private void PopulategendersDropDownList(object selectedGender = null)
+        {
+            var gendersQuery = from d in _context.Generos
+
+                               select d;
+            ViewBag.GenderID = new SelectList(gendersQuery.AsNoTracking(), "id", "Genero", selectedGender);
+        }
+
         public IActionResult Create()
         {
+            PopulategendersDropDownList();
             ViewData["CargoId"] = new SelectList(_context.Cargo, "CargoId", "NomeCargo");
             return View();
         }
