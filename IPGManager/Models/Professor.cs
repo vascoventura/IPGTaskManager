@@ -24,6 +24,9 @@ namespace IPGManager.Models
        
         public int GeneroId { get; set; }
         public GeneroLista Genero { get; set; }
-        public int? DepartamentoId { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int DepartamentoId { get; set; }
+        public Departamento Departamento { get; set; }
+
     }
 }

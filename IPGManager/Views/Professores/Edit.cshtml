@@ -19,7 +19,7 @@
                 <input asp-for="Nome" class="form-control" />
                 <span asp-validation-for="Nome" class="text-danger"></span>
             </div>
-            
+
             <div class="form-group">
                 <label asp-for="Contacto" class="control-label">Contacto</label>
                 <input asp-for="Contacto" class="form-control" />
@@ -30,15 +30,23 @@
                 <input asp-for="DataNascimento" class="form-control" />
                 <span asp-validation-for="DataNascimento" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="Genero" class="control-label">Género</label>
-                <input asp-for="Genero" class="form-control" />
-                <span asp-validation-for="Genero" class="text-danger"></span>
+                <label asp-for="GeneroId" class="control-label">Género</label>
+                <select asp-for="GeneroId" class="form-control" asp-items="ViewBag.GenderID">
+                    <option value="">-- Género --</option>
+                </select>
+                <span asp-validation-for="GeneroId" class="text-danger" />
+
+
+
             </div>
             <div class="form-group">
                 <label asp-for="DepartamentoId" class="control-label">Departamento</label>
-                <input asp-for="DepartamentoId" class="form-control" />
-                <span asp-validation-for="DepartamentoId" class="text-danger"></span>
+                <select asp-for="DepartamentoId" class="form-control" asp-items="ViewBag.DepartamentoID">
+                    <option value="">-- Departamento --</option>
+                </select>
+                <span asp-validation-for="DepartamentoId" class="text-danger" />
             </div>
             <div class="form-group">
                 <input type="submit" value="Guardar" class="btn btn-primary" />
