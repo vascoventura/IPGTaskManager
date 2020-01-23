@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IPGManager.Migrations
 {
     [DbContext(typeof(IPGManagerDBContext))]
-    [Migration("20200123005855_Initial")]
+    [Migration("20200123041745_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -160,6 +160,28 @@ namespace IPGManager.Migrations
                     b.ToTable("Professor");
                 });
 
+            modelBuilder.Entity("IPGManager.Models.TarFunc", b =>
+                {
+                    b.Property<int>("TarFuncId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("FuncionarioId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TarefaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("TarFuncId");
+
+                    b.HasIndex("FuncionarioId");
+
+                    b.HasIndex("TarefaId");
+
+                    b.ToTable("TarFunc");
+                });
+
             modelBuilder.Entity("IPGManager.Models.Tarefa", b =>
                 {
                     b.Property<int>("TarefaId")
@@ -167,8 +189,7 @@ namespace IPGManager.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CargoId")
-                        .IsRequired()
+                    b.Property<int>("CargoId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DataTarefa")
@@ -178,10 +199,6 @@ namespace IPGManager.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("FuncionarioId")
-                        .IsRequired()
-                        .HasColumnType("int");
-
                     b.Property<string>("NomeTarefa")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -189,8 +206,6 @@ namespace IPGManager.Migrations
                     b.HasKey("TarefaId");
 
                     b.HasIndex("CargoId");
-
-                    b.HasIndex("FuncionarioId");
 
                     b.ToTable("Tarefa");
                 });
@@ -219,8 +234,23 @@ namespace IPGManager.Migrations
                         .IsRequired();
 
                     b.HasOne("IPGManager.Models.Genero", "Genero")
-                        .WithMany("professores")
+                        .WithMany("Professores")
                         .HasForeignKey("GeneroId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("IPGManager.Models.TarFunc", b =>
+                {
+                    b.HasOne("IPGManager.Models.Funcionario", "Funcionario")
+                        .WithMany()
+                        .HasForeignKey("FuncionarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("IPGManager.Models.Tarefa", "Tarefa")
+                        .WithMany()
+                        .HasForeignKey("TarefaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -230,12 +260,6 @@ namespace IPGManager.Migrations
                     b.HasOne("IPGManager.Models.Cargo", "Cargo")
                         .WithMany()
                         .HasForeignKey("CargoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("IPGManager.Models.Funcionario", "Funcionario")
-                        .WithMany()
-                        .HasForeignKey("FuncionarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

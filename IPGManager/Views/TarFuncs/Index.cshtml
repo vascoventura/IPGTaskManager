@@ -17,15 +17,7 @@ else
 {
 }
 
-@using (Html.BeginForm())
-{
-    <p>
-        <input type="text" name="SearchString" placeholder="Funcionário?" value="@ViewData["CurrentFilter"]" />
-        <button type="submit" class="button button1">Procurar&nbsp;<i class="fa fa-search"></i></button>
-        <a class="button button2" asp-action="Index">Voltar&nbsp;<i class="fas fa-chevron-left"></i></a>
-
-    </p>
-}
+<partial name="_SearchBar" />
 <table class="table">
     <thead>
         <tr>
