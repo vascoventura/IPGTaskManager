@@ -11,21 +11,23 @@ namespace IPGManager.Models
         [Required( ErrorMessage = "Por favor, introduza o nome")]
         [StringLength (50, ErrorMessage = "O nome é muito longo")]
         public string Nome { get; set; }
-        
-        [Required(ErrorMessage = "Por favor, introduza o Apelido")]
-       
 
+
+
+        [RegularExpressionAttribute("^9[1236]{1}[0-9]{7}$",
+        ErrorMessage = "Contato Inválido ")]
         public string Contacto { get; set; }
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        [MinAge(18)]
         public DateTime DataNascimento { get; set; }
 
         [Required(ErrorMessage = "Por favor, introduza o Género")]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]       
+         
         public int GeneroId { get; set; }        
         public Genero Genero { get; set; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Required(ErrorMessage = "Por favor, introduza o Departamento")]
         public int DepartamentoId { get; set; }
         public Departamento Departamento { get; set; }
 
