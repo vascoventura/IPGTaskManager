@@ -17,6 +17,8 @@ namespace IPGManager.Models
         public string Nome { get; set; }
 
         [Required(ErrorMessage = "Por favor, introduza o Contacto")]
+        [RegularExpressionAttribute("^9[1236]{1}[0-9]{7}$",
+        ErrorMessage = "Contato Inválido " )]
         public string Contacto { get; set; }
 
         [Required(ErrorMessage = "Por favor, introduza a Data de Nascimento")]
