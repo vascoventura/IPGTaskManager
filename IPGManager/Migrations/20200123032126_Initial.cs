@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace IPGManager.Migrations
 {
-    public partial class initial : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -141,6 +141,32 @@ namespace IPGManager.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "TarFunc",
+                columns: table => new
+                {
+                    TarFuncId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FuncionarioId = table.Column<int>(nullable: false),
+                    TarefaId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TarFunc", x => x.TarFuncId);
+                    table.ForeignKey(
+                        name: "FK_TarFunc_Funcionario_FuncionarioId",
+                        column: x => x.FuncionarioId,
+                        principalTable: "Funcionario",
+                        principalColumn: "FuncionarioId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TarFunc_Tarefa_TarefaId",
+                        column: x => x.TarefaId,
+                        principalTable: "Tarefa",
+                        principalColumn: "TarefaId",
+                        onDelete: ReferentialAction.NoAction);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Funcionario_CargoId",
                 table: "Funcionario",
@@ -165,13 +191,20 @@ namespace IPGManager.Migrations
                 name: "IX_Tarefa_CargoId",
                 table: "Tarefa",
                 column: "CargoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TarFunc_FuncionarioId",
+                table: "TarFunc",
+                column: "FuncionarioId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TarFunc_TarefaId",
+                table: "TarFunc",
+                column: "TarefaId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Funcionario");
-
             migrationBuilder.DropTable(
                 name: "Login");
 
@@ -179,10 +212,16 @@ namespace IPGManager.Migrations
                 name: "Professor");
 
             migrationBuilder.DropTable(
-                name: "Tarefa");
+                name: "TarFunc");
 
             migrationBuilder.DropTable(
                 name: "Departamento");
+
+            migrationBuilder.DropTable(
+                name: "Funcionario");
+
+            migrationBuilder.DropTable(
+                name: "Tarefa");
 
             migrationBuilder.DropTable(
                 name: "Genero");

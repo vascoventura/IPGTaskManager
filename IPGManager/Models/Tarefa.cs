@@ -25,6 +25,8 @@ namespace IPGManager.Models
         public int CargoId { get; set; }
         public Cargo Cargo { get; set; }
 
+        public ICollection<TarFunc> TarFunc;
+
 
     }
 }
