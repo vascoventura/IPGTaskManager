@@ -9,7 +9,6 @@ namespace IPGManager.Models
 {
     public class Funcionario{
         
-        [Key]
         public int FuncionarioId { get; set; }
 
 

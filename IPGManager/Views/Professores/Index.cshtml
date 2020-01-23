@@ -1,5 +1,4 @@
-﻿
-@using X.PagedList.Mvc.Core
+﻿@using X.PagedList.Mvc.Core
 
 @model PaginatedList<IPGManager.Models.Professor>
 
@@ -34,18 +33,9 @@ else
 
     <p>
         <input type="text" name="SearchString" placeholder="Procure por nome" value="@ViewData["CurrentFilter"]" />
-        <button type="submit" class="button button1">Procurar&nbsp;<i class="fa fa-search"></i></button>
+        <button type="submit" class="btn btn-light"><i class="fa fa-search"></i></button>
         <a class="button button2" asp-action="Index">Voltar&nbsp;<i class="fas fa-chevron-left"></i></a>
-        <div class="dropdown">
-            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"> <span class="caret"></span><i class="fas fa-filter"></i> </button>
-
-            <ul class="dropdown-menu">
-                @foreach (var item in ViewBag.DepartamentoID)
-                {
-                    <li> @item =>item.DepartamentoID  </li>
-                }
-            </ul>
-        </div>
+        
     </p>
 }
 <table class="table">

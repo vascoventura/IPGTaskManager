@@ -17,7 +17,7 @@ namespace IPGManager.Models
 
         public ICollection<Funcionario> Funcionarios { get; set; }
         
-        public ICollection<Professor> professores { get; set; }
+        public ICollection<Professor> Professores { get; set; }
 
     }
 }
