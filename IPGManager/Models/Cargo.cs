@@ -22,7 +22,9 @@ namespace IPGManager.Models
 
         public ICollection<Funcionario> Funcionarios;
 
-        public ICollection<Tarefa> Tarefas; 
+        public ICollection<Tarefa> Tarefas;
+
+        public ICollection<TFC> TFCS;
 
     }
 }

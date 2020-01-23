@@ -42,5 +42,7 @@ namespace IPGManager.Models
 
         public ICollection<TarFunc> TarFunc;
 
+        public ICollection<TFC> TFCS;
+
     }
 }
