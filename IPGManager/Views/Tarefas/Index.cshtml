@@ -1,12 +1,13 @@
 ﻿@using X.PagedList.Mvc.Core
 
-@model PaginatedList<IPGManager.Models.Tarefa>
+@model ICollection<IPGManager.Models.Tarefa>
 
 @{
     ViewData["Title"] = "Index";
 }
 
 <h1>Tarefas</h1>
+<hr />
 @if (User.IsInRole("manager") || User.IsInRole("admin"))
 {
     <p>
@@ -16,14 +17,7 @@
 else
 {
 }
-@using (Html.BeginForm())
-{
-    <p>
-        <input type="text" name="SearchString" placeholder="Procure por nome" value="@ViewData["CurrentFilter"]" />
-        <input type="submit" value="Search" class="button button1" />
-        <a class="button button2" asp-action="Index">Voltar</a>
-    </p>
-}
+
 <table class="table">
     <thead>
         <tr>
@@ -71,27 +65,3 @@ else
         }
     </tbody>
 </table>
-
-@{
-    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
-    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
-}
-
-<a asp-action="Index"
-   asp-route-sortOrder="@ViewData["CurrentSort"]"
-   asp-route-pageNumber="@(Model.PageIndex - 1)"
-   asp-route-currentFilter="@ViewData["CurrentFilter"]"
-   class="buttonprevious @prevDisabled" style="vertical-align:middle">
-    <span>
-        <i class="fas fa-backward"></i>&nbsp;Previous
-    </span>
-</a>
-<a asp-action="Index"
-   asp-route-sortOrder="@ViewData["CurrentSort"]"
-   asp-route-pageNumber="@(Model.PageIndex + 1)"
-   asp-route-currentFilter="@ViewData["CurrentFilter"]"
-   class="buttonnext @nextDisabled" style="vertical-align:middle">
-    <span>
-        Next&nbsp;<i class="fas fa-forward"></i>
-    </span>
-</a>

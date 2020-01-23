@@ -12,6 +12,8 @@
 }
 
 <h1>Funcionários</h1>
+<hr />
+<hr />
 @if (User.IsInRole("manager") || User.IsInRole("admin"))
 {
     <p>
@@ -31,24 +33,13 @@ else
 
 
     <p>
-        <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" placeholder="Pesquisar por nome" />
-
+        <input type="text" name="SearchString" placeholder="Procure por nome" value="@ViewData["CurrentFilter"]" />
         <button type="submit" class="btn btn-light"><i class="fa fa-search"></i></button>
-        <a asp-action="Index" class="btn btn-light" data-toggle="tooltip" title="Voltar à Lista Completa"><i class="fas fa-chevron-left"></i></a>
-        <div class="dropdown">
-            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"> <span class="caret"></span><i class="fas fa-filter"></i> </button>
-        </div>
+        <a class="button button2" asp-action="Index">Voltar&nbsp;<i class="fas fa-chevron-left"></i></a>
+        
     </p>
 }
-<form asp-action="Index" method="get">
-    <div class="form-actions no-color">
-        <p>
-            <input type="text" name="SearchString" placeholder="Procure por nome" value="@ViewData["CurrentFilter"]" />
-            <button type="submit" class="button button1">Procurar&nbsp;<i class="fa fa-search"></i></button>
-            <a class="button button2" asp-action="Index">Voltar&nbsp;<i class="fas fa-chevron-left"></i></a>
-        </p>
-    </div>
-</form>
+
 <table class="table">
     <thead>
         <tr>

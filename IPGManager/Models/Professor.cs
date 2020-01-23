@@ -19,13 +19,12 @@ namespace IPGManager.Models
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime DataNascimento { get; set; }
-        [Required(ErrorMessage = "Por favor, introduza o Género")]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
 
-       
-        public int GeneroId { get; set; }
-        
+        [Required(ErrorMessage = "Por favor, introduza o Género")]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]       
+        public int GeneroId { get; set; }        
         public Genero Genero { get; set; }
+
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int DepartamentoId { get; set; }
         public Departamento Departamento { get; set; }
