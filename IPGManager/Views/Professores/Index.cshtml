@@ -14,6 +14,7 @@
 }
 
 <h1>Professores</h1>
+<hr />
 @if (User.IsInRole("manager") || User.IsInRole("admin"))
 {
     <p>
@@ -51,7 +52,6 @@ else
             </th>
             <th>
                 <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Data de Nascimento</a>
-            </th>
             </th>
             <th>
                 Género
