@@ -19,9 +19,41 @@ namespace IPGManager.Controllers
         }
 
         // GET: Departamentos
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? pageNumber)
         {
-            return View(await _context.Departamento.ToListAsync());
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["CurrentFilter"] = searchString;
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewData["CurrentFilter"] = searchString;
+            var Departamentos = from s in _context.Departamento
+                         select s;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                Departamentos = Departamentos.Where(s => s.NomeDepartamento.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                default:
+                    Departamentos = Departamentos.OrderBy(s => s.NomeDepartamento);
+                    break;
+                case "name_desc":
+                    Departamentos = Departamentos.OrderByDescending(s => s.NomeDepartamento);
+                    break;
+            }
+            int pageSize = 5;
+
+            return View(await PaginatedList<Departamento>.CreateAsync(Departamentos.AsNoTracking(), pageNumber ?? 1, pageSize));
+
         }
 
         // GET: Departamentos/Details/5

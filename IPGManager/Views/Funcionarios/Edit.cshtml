@@ -44,7 +44,7 @@
                 <span asp-validation-for="CargoId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="button button3" /> | <a class="button button2" asp-action="Index">Voltar</a>
+                <button type="submit" class="button button3" onclick="return confirm('Deseja mesmo editar?')">Salvar&nbsp;<i class="fa fa-save"></i></button> | <a class="button button2" asp-action="Index">Voltar&nbsp;<i class="fas fa-chevron-left"></i></a>
             </div>
         </form>
     </div>
