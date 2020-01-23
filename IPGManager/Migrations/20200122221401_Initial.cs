@@ -87,7 +87,6 @@ namespace IPGManager.Migrations
                         principalTable: "Generos",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
-
                 });
 
             migrationBuilder.CreateTable(

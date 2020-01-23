@@ -46,23 +46,43 @@ namespace IPGManager.Models
 
             }
 
+            if (!db.Cargo.Any())
+            {
+                db.Cargo.AddRange(
+                    new Cargo { NomeCargo = "Auxiliar", Descricao = "Descrição do Cargo", NivelCargo = 1 },
+                    new Cargo { NomeCargo = "Coordenador de Curso", Descricao = "Descrição do Cargo", NivelCargo = 1 },
+                    new Cargo { NomeCargo = "Director da Escola", Descricao = "Descrição do Cargo", NivelCargo = 1 },
+                    new Cargo { NomeCargo = "Director de Curso", Descricao = "Descrição do Cargo", NivelCargo = 1 },
+                    new Cargo { NomeCargo = "Ginásio", Descricao = "Descrição do Cargo", NivelCargo = 1 },
+                    new Cargo { NomeCargo = "Jardineiro", Descricao = "Descrição do Cargo", NivelCargo = 1 },
+                    new Cargo { NomeCargo = "Papelaria", Descricao = "Descrição do Cargo", NivelCargo = 1 },
+                    new Cargo { NomeCargo = "Presidente", Descricao = "Descrição do Cargo", NivelCargo = 1 },
+                    new Cargo { NomeCargo = "Professor", Descricao = "Descrição do Cargo", NivelCargo = 1 },
+                    new Cargo { NomeCargo = "Rececção", Descricao = "Descrição do Cargo", NivelCargo = 1 },
+                    new Cargo { NomeCargo = "Secretaria", Descricao = "Descrição do Cargo", NivelCargo = 1 },
+                    new Cargo { NomeCargo = "Supervisor Geral", Descricao = "Descrição do Cargo", NivelCargo = 1 },
+                    new Cargo { NomeCargo = "Supervisor Secretaria", Descricao = "Descrição do Cargo", NivelCargo = 1 }
+                );
+                db.SaveChanges();
+            }
+
             if (!db.Funcionario.Any())
             {
                 db.Funcionario.AddRange(
-                    new Funcionario { Nome = "Joana Frade", Contacto = "912545145", DataNascimento = DateTime.Parse("30-09-1952", CultureInfo.CreateSpecificCulture("fr-FR")), GeneroId = 2, CargoId=92},
-                    new Funcionario { Nome = "José Albino", Contacto = "965105224", DataNascimento = DateTime.Parse("25-07-1950", CultureInfo.CreateSpecificCulture("fr-FR")), GeneroId = 1, CargoId = 92 },
-                    new Funcionario { Nome = "Alberto Quintas", Contacto = "925447159", DataNascimento = DateTime.Parse("03-05-1960", CultureInfo.CreateSpecificCulture("fr-FR")), GeneroId = 1, CargoId = 92 },
-                    new Funcionario { Nome = "Bernardina Rodrigues", Contacto = "936645792", DataNascimento = DateTime.Parse("09-03-1964", CultureInfo.CreateSpecificCulture("fr-FR")), GeneroId = 2, CargoId = 92 },
-                    new Funcionario { Nome = "Carla Vieira", Contacto = "962874412", DataNascimento = DateTime.Parse("11-08-1960", CultureInfo.CreateSpecificCulture("fr-FR")), GeneroId = 2, CargoId = 92 },
-                    new Funcionario { Nome = "Cátia Gulhermino", Contacto = "914582443", DataNascimento = DateTime.Parse("14-07-1955", CultureInfo.CreateSpecificCulture("fr-FR")), GeneroId = 2, CargoId = 92 },
-                    new Funcionario { Nome = "Tiago Santos", Contacto = "934875124", DataNascimento = DateTime.Parse("29-09-1992", CultureInfo.CreateSpecificCulture("fr-FR")), GeneroId = 2, CargoId = 92 },
-                    new Funcionario { Nome = "Telma Pontes", Contacto = "924587455", DataNascimento = DateTime.Parse("17-09-1995", CultureInfo.CreateSpecificCulture("fr-FR")), GeneroId = 2, CargoId = 92 },
-                    new Funcionario { Nome = "Carolina Cruz", Contacto = "965478454", DataNascimento = DateTime.Parse("21-05-1984", CultureInfo.CreateSpecificCulture("fr-FR")), GeneroId = 2, CargoId = 92 },
-                    new Funcionario { Nome = "António Saraiva", Contacto = "915474574", DataNascimento = DateTime.Parse("19-01-1983", CultureInfo.CreateSpecificCulture("fr-FR")), GeneroId = 1, CargoId = 92 },
-                    new Funcionario { Nome = "Gonçalo Alves", Contacto = "255471454", DataNascimento = DateTime.Parse("01-01-1972", CultureInfo.CreateSpecificCulture("fr-FR")), GeneroId = 1, CargoId = 92 },
-                    new Funcionario { Nome = "Raquel Josefa", Contacto = "936745412", DataNascimento = DateTime.Parse("08-07-1963", CultureInfo.CreateSpecificCulture("fr-FR")), GeneroId = 2, CargoId = 92 },
-                    new Funcionario { Nome = "Paula Sobrancelha", Contacto = "969795597", DataNascimento = DateTime.Parse("25-09-1950", CultureInfo.CreateSpecificCulture("fr-FR")), GeneroId = 2, CargoId = 92 },
-                    new Funcionario { Nome = "Miguel Lopes", Contacto = "915625648", DataNascimento = DateTime.Parse("21-04-1950", CultureInfo.CreateSpecificCulture("fr-FR")), GeneroId = 1, CargoId = 92 }
+                    new Funcionario { Nome = "Joana Frade", Contacto = "912545145", DataNascimento = DateTime.Parse("30-09-1952", CultureInfo.CreateSpecificCulture("fr-FR")), GeneroId = 2, CargoId= 1},
+                    new Funcionario { Nome = "José Albino", Contacto = "965105224", DataNascimento = DateTime.Parse("25-07-1950", CultureInfo.CreateSpecificCulture("fr-FR")), GeneroId = 1, CargoId = 2 },
+                    new Funcionario { Nome = "Alberto Quintas", Contacto = "925447159", DataNascimento = DateTime.Parse("03-05-1960", CultureInfo.CreateSpecificCulture("fr-FR")), GeneroId = 1, CargoId = 3 },
+                    new Funcionario { Nome = "Bernardina Rodrigues", Contacto = "936645792", DataNascimento = DateTime.Parse("09-03-1964", CultureInfo.CreateSpecificCulture("fr-FR")), GeneroId = 2, CargoId = 4 },
+                    new Funcionario { Nome = "Carla Vieira", Contacto = "962874412", DataNascimento = DateTime.Parse("11-08-1960", CultureInfo.CreateSpecificCulture("fr-FR")), GeneroId = 2, CargoId = 5 },
+                    new Funcionario { Nome = "Cátia Gulhermino", Contacto = "914582443", DataNascimento = DateTime.Parse("14-07-1955", CultureInfo.CreateSpecificCulture("fr-FR")), GeneroId = 2, CargoId = 6 },
+                    new Funcionario { Nome = "Tiago Santos", Contacto = "934875124", DataNascimento = DateTime.Parse("29-09-1992", CultureInfo.CreateSpecificCulture("fr-FR")), GeneroId = 2, CargoId = 7 },
+                    new Funcionario { Nome = "Telma Pontes", Contacto = "924587455", DataNascimento = DateTime.Parse("17-09-1995", CultureInfo.CreateSpecificCulture("fr-FR")), GeneroId = 2, CargoId = 8 },
+                    new Funcionario { Nome = "Carolina Cruz", Contacto = "965478454", DataNascimento = DateTime.Parse("21-05-1984", CultureInfo.CreateSpecificCulture("fr-FR")), GeneroId = 2, CargoId = 9 },
+                    new Funcionario { Nome = "António Saraiva", Contacto = "915474574", DataNascimento = DateTime.Parse("19-01-1983", CultureInfo.CreateSpecificCulture("fr-FR")), GeneroId = 1, CargoId = 1 },
+                    new Funcionario { Nome = "Gonçalo Alves", Contacto = "255471454", DataNascimento = DateTime.Parse("01-01-1972", CultureInfo.CreateSpecificCulture("fr-FR")), GeneroId = 1, CargoId = 2 },
+                    new Funcionario { Nome = "Raquel Josefa", Contacto = "936745412", DataNascimento = DateTime.Parse("08-07-1963", CultureInfo.CreateSpecificCulture("fr-FR")), GeneroId = 2, CargoId = 3 },
+                    new Funcionario { Nome = "Paula Sobrancelha", Contacto = "969795597", DataNascimento = DateTime.Parse("25-09-1950", CultureInfo.CreateSpecificCulture("fr-FR")), GeneroId = 2, CargoId = 4 },
+                    new Funcionario { Nome = "Miguel Lopes", Contacto = "915625648", DataNascimento = DateTime.Parse("21-04-1950", CultureInfo.CreateSpecificCulture("fr-FR")), GeneroId = 1, CargoId = 5 }
                 );
 
                 db.SaveChanges();
@@ -95,34 +115,9 @@ namespace IPGManager.Models
 
             }
 
-            if (!db.Cargo.Any())
-            {
-                db.Cargo.AddRange(
-                    new Cargo { NomeCargo = "Auxiliar", Descricao = "Descrição do Cargo", NivelCargo = 1 },
-                    new Cargo { NomeCargo = "Coordenador de Curso", Descricao = "Descrição do Cargo", NivelCargo = 1 },
-                    new Cargo { NomeCargo = "Director da Escola", Descricao = "Descrição do Cargo", NivelCargo = 1 },
-                    new Cargo { NomeCargo = "Director de Curso", Descricao = "Descrição do Cargo", NivelCargo = 1 },
-                    new Cargo { NomeCargo = "Ginásio", Descricao = "Descrição do Cargo", NivelCargo = 1 },
-                    new Cargo { NomeCargo = "Jardineiro", Descricao = "Descrição do Cargo", NivelCargo = 1 },
-                    new Cargo { NomeCargo = "Papelaria", Descricao = "Descrição do Cargo", NivelCargo = 1 },
-                    new Cargo { NomeCargo = "Presidente", Descricao = "Descrição do Cargo", NivelCargo = 1 },
-                    new Cargo { NomeCargo = "Professor", Descricao = "Descrição do Cargo", NivelCargo = 1 },
-                    new Cargo { NomeCargo = "Rececção", Descricao = "Descrição do Cargo", NivelCargo = 1 },
-                    new Cargo { NomeCargo = "Secretaria", Descricao = "Descrição do Cargo", NivelCargo = 1 },
-                    new Cargo { NomeCargo = "Supervisor Geral", Descricao = "Descrição do Cargo", NivelCargo = 1 },
-                    new Cargo { NomeCargo = "Supervisor Secretaria", Descricao = "Descrição do Cargo", NivelCargo = 1 }
-                );
-                db.SaveChanges();
-            }
-
             
 
         }
-
-       /* public static void Populate(IPGManagerDBContext db)
-        {
-            // ...
-        }*/
 
 
         public static async Task PopulateUsersAsync(UserManager<IdentityUser> userManager)

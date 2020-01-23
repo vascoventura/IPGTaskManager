@@ -1,4 +1,6 @@
-﻿@model IEnumerable<IPGManager.Models.Departamento>
+﻿@using X.PagedList.Mvc.Core
+
+@model PaginatedList<IPGManager.Models.Departamento>
 
 @{
     ViewData["Title"] = "Index";
@@ -9,7 +11,7 @@
 @if (User.IsInRole("manager") || User.IsInRole("admin"))
 {
     <p>
-        <a class="button button3" asp-action="Create">Criar Novo</a>
+        <a class="button button3" asp-action="Create">Criar Novo&nbsp;<i class="fas fa-user-plus"></i></a>
     </p>
 }
 else
@@ -17,17 +19,17 @@ else
 }
 @using (Html.BeginForm())
 {
-    <p>
-        <input type="text" name="SearchString" placeholder="Procure por nome" value="@ViewData["CurrentFilter"]" />
-        <input type="submit" value="Search" class="button button1" />
-        <a class="button button2" asp-action="Index">Voltar</a>
-    </p>
+<p>
+    <input type="text" name="SearchString" placeholder="Procure por nome" value="@ViewData["CurrentFilter"]" />
+    <button type="submit" class="button button1">Procurar&nbsp;<i class="fa fa-search"></i></button>
+    <a class="button button2" asp-action="Index">Voltar&nbsp;<i class="fas fa-chevron-left"></i></a>
+</p>
 }
 <table class="table">
     <thead>
         <tr>
             <th>
-                Nome do Departamento
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Nome do Departamento</a>
             </th>
             <th></th>
         </tr>
@@ -41,16 +43,46 @@ else
                 </td>
                 @if (User.IsInRole("admin"))
                 {
-            <td>
-                <a class="button button3" asp-action="Edit" asp-route-id="@item.DepartamentoId">Editar</a> |
-                <a class="button button2" asp-action="Details" asp-route-id="@item.DepartamentoId">Detalhes</a> |
-                <a class="button button1" asp-action="Delete" asp-route-id="@item.DepartamentoId">Apagar</a>
-            </td>
+                    <td>
+                        <a class="button button3" asp-action="Edit" asp-route-id="@item.DepartamentoId">
+                            Editar&nbsp;<i class="fas fa-edit"></i>                      
+                        </a> |
+                        <a class="button button2" asp-action="Details" asp-route-id="@item.DepartamentoId">
+                            Detalhes&nbsp;<i class="fas fa-info"></i>
+                        </a> |
+                        <a class="button button1" asp-action="Delete" asp-route-id="@item.DepartamentoId">
+                            Apagar&nbsp;<i class="fas fa-trash"></i>
+                        </a>
+                    </td>
                 }
                 else { }
             </tr>
         }
     </tbody>
 </table>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="buttonprevious @prevDisabled" style="vertical-align:middle">
+    <span>
+        <i class="fas fa-backward"></i>&nbsp;Previous
+    </span>
+</a>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="buttonnext @nextDisabled" style="vertical-align:middle">
+    <span>
+        Next&nbsp;<i class="fas fa-forward"></i>
+    </span>
+</a>
 
 

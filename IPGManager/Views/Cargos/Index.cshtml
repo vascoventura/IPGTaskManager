@@ -16,7 +16,7 @@
 @if (User.IsInRole("manager") || User.IsInRole("admin"))
 {
     <p>
-        <a class="button button3" asp-action="Create">Criar Novo</a>
+        <a class="button button3" asp-action="Create">Criar Novo&nbsp;<i class="fas fa-user-plus"></i></a>
     </p>
 }
 else
@@ -26,8 +26,8 @@ else
 {
 <p>
     <input type="text" name="SearchString" placeholder="Procure por nome" value="@ViewData["CurrentFilter"]" />
-    <input type="submit" value="Search" class="button button1"/>
-    <a class="button button2" asp-action="Index">Voltar</a>
+    <button type="submit" class="button button1">Procurar&nbsp;<i class="fa fa-search"></i></button>
+    <a class="button button2" asp-action="Index">Voltar&nbsp;<i class="fas fa-chevron-left"></i></a>
 </p>
 }
 
@@ -35,13 +35,13 @@ else
     <thead>
         <tr>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Nome</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Nome do Cargo</a>
             </th>
             <th>
-                Descrição
+                Descrição do Cargo
             </th>
             <th>
-                Nível
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NivelSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Nivel</a>
             </th>
             <th></th>
         </tr>
@@ -62,9 +62,15 @@ else
             @if (User.IsInRole("admin"))
             {
                 <td>
-                    <a class="button button3" asp-action="Edit" asp-route-id="@item.CargoId">Editar</a> |
-                    <a class="button button2" asp-action="Details" asp-route-id="@item.CargoId">Detalhes</a> |
-                    <a class="button button1" asp-action="Delete" asp-route-id="@item.CargoId">Apagar</a>
+                    <a class="button button3" asp-action="Edit" asp-route-id="@item.CargoId">
+                        Editar&nbsp;<i class="fas fa-edit"></i>                      
+                    </a> |
+                    <a class="button button2" asp-action="Details" asp-route-id="@item.CargoId">
+                        Detalhes&nbsp;<i class="fas fa-info"></i>
+                    </a> |
+                    <a class="button button1" asp-action="Delete" asp-route-id="@item.CargoId">
+                        Apagar&nbsp;<i class="fas fa-trash"></i>
+                    </a>
                 </td>
             }
             else { }
@@ -84,7 +90,7 @@ else
    asp-route-currentFilter="@ViewData["CurrentFilter"]"
    class="buttonprevious @prevDisabled" style="vertical-align:middle">
     <span>
-        Previous
+        <i class="fas fa-backward"></i>&nbsp;Previous
     </span>
 </a>
 <a asp-action="Index"
@@ -93,6 +99,6 @@ else
    asp-route-currentFilter="@ViewData["CurrentFilter"]"
    class="buttonnext @nextDisabled" style="vertical-align:middle">
     <span>
-        Next
+        Next&nbsp;<i class="fas fa-forward"></i>
     </span>
 </a>

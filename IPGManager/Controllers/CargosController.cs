@@ -23,8 +23,7 @@ namespace IPGManager.Controllers
         {
             ViewData["CurrentSort"] = sortOrder;
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            //ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
-
+            ViewData["NivelSortParm"] = String.IsNullOrEmpty(sortOrder) ? "nivel_asc" : "";
             ViewData["CurrentFilter"] = searchString;
             if (searchString != null)
             {
@@ -47,21 +46,15 @@ namespace IPGManager.Controllers
             {
                 default:
                     Cargos = Cargos.OrderBy(s => s.NomeCargo);
-                break;
+                    break;
                 case "name_desc":
                     Cargos = Cargos.OrderByDescending(s => s.NomeCargo);
-                break;
-                /*case "Date":
-                    Professores = Professores.OrderBy(s => s.DataNascimento);
-                break;
-                case "date_desc":
-                    Professores = Professores.OrderByDescending(s => s.DataNascimento);
-                break;
-                default:
-                    Professores = Professores.OrderBy(s => s.Nome);
-                break;*/
+                    break;
+                case "nivel_asc":
+                    Cargos = Cargos.OrderBy(s => s.NivelCargo);
+                    break;
             }
-            int pageSize = 7;
+            int pageSize = 5;
 
             return View(await PaginatedList<Cargo>.CreateAsync(Cargos.AsNoTracking(), pageNumber ?? 1, pageSize));
 

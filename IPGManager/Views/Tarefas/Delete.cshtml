@@ -39,7 +39,7 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="TarefaId" />
-        <input type="submit" value="Delete" class="button button1" /> |
-        <a class="button button2" asp-action="Index">Voltar</a>
+        <button type="submit" class="button button1" onclick="return confirm('Deseja mesmo apagar @Html.DisplayFor(model => model.NomeTarefa)?')">Apagar&nbsp;<i class="fa fa-trash"></i></button>
+        | <a class="button button2" asp-action="Index">Voltar&nbsp;<i class="fas fa-chevron-left"></i></a>
     </form>
 </div>
