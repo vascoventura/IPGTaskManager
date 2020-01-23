@@ -71,7 +71,7 @@ namespace IPGManager.Controllers
                     Professores = Professores.OrderBy(s => s.Nome);
                     break;
             }
-            int pageSize = 3;
+            int pageSize = 5;
            
             return View(await PaginatedList<Professor>.CreateAsync(Professores.AsNoTracking(), pageNumber ?? 1, pageSize));
 

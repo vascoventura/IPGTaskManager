@@ -24,21 +24,9 @@
 else
 {
 }
-@using (Html.BeginForm())
-{
-
-    <div>
-
-    </div>
+<partial name="_SearchBar" />
 
 
-    <p>
-        <input type="text" name="SearchString" placeholder="Procure por nome" value="@ViewData["CurrentFilter"]" />
-        <button type="submit" class="btn btn-light"><i class="fa fa-search"></i></button>
-        <a class="button button2" asp-action="Index">Voltar&nbsp;<i class="fas fa-chevron-left"></i></a>
-        
-    </p>
-}
 <table class="table">
     <thead>
         <tr>
@@ -115,7 +103,7 @@ else
    asp-route-currentFilter="@ViewData["CurrentFilter"]"
    class="buttonprevious @prevDisabled" style="vertical-align:middle">
     <span>
-        <i class="fas fa-backward"></i>&nbsp;Previous
+        <i class="fas fa-backward"></i>&nbsp;Anterior
     </span>
 </a>
 <a asp-action="Index"
@@ -124,6 +112,6 @@ else
    asp-route-currentFilter="@ViewData["CurrentFilter"]"
    class="buttonnext @nextDisabled" style="vertical-align:middle">
     <span>
-        Next&nbsp;<i class="fas fa-forward"></i>
+        Seguinte&nbsp;<i class="fas fa-forward"></i>
     </span>
 </a>

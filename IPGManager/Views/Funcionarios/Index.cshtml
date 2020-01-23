@@ -13,7 +13,6 @@
 
 <h1>Funcionários</h1>
 <hr />
-<hr />
 @if (User.IsInRole("manager") || User.IsInRole("admin"))
 {
     <p>
@@ -24,22 +23,7 @@
 else
 {
 }
-@using (Html.BeginForm())
-{
-
-    <div>
-
-    </div>
-
-
-    <p>
-        <input type="text" name="SearchString" placeholder="Procure por nome" value="@ViewData["CurrentFilter"]" />
-        <button type="submit" class="btn btn-light"><i class="fa fa-search"></i></button>
-        <a class="button button2" asp-action="Index">Voltar&nbsp;<i class="fas fa-chevron-left"></i></a>
-        
-    </p>
-}
-
+<partial name="_SearchBar" />
 <table class="table">
     <thead>
         <tr>
@@ -75,11 +59,17 @@ else
             </td>
             @if (User.IsInRole("admin"))
             {
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.FuncionarioId">Editar</a> |
-                    <a asp-action="Details" asp-route-id="@item.FuncionarioId">Detalhes</a> |
-                    <a asp-action="Delete" asp-route-id="@item.FuncionarioId">Apagar</a>
-                </td>
+        <td>
+            <a class="button button3" asp-action="Edit" asp-route-id="@item.FuncionarioId">
+                Editar&nbsp;<i class="fas fa-edit"></i>
+            </a> |
+            <a class="button button2" asp-action="Details" asp-route-id="@item.FuncionarioId">
+                Detalhes&nbsp;<i class="fas fa-info"></i>
+            </a> |
+            <a class="button button1" asp-action="Delete" asp-route-id="@item.FuncionarioId">
+                Apagar&nbsp;<i class="fas fa-trash"></i>
+            </a>
+        </td>
             }
             else { }
         </tr>
@@ -99,7 +89,7 @@ else
    asp-route-currentFilter="@ViewData["CurrentFilter"]"
    class="buttonprevious @prevDisabled" style="vertical-align:middle">
     <span>
-        <i class="fas fa-backward"></i>&nbsp;Previous
+        <i class="fas fa-backward"></i>&nbsp;Anterior
     </span>
 </a>
 <a asp-action="Index"
@@ -108,6 +98,6 @@ else
    asp-route-currentFilter="@ViewData["CurrentFilter"]"
    class="buttonnext @nextDisabled" style="vertical-align:middle">
     <span>
-        Next&nbsp;<i class="fas fa-forward"></i>
+        Seguinte&nbsp;<i class="fas fa-forward"></i>
     </span>
 </a>

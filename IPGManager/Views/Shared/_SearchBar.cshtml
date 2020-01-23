@@ -1,0 +1,11 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using (Html.BeginForm())
+{
+    <p>
+        <input type="text" name="SearchString" placeholder="Procure por nome" value="@ViewData["CurrentFilter"]" />
+        <button type="submit" class="button button2"><i class="fa fa-search"></i></button>
+        <a class="button button2" asp-action="Index"><i class="fas fa-chevron-left"></i></a>
+    </p>
+}
