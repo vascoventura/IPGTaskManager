@@ -24,6 +24,7 @@ namespace IPGManager.Models
         public DbSet<IPGManager.Models.Genero> Genero { get; set; }
         public DbSet<IPGManager.Models.Login> Login { get; set; }
         public DbSet<IPGManager.Models.TarFunc> TarFunc { get; set; }
+        public DbSet<IPGManager.Models.TFC> TFC { get; set; }
 
     }
 }
