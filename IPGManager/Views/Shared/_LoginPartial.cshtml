@@ -12,6 +12,18 @@
 
         </div>
     </li>
+    @if (User.IsInRole("admin"))
+    {
+        <li>
+            <div class="drop">
+                <a asp-area="Identity" asp-page="/Account/Register"><button type="submit" class="dropbtn">REGISTAR</button></a>
+            </div>
+        </li>
+    }
+    else
+    {
+
+    }
     <li>
         <div class="dropdown">
             <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
@@ -22,11 +34,6 @@
 }
 else
 {
-    <li>
-        <div class="drop">
-            <a asp-area="Identity" asp-page="/Account/Register"><button type="submit" class="dropbtn">REGISTAR</button></a>
-        </div>
-    </li>
     <li>
         <div class="drop">
             <a asp-area="Identity" asp-page="/Account/Login"><button type="submit" class="dropbtn">LOGIN</button></a>
