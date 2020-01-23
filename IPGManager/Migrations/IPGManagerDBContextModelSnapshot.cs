@@ -96,7 +96,9 @@ namespace IPGManager.Migrations
             modelBuilder.Entity("IPGManager.Models.Genero", b =>
                 {
                     b.Property<int>("GeneroId")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("GeneroTipo")
                         .HasColumnType("nvarchar(max)");

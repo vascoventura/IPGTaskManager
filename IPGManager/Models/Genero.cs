@@ -9,7 +9,7 @@ namespace IPGManager.Models
 {
     public class Genero
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        
         [Key]
         public int GeneroId { get; set; }
         public String GeneroTipo { get; set; }

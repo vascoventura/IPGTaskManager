@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IPGManager.Migrations
 {
     [DbContext(typeof(IPGManagerDBContext))]
-    [Migration("20200122222250_Initial")]
+    [Migration("20200123000826_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -98,7 +98,9 @@ namespace IPGManager.Migrations
             modelBuilder.Entity("IPGManager.Models.Genero", b =>
                 {
                     b.Property<int>("GeneroId")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("GeneroTipo")
                         .HasColumnType("nvarchar(max)");
@@ -198,13 +200,13 @@ namespace IPGManager.Migrations
                     b.HasOne("IPGManager.Models.Cargo", "Cargo")
                         .WithMany()
                         .HasForeignKey("CargoId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("IPGManager.Models.Genero", "Genero")
                         .WithMany("Funcionarios")
                         .HasForeignKey("GeneroId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
                 });
 

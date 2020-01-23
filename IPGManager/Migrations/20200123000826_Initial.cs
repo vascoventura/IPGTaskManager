@@ -36,15 +36,16 @@ namespace IPGManager.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Generos",
+                name: "Genero",
                 columns: table => new
                 {
-                    id = table.Column<int>(nullable: false),
-                    Genero = table.Column<string>(nullable: true)
+                    GeneroId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    GeneroTipo = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Generos", x => x.id);
+                    table.PrimaryKey("PK_Genero", x => x.GeneroId);
                 });
 
             migrationBuilder.CreateTable(
@@ -82,12 +83,11 @@ namespace IPGManager.Migrations
                         principalColumn: "CargoId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Funcionario_Generos_GeneroId",
+                        name: "FK_Funcionario_Genero_GeneroId",
                         column: x => x.GeneroId,
-                        principalTable: "Generos",
-                        principalColumn: "id",
+                        principalTable: "Genero",
+                        principalColumn: "GeneroId",
                         onDelete: ReferentialAction.Cascade);
-
                 });
 
             migrationBuilder.CreateTable(
@@ -112,10 +112,10 @@ namespace IPGManager.Migrations
                         principalColumn: "DepartamentoId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Professor_Generos_GeneroId",
+                        name: "FK_Professor_Genero_GeneroId",
                         column: x => x.GeneroId,
-                        principalTable: "Generos",
-                        principalColumn: "id",
+                        principalTable: "Genero",
+                        principalColumn: "GeneroId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -139,7 +139,7 @@ namespace IPGManager.Migrations
                         column: x => x.CargoId,
                         principalTable: "Cargo",
                         principalColumn: "CargoId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_Tarefa_Funcionario_FuncionarioId",
                         column: x => x.FuncionarioId,
@@ -200,7 +200,7 @@ namespace IPGManager.Migrations
                 name: "Cargo");
 
             migrationBuilder.DropTable(
-                name: "Generos");
+                name: "Genero");
         }
     }
 }
