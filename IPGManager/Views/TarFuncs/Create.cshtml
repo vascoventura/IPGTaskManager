@@ -3,6 +3,41 @@
 @{
     ViewData["Title"] = "Create";
 }
+<!--
+<script type="text/javascript">
+        $(document).ready(function () {
+            $('#comboBoxTarefa').on('change', function () {
+                var CargoId = $('comboBoxTarefa option:selected').val();
+                $ajax({
+                    type: 'GET',
+                    data: { CargoId: CargoId }
+                    url: '@Url.Action("loadFunc", "TarFuncs")',
+                    success: function (result) {
+                        alert(result);
+                    }
+                });
+            });
+        });
+</script>
+
+<form method="post">
+    <table>
+        <tr>
+            <td>Tarefa</td>
+            <td>
+                <select id="comboBoxTarefa">
+                    <option value="-1">--Seleccione uma Tarefa--</option>
+                    //(arroba)foreach (var tarefa in ViewBag.tarefa)
+                    {
+                        <option value="(arroba)tarefa.TarefaId">(arroba)tarefa.DescricaoTarefa</option>
+                    }
+                </select>
+            </td>
+        </tr>
+    </table>
+</form>
+    -->
+
 
 <h1>Atribuir tarefa a funcionário</h1>
 
@@ -13,11 +48,11 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="FuncionarioId" class="control-label">Nome de funcionário:</label>
-                <select asp-for="FuncionarioId" class ="form-control" asp-items="ViewBag.FuncionarioId"></select>
+                <select asp-for="FuncionarioId" class="form-control" asp-items="ViewBag.FuncionarioId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="TarefaId" class="control-label">Descrição da tarefa:</label>
-                <select asp-for="TarefaId" class ="form-control" asp-items="ViewBag.TarefaId"></select>
+                <select asp-for="TarefaId" class="form-control" asp-items="ViewBag.TarefaId"></select>
             </div>
             <div class="form-group">
                 <button type="submit" class="button button1">
@@ -28,6 +63,6 @@
     </div>
 
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }

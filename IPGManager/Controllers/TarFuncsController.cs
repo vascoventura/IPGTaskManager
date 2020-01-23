@@ -70,34 +70,49 @@ namespace IPGManager.Controllers
             return View(tarFunc);
         }
 
-        // GET: TarFuncs/Create
-        public IActionResult Create()
+        /*public IActionResult Create()
         {
-            ViewData["FuncionarioId"] = new SelectList(_context.Funcionario, "FuncionarioId", "Nome");
-            ViewData["TarefaId"] = new SelectList(_context.Tarefa, "TarefaId", "DescricaoTarefa");
+            ViewBag.tarefa = _context.Tarefa.ToList();
+
             return View();
         }
 
-        // POST: TarFuncs/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TarFuncId,FuncionarioId,TarefaId")] TarFunc tarFunc)
+        public ActionResult loadFuncs(int CargoId)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(tarFunc);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["FuncionarioId"] = new SelectList(_context.Funcionario, "FuncionarioId", "Nome", tarFunc.FuncionarioId);
-            ViewData["TarefaId"] = new SelectList(_context.Tarefa, "TarefaId", "DescricaoTarefa", tarFunc.TarefaId);
-            return View(tarFunc);
-        }
+            return Json(_context.Funcionario.Where(s => s.CargoId == CargoId).Select(s => new {
+             FuncId = s.FuncionarioId,
+             CarId = s.CargoId
+            }).ToList());
+        }*/
 
-        // GET: TarFuncs/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+            // GET: TarFuncs/Create
+            public IActionResult Create()
+            {
+                ViewData["FuncionarioId"] = new SelectList(_context.Funcionario, "FuncionarioId", "Nome");
+                ViewData["TarefaId"] = new SelectList(_context.Tarefa, "TarefaId", "DescricaoTarefa");
+                return View();
+            }
+
+            // POST: TarFuncs/Create
+            // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+            // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+            [HttpPost]
+            [ValidateAntiForgeryToken]
+            public async Task<IActionResult> Create([Bind("TarFuncId,FuncionarioId,TarefaId")] TarFunc tarFunc)
+            {
+                if (ModelState.IsValid)
+                {
+                    _context.Add(tarFunc);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                ViewData["FuncionarioId"] = new SelectList(_context.Funcionario, "FuncionarioId", "Nome", tarFunc.FuncionarioId);
+                ViewData["TarefaId"] = new SelectList(_context.Tarefa, "TarefaId", "DescricaoTarefa", tarFunc.TarefaId);
+                return View(tarFunc);
+            }
+
+            // GET: TarFuncs/Edit/5
+            public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
