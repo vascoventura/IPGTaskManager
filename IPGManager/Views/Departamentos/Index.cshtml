@@ -9,11 +9,19 @@
 @if (User.IsInRole("manager") || User.IsInRole("admin"))
 {
     <p>
-        <a asp-action="Create">Criar Novo</a>
+        <a class="button button3" asp-action="Create">Criar Novo</a>
     </p>
 }
 else
 {
+}
+@using (Html.BeginForm())
+{
+    <p>
+        <input type="text" name="SearchString" placeholder="Procure por nome" value="@ViewData["CurrentFilter"]" />
+        <input type="submit" value="Search" class="button button1" />
+        <a class="button button2" asp-action="Index">Voltar</a>
+    </p>
 }
 <table class="table">
     <thead>
@@ -27,20 +35,22 @@ else
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.NomeDepartamento)
-            </td>
-            @if (User.IsInRole("admin"))
-            {
+            <tr>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.DepartamentoId">Editar</a> |
-                    <a asp-action="Details" asp-route-id="@item.DepartamentoId">Detalhes</a> |
-                    <a asp-action="Delete" asp-route-id="@item.DepartamentoId">Apagar</a>
+                    @Html.DisplayFor(modelItem => item.NomeDepartamento)
                 </td>
-            }
-            else { }
-        </tr>
+                @if (User.IsInRole("admin"))
+                {
+            <td>
+                <a class="button button3" asp-action="Edit" asp-route-id="@item.DepartamentoId">Editar</a> |
+                <a class="button button2" asp-action="Details" asp-route-id="@item.DepartamentoId">Detalhes</a> |
+                <a class="button button1" asp-action="Delete" asp-route-id="@item.DepartamentoId">Apagar</a>
+            </td>
+                }
+                else { }
+            </tr>
         }
     </tbody>
 </table>
+
+
