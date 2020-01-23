@@ -7,9 +7,10 @@
 
 
 
-<h3>Quer apagar a informação deste Professor?</h3>
+<h3>Quer apagar a informação deste professor?</h3>
+<hr />
 <div>
-   
+
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -50,12 +51,30 @@
             @Html.DisplayFor(model => model.Departamento.NomeDepartamento)
         </dd>
     </dl>
-    
+
     <form asp-action="Delete">
         <input type="hidden" asp-for="ProfessorId" />
-        <button type="submit" class="btn btn-danger" onclick="return confirm('QDeseja mesmo apagar @Html.DisplayFor(model => model.Nome)?')">
-            Apagar&nbsp;<i class="fa fa-trash"></i>
+        
         </button>
         | <a class="button button2" asp-action="Index">Voltar&nbsp;<i class="fas fa-chevron-left"></i></a>
+
+
+        <span id="confirmDeleteSpan_" style="display:none">
+            <span>Tem a certeza que pretende Apagar?</span>
+            <button type="submit" class="button button1">Sim</button>
+            <a href="#" class="button button3"
+               onclick="confirmDelete(false)">Não</a>
+        </span>
+
+        <span id="deleteSpan_">
+            <a href="#" class="button button1"
+               onclick="confirmDelete( true)">Apagar&nbsp;<i class="fa fa-trash"></i></a>
+        </span>
     </form>
+    
 </div>
+@section Scripts{
+
+    <script src="~/js/CustomScript.js"></script>
+
+}
