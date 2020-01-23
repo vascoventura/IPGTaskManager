@@ -1,0 +1,33 @@
+﻿@model IPGManager.Models.TarFunc
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Tem a certeza que quer apagar?</h3>
+<div>
+    <h4>TarFunc</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Nome do funcionário:
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Funcionario.Nome)
+        </dd class>
+        <dt class = "col-sm-2">
+            Descrição da tarefa:
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Tarefa.DescricaoTarefa)
+        </dd class>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="TarFuncId" />
+        <button type="submit" class="button button1" onclick="return confirm('Deseja mesmo apagar @Html.DisplayFor(model => model.TarFuncId)?')">Apagar&nbsp;<i class="fa fa-trash"></i></button>
+        | <a class="button button2" asp-action="Index">Voltar&nbsp;<i class="fas fa-chevron-left"></i></a>
+    </form>
+</div>

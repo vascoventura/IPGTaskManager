@@ -158,6 +158,28 @@ namespace IPGManager.Migrations
                     b.ToTable("Professor");
                 });
 
+            modelBuilder.Entity("IPGManager.Models.TarFunc", b =>
+                {
+                    b.Property<int>("TarFuncId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("FuncionarioId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TarefaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("TarFuncId");
+
+                    b.HasIndex("FuncionarioId");
+
+                    b.HasIndex("TarefaId");
+
+                    b.ToTable("TarFunc");
+                });
+
             modelBuilder.Entity("IPGManager.Models.Tarefa", b =>
                 {
                     b.Property<int>("TarefaId")
@@ -212,6 +234,21 @@ namespace IPGManager.Migrations
                     b.HasOne("IPGManager.Models.Genero", "Genero")
                         .WithMany("Professores")
                         .HasForeignKey("GeneroId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("IPGManager.Models.TarFunc", b =>
+                {
+                    b.HasOne("IPGManager.Models.Funcionario", "Funcionario")
+                        .WithMany()
+                        .HasForeignKey("FuncionarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("IPGManager.Models.Tarefa", "Tarefa")
+                        .WithMany()
+                        .HasForeignKey("TarefaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

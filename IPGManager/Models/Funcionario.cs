@@ -38,5 +38,7 @@ namespace IPGManager.Models
         
         public ICollection<Tarefa> Tarefas;
 
+        public ICollection<TarFunc> TarFunc;
+
     }
 }

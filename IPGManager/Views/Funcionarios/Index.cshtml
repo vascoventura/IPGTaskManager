@@ -32,7 +32,7 @@ else
 
     <p>
         <input type="text" name="SearchString" placeholder="Procure por nome" value="@ViewData["CurrentFilter"]" />
-        <button type="submit" class="btn btn-light"><i class="fa fa-search"></i></button>
+        <button type="submit" class="button button1">Procurar&nbsp;<i class="fa fa-search"></i></button>
         <a class="button button2" asp-action="Index">Voltar&nbsp;<i class="fas fa-chevron-left"></i></a>
         
     </p>
@@ -73,11 +73,17 @@ else
             </td>
             @if (User.IsInRole("admin"))
             {
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.FuncionarioId">Editar</a> |
-                    <a asp-action="Details" asp-route-id="@item.FuncionarioId">Detalhes</a> |
-                    <a asp-action="Delete" asp-route-id="@item.FuncionarioId">Apagar</a>
-                </td>
+        <td>
+            <a class="button button3" asp-action="Edit" asp-route-id="@item.FuncionarioId">
+                Editar&nbsp;<i class="fas fa-edit"></i>
+            </a> |
+            <a class="button button2" asp-action="Details" asp-route-id="@item.FuncionarioId">
+                Detalhes&nbsp;<i class="fas fa-info"></i>
+            </a> |
+            <a class="button button1" asp-action="Delete" asp-route-id="@item.FuncionarioId">
+                Apagar&nbsp;<i class="fas fa-trash"></i>
+            </a>
+        </td>
             }
             else { }
         </tr>

@@ -1,0 +1,30 @@
+﻿@model IPGManager.Models.TarFunc
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Detalhes</h1>
+
+<div>
+    <h4>TarFunc</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Nome de funcionário:
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Funcionario.Nome)
+        </dd>
+        <dt class = "col-sm-2">
+            Descrição da tarefa:
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Tarefa.DescricaoTarefa)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a class="button button3" asp-action="Edit" asp-route-id="@Model.TarFuncId">Editar&nbsp;<i class="fas fa-edit"></i>  </a> |
+    <a class="button button2" asp-action="Index">Voltar&nbsp;<i class="fas fa-chevron-left"></i></a>
+</div>

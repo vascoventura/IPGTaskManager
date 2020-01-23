@@ -19,10 +19,40 @@ namespace IPGManager.Controllers
         }
 
         // GET: Tarefas
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(
+      string sortOrder,
+      string currentFilter,
+      string searchString,
+      int? pageNumber)
         {
-            var iPGManagerDBContext = _context.Tarefa.Include(t => t.Cargo);
-            return View(await iPGManagerDBContext.ToListAsync());
+            //PopulateDepartmentDropDownList();
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["CurrentFilter"] = searchString;
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewData["CurrentFilter"] = searchString;
+            var Tarefas = _context.Tarefa
+                .Include(c => c.Cargo)
+                .AsNoTracking();
+            //var Professores = from s in _context.Professor
+
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                Tarefas = Tarefas.Where(s => s.Cargo.NomeCargo.Contains(searchString));
+            }
+            
+            int pageSize = 5;
+
+            return View(await PaginatedList<Tarefa>.CreateAsync(Tarefas.AsNoTracking(), pageNumber ?? 1, pageSize));
+
         }
 
         // GET: Tarefas/Details/5

@@ -1,12 +1,12 @@
 ﻿@using X.PagedList.Mvc.Core
 
-@model PaginatedList<IPGManager.Models.Tarefa>
+@model PaginatedList<IPGManager.Models.TarFunc>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Tarefas</h1>
+<h1>Tarefas por Funcionário</h1>
 @if (User.IsInRole("manager") || User.IsInRole("admin"))
 {
     <p>
@@ -16,10 +16,11 @@
 else
 {
 }
+
 @using (Html.BeginForm())
 {
     <p>
-        <input type="text" name="SearchString" placeholder="Procure por cargo" value="@ViewData["CurrentFilter"]" />
+        <input type="text" name="SearchString" placeholder="Funcionário?" value="@ViewData["CurrentFilter"]" />
         <button type="submit" class="button button1">Procurar&nbsp;<i class="fa fa-search"></i></button>
         <a class="button button2" asp-action="Index">Voltar&nbsp;<i class="fas fa-chevron-left"></i></a>
 
@@ -29,16 +30,13 @@ else
     <thead>
         <tr>
             <th>
-                Nome da Tarefa
+                Nome do Funcionário
             </th>
             <th>
                 Descrição da Tarefa
             </th>
             <th>
-                Data
-            </th>
-            <th>
-                Cargo
+                Horário da Tarefa
             </th>
             <th></th>
         </tr>
@@ -48,27 +46,24 @@ else
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.NomeTarefa)
+                    @Html.DisplayFor(modelItem => item.Funcionario.Nome)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DescricaoTarefa)
+                    @Html.DisplayFor(modelItem => item.Tarefa.DescricaoTarefa)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DataTarefa)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Cargo.NomeCargo)
+                    @Html.DisplayFor(modelItem => item.Tarefa.DataTarefa)
                 </td>
                 @if (User.IsInRole("admin"))
                 {
                     <td>
-                        <a class="button button3" asp-action="Edit" asp-route-id="@item.TarefaId">
+                        <a class="button button3" asp-action="Edit" asp-route-id="@item.TarFuncId">
                             Editar&nbsp;<i class="fas fa-edit"></i>
                         </a> |
-                        <a class="button button2" asp-action="Details" asp-route-id="@item.TarefaId">
+                        <a class="button button2" asp-action="Details" asp-route-id="@item.TarFuncId">
                             Detalhes&nbsp;<i class="fas fa-info"></i>
                         </a> |
-                        <a class="button button1" asp-action="Delete" asp-route-id="@item.TarefaId">
+                        <a class="button button1" asp-action="Delete" asp-route-id="@item.TarFuncId">
                             Apagar&nbsp;<i class="fas fa-trash"></i>
                         </a>
                     </td>
@@ -102,4 +97,3 @@ else
         Next&nbsp;<i class="fas fa-forward"></i>
     </span>
 </a>
-
