@@ -1,5 +1,5 @@
 # IPGTaskManager
-- School Tasks Management developed in C#, HTML, CSS
+- School Tasks Management developed in C# - ASPNET. MVC, HTML, CSS
 
 - The main ideia of the present project is too create a path of communication between teachers and school assistants throught a "paging" system. 
 
